@@ -17,7 +17,7 @@ package com.liferay.portal.search.web.internal.custom.facet.display.context;
 /**
  * @author Wade Cao
  */
-public class CustomFacetTermDisplayContext {
+public class CustomFacetTermDisplayContext { //delete this class and use BucketDisplayContext instead
 
 	public String getFieldName() {
 		return _fieldName;
@@ -52,8 +52,19 @@ public class CustomFacetTermDisplayContext {
 	}
 
 	private String _fieldName;
+
+	// bucketText & filterValue
+
 	private int _frequency;
+
+	// base
+
 	private boolean _frequencyVisible;
+
+	// base
+
 	private boolean _selected;
+
+	// base
 
 }
