@@ -21,7 +21,7 @@ import java.util.Locale;
 /**
  * @author Lino Alves
  */
-public class AssetCategoriesSearchFacetTermDisplayContext
+public class AssetCategoriesSearchFacetTermDisplayContext //delete this class and use BucketDisplayContext instead
 	implements Serializable {
 
 	public long getAssetCategoryId() {
@@ -81,11 +81,31 @@ public class AssetCategoriesSearchFacetTermDisplayContext
 	}
 
 	private long _assetCategoryId;
+
+	// _filterValue
+
 	private String _displayName;
+
+	// _bucketText
+
 	private int _frequency;
+
+	// base
+
 	private boolean _frequencyVisible;
+
+	// base
+
 	private Locale _locale;
+
+	// delete
+
 	private int _popularity;
+
+	// base
+
 	private boolean _selected;
+
+	// base
 
 }

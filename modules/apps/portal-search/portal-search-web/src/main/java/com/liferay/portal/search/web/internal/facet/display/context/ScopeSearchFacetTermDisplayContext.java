@@ -19,7 +19,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 /**
  * @author André de Oliveira
  */
-public class ScopeSearchFacetTermDisplayContext {
+public class ScopeSearchFacetTermDisplayContext { //delete this class and use BucketDisplayContext instead
 
 	public int getCount() {
 		return _count;
@@ -62,9 +62,23 @@ public class ScopeSearchFacetTermDisplayContext {
 	}
 
 	private int _count;
+
+	// _frequency
+
 	private String _descriptiveName;
+
+	// bucketText
+
 	private long _groupId;
+
+	// filterValue
+
 	private boolean _selected;
+
+	// base
+
 	private boolean _showCount;
+
+	// _frequencyVisible
 
 }
