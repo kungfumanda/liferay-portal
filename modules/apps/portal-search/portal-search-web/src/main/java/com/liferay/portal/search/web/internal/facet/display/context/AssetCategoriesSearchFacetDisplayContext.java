@@ -48,6 +48,10 @@ public class AssetCategoriesSearchFacetDisplayContext implements Serializable {
 				CategoryFacetPortletInstanceConfiguration.class);
 	}
 
+	public List<BucketDisplayContext> getBucketDisplayContexts() {
+		return _bucketDisplayContexts;
+	}
+
 	public CategoryFacetPortletInstanceConfiguration
 		getCategoryFacetPortletInstanceConfiguration() {
 
@@ -89,12 +93,6 @@ public class AssetCategoriesSearchFacetDisplayContext implements Serializable {
 		return _parameterValues;
 	}
 
-	public List<AssetCategoriesSearchFacetTermDisplayContext>
-		getTermDisplayContexts() {
-
-		return _assetCategoriesSearchFacetTermDisplayContext;
-	}
-
 	public boolean isCloud() {
 		return _cloud;
 	}
@@ -105,6 +103,12 @@ public class AssetCategoriesSearchFacetDisplayContext implements Serializable {
 
 	public boolean isRenderNothing() {
 		return _renderNothing;
+	}
+
+	public void setBucketDisplayContexts(
+		List<BucketDisplayContext> bucketDisplayContexts) {
+
+		_bucketDisplayContexts = bucketDisplayContexts;
 	}
 
 	public void setCloud(boolean cloud) {
@@ -137,16 +141,7 @@ public class AssetCategoriesSearchFacetDisplayContext implements Serializable {
 		_renderNothing = renderNothing;
 	}
 
-	public void setTermDisplayContexts(
-		List<AssetCategoriesSearchFacetTermDisplayContext>
-			assetCategoriesSearchFacetTermDisplayContext) {
-
-		_assetCategoriesSearchFacetTermDisplayContext =
-			assetCategoriesSearchFacetTermDisplayContext;
-	}
-
-	private List<AssetCategoriesSearchFacetTermDisplayContext>
-		_assetCategoriesSearchFacetTermDisplayContext;
+	private List<BucketDisplayContext> _bucketDisplayContexts;
 	private final CategoryFacetPortletInstanceConfiguration
 		_categoryFacetPortletInstanceConfiguration;
 	private boolean _cloud;
