@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.TimeZoneUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.search.web.internal.facet.display.context.BucketDisplayContext;
 import com.liferay.portal.search.web.internal.modified.facet.builder.DateRangeFactory;
 import com.liferay.portal.search.web.internal.modified.facet.configuration.ModifiedFacetPortletInstanceConfiguration;
 import com.liferay.portal.search.web.internal.modified.facet.display.context.builder.ModifiedFacetDisplayContextBuilder;
@@ -111,12 +112,10 @@ public class ModifiedFacetDisplayContextBuilderTest {
 		ModifiedFacetDisplayContext modifiedFacetDisplayContext =
 			modifiedFacetDisplayContextBuilder.build();
 
-		ModifiedFacetTermDisplayContext modifiedFacetTermDisplayContext =
-			modifiedFacetDisplayContext.
-				getCustomRangeModifiedFacetTermDisplayContext();
+		BucketDisplayContext bucketDisplayContext =
+			modifiedFacetDisplayContext.getCustomRangeBucketDisplayContext();
 
-		Assert.assertEquals(
-			frequency, modifiedFacetTermDisplayContext.getFrequency());
+		Assert.assertEquals(frequency, bucketDisplayContext.getFrequency());
 	}
 
 	@Test
@@ -135,12 +134,10 @@ public class ModifiedFacetDisplayContextBuilderTest {
 		ModifiedFacetDisplayContext modifiedFacetDisplayContext =
 			modifiedFacetDisplayContextBuilder.build();
 
-		ModifiedFacetTermDisplayContext modifiedFacetTermDisplayContext =
-			modifiedFacetDisplayContext.
-				getCustomRangeModifiedFacetTermDisplayContext();
+		BucketDisplayContext bucketDisplayContext =
+			modifiedFacetDisplayContext.getCustomRangeBucketDisplayContext();
 
-		Assert.assertEquals(
-			frequency, modifiedFacetTermDisplayContext.getFrequency());
+		Assert.assertEquals(frequency, bucketDisplayContext.getFrequency());
 	}
 
 	@Test
@@ -247,12 +244,12 @@ public class ModifiedFacetDisplayContextBuilderTest {
 		ModifiedFacetDisplayContext modifiedFacetDisplayContext =
 			modifiedFacetDisplayContextBuilder.build();
 
-		_assertTermDisplayContextsDoNotHaveFromAndToParameters(
-			modifiedFacetDisplayContext.getModifiedFacetTermDisplayContexts());
+		_assertBucketDisplayContextsDoNotHaveFromAndToParameters(
+			modifiedFacetDisplayContext.getModifiedBucketDisplayContexts());
 	}
 
 	@Test
-	public void testModifiedFacetTermDisplayContexts() {
+	public void testModifiedFacetBucketDisplayContexts() {
 		ModifiedFacetDisplayContextBuilder modifiedFacetDisplayContextBuilder =
 			createDisplayContextBuilder();
 
@@ -263,30 +260,27 @@ public class ModifiedFacetDisplayContextBuilderTest {
 		ModifiedFacetDisplayContext modifiedFacetDisplayContext =
 			modifiedFacetDisplayContextBuilder.build();
 
-		List<ModifiedFacetTermDisplayContext> modifiedFacetTermDisplayContexts =
-			modifiedFacetDisplayContext.getModifiedFacetTermDisplayContexts();
+		List<BucketDisplayContext> bucketDisplayContexts =
+			modifiedFacetDisplayContext.getModifiedBucketDisplayContexts();
 
 		Assert.assertEquals(
-			modifiedFacetTermDisplayContexts.toString(), 2,
-			modifiedFacetTermDisplayContexts.size());
+			bucketDisplayContexts.toString(), 2, bucketDisplayContexts.size());
 
-		ModifiedFacetTermDisplayContext modifiedFacetTermDisplayContext =
-			modifiedFacetTermDisplayContexts.get(0);
+		BucketDisplayContext bucketDisplayContext = bucketDisplayContexts.get(
+			0);
 
-		Assert.assertEquals(
-			"past-hour", modifiedFacetTermDisplayContext.getLabel());
+		Assert.assertEquals("past-hour", bucketDisplayContext.getBucketText());
 		Assert.assertEquals(
 			"[20180515225959 TO 20180515235959]",
-			modifiedFacetTermDisplayContext.getRange());
+			bucketDisplayContext.getBucketText());
 
-		modifiedFacetTermDisplayContext = modifiedFacetTermDisplayContexts.get(
-			1);
+		bucketDisplayContext = bucketDisplayContexts.get(1);
 
 		Assert.assertEquals(
-			"some-time-ago", modifiedFacetTermDisplayContext.getLabel());
+			"some-time-ago", bucketDisplayContext.getBucketText());
 		Assert.assertEquals(
 			"[20180508235959 TO 20180514235959]",
-			modifiedFacetTermDisplayContext.getRange());
+			bucketDisplayContext.getBucketText());
 	}
 
 	protected ModifiedFacetDisplayContextBuilder createDisplayContextBuilder() {
@@ -349,6 +343,26 @@ public class ModifiedFacetDisplayContextBuilderTest {
 		jsonArray.put(jsonObject);
 	}
 
+	private void _assertBucketDisplayContextsDoNotHaveFromAndToParameters(
+		List<BucketDisplayContext> bucketDisplayContexts) {
+
+		for (BucketDisplayContext bucketDisplayContext :
+				bucketDisplayContexts) {
+
+			String label = bucketDisplayContext.getBucketText();
+
+			if (label.equals("custom-range")) {
+				continue;
+			}
+
+			String rangeURL = bucketDisplayContext.getFilterValue();
+
+			_assertHasParameter(rangeURL, "modified");
+			_assertDoesNotHasParameter(rangeURL, "modifiedFrom");
+			_assertDoesNotHasParameter(rangeURL, "modifiedTo");
+		}
+	}
+
 	private void _assertDoesNotHasParameter(String url, String name) {
 		Assert.assertTrue(
 			Validator.isNull(
@@ -359,26 +373,6 @@ public class ModifiedFacetDisplayContextBuilderTest {
 		Assert.assertTrue(
 			Validator.isNotNull(
 				HttpComponentsUtil.getParameter(url, name, false)));
-	}
-
-	private void _assertTermDisplayContextsDoNotHaveFromAndToParameters(
-		List<ModifiedFacetTermDisplayContext> termDisplayContexts) {
-
-		for (ModifiedFacetTermDisplayContext termDisplayContext :
-				termDisplayContexts) {
-
-			String label = termDisplayContext.getLabel();
-
-			if (label.equals("custom-range")) {
-				continue;
-			}
-
-			String rangeURL = termDisplayContext.getRangeURL();
-
-			_assertHasParameter(rangeURL, "modified");
-			_assertDoesNotHasParameter(rangeURL, "modifiedFrom");
-			_assertDoesNotHasParameter(rangeURL, "modifiedTo");
-		}
 	}
 
 	private JSONObject _createDataJSONObject(String... labelsAndRanges) {

@@ -20,9 +20,9 @@ import com.liferay.portal.kernel.template.TemplateHandler;
 import com.liferay.portal.kernel.template.TemplateVariableGroup;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
+import com.liferay.portal.search.web.internal.facet.display.context.BucketDisplayContext;
 import com.liferay.portal.search.web.internal.modified.facet.constants.ModifiedFacetPortletKeys;
 import com.liferay.portal.search.web.internal.modified.facet.display.context.ModifiedFacetDisplayContext;
-import com.liferay.portal.search.web.internal.modified.facet.display.context.ModifiedFacetTermDisplayContext;
 import com.liferay.portlet.display.template.constants.PortletDisplayTemplateConstants;
 
 import java.util.List;
@@ -48,7 +48,7 @@ public class ModifiedFacetPortletDisplayTemplateHandler
 
 	@Override
 	public String getClassName() {
-		return ModifiedFacetTermDisplayContext.class.getName();
+		return BucketDisplayContext.class.getName();
 	}
 
 	@Override
@@ -92,7 +92,7 @@ public class ModifiedFacetPortletDisplayTemplateHandler
 			"getLabel()");
 		templateVariableGroup.addCollectionVariable(
 			"terms", List.class, PortletDisplayTemplateConstants.ENTRIES,
-			"term", ModifiedFacetTermDisplayContext.class,
+			"term", BucketDisplayContext.class,
 			PortletDisplayTemplateConstants.ENTRY, "getLabel()");
 
 		TemplateVariableGroup categoriesServicesTemplateVariableGroup =
