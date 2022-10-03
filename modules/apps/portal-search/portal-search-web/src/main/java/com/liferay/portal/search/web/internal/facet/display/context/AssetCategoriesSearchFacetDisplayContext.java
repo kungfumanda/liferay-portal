@@ -58,6 +58,10 @@ public class AssetCategoriesSearchFacetDisplayContext implements Serializable {
 			categoryFacetFieldConfiguration.categoryFacetField());
 	}
 
+	public List<BucketDisplayContext> getBucketDisplayContexts() {
+		return _bucketDisplayContexts;
+	}
+
 	public CategoryFacetPortletInstanceConfiguration
 		getCategoryFacetPortletInstanceConfiguration() {
 
@@ -99,17 +103,10 @@ public class AssetCategoriesSearchFacetDisplayContext implements Serializable {
 		return _parameterValues;
 	}
 
-	public List<AssetCategoriesSearchFacetTermDisplayContext>
-		getTermDisplayContexts() {
+	public List<BucketDisplayContext> getTermDisplayContexts(
+		String vocabularyName) {
 
-		return _assetCategoriesSearchFacetTermDisplayContexts;
-	}
-
-	public List<AssetCategoriesSearchFacetTermDisplayContext>
-		getTermDisplayContexts(String vocabularyName) {
-
-		return _assetCategoriesSearchFacetTermDisplayContextMap.get(
-			vocabularyName);
+		return _bucketDisplayContextMap.get(vocabularyName);
 	}
 
 	public List<String> getVocabularyNames() {
@@ -130,6 +127,18 @@ public class AssetCategoriesSearchFacetDisplayContext implements Serializable {
 
 	public boolean isRenderNothing() {
 		return _renderNothing;
+	}
+
+	public void setBucketDisplayContexts(
+		List<BucketDisplayContext> bucketDisplayContexts) {
+
+		_bucketDisplayContexts = bucketDisplayContexts;
+	}
+
+	public void setBucketDisplayContextsMap(
+		Map<String, List<BucketDisplayContext>> bucketDisplayContextMap) {
+
+		_bucketDisplayContextMap = bucketDisplayContextMap;
 	}
 
 	public void setCloud(boolean cloud) {
@@ -162,22 +171,6 @@ public class AssetCategoriesSearchFacetDisplayContext implements Serializable {
 		_renderNothing = renderNothing;
 	}
 
-	public void setTermDisplayContexts(
-		List<AssetCategoriesSearchFacetTermDisplayContext>
-			assetCategoriesSearchFacetTermDisplayContexts) {
-
-		_assetCategoriesSearchFacetTermDisplayContexts =
-			assetCategoriesSearchFacetTermDisplayContexts;
-	}
-
-	public void setTermDisplayContextsMap(
-		Map<String, List<AssetCategoriesSearchFacetTermDisplayContext>>
-			assetCategoriesSearchFacetTermDisplayContextMap) {
-
-		_assetCategoriesSearchFacetTermDisplayContextMap =
-			assetCategoriesSearchFacetTermDisplayContextMap;
-	}
-
 	public void setVocabularyNames(List<String> vocabularyNames) {
 		_vocabularyNames = vocabularyNames;
 	}
@@ -190,10 +183,8 @@ public class AssetCategoriesSearchFacetDisplayContext implements Serializable {
 		return false;
 	}
 
-	private Map<String, List<AssetCategoriesSearchFacetTermDisplayContext>>
-		_assetCategoriesSearchFacetTermDisplayContextMap;
-	private List<AssetCategoriesSearchFacetTermDisplayContext>
-		_assetCategoriesSearchFacetTermDisplayContexts;
+	private Map<String, List<BucketDisplayContext>> _bucketDisplayContextMap;
+	private List<BucketDisplayContext> _bucketDisplayContexts;
 	private final CategoryFacetPortletInstanceConfiguration
 		_categoryFacetPortletInstanceConfiguration;
 	private boolean _cloud;
