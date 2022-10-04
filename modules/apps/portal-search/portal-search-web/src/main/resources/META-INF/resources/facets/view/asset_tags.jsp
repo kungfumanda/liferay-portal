@@ -58,7 +58,7 @@ AssetTagsSearchFacetDisplayContext assetTagsSearchFacetDisplayContext = assetTag
 						%>
 
 							<li class="facet-value tag-popularity-<%= bucketDisplayContext.getPopularity() %>">
-								<a class="<%= bucketDisplayContext.isSelected() ? "facet-term-selected" : "facet-term-unselected" %>" data-value="<%= HtmlUtil.escapeAttribute(bucketDisplayContext.getValue()) %>" href="javascript:void(0);">
+								<a class="<%= bucketDisplayContext.isSelected() ? "facet-term-selected" : "facet-term-unselected" %>" data-value="<%= HtmlUtil.escapeAttribute(bucketDisplayContext.getBucketText()) %>" href="javascript:void(0);">
 									<%= HtmlUtil.escape(bucketDisplayContext.getBucketText()) %>
 
 									<c:if test="<%= bucketDisplayContext.isFrequencyVisible() %>">
