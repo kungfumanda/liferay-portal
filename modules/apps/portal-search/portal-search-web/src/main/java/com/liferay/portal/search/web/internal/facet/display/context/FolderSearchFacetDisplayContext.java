@@ -29,16 +29,14 @@ public class FolderSearchFacetDisplayContext implements Serializable {
 		return _displayStyleGroupId;
 	}
 
+	public List<BucketDisplayContext> getFolderBucketDisplayContexts() {
+		return _folderBucketDisplayContexts;
+	}
+
 	public FolderFacetPortletInstanceConfiguration
 		getFolderFacetPortletInstanceConfiguration() {
 
 		return _folderFacetPortletInstanceConfiguration;
-	}
-
-	public List<FolderSearchFacetTermDisplayContext>
-		getFolderSearchFacetTermDisplayContexts() {
-
-		return _folderSearchFacetTermDisplayContexts;
 	}
 
 	public String getPaginationStartParameterName() {
@@ -69,20 +67,18 @@ public class FolderSearchFacetDisplayContext implements Serializable {
 		_displayStyleGroupId = displayStyleGroupId;
 	}
 
+	public void setFolderBucketDisplayContexts(
+		List<BucketDisplayContext> bucketDisplayContexts) {
+
+		_folderBucketDisplayContexts = bucketDisplayContexts;
+	}
+
 	public void setFolderFacetPortletInstanceConfiguration(
 		FolderFacetPortletInstanceConfiguration
 			folderFacetPortletInstanceConfiguration) {
 
 		_folderFacetPortletInstanceConfiguration =
 			folderFacetPortletInstanceConfiguration;
-	}
-
-	public void setFolderSearchFacetTermDisplayContexts(
-		List<FolderSearchFacetTermDisplayContext>
-			folderSearchFacetTermDisplayContexts) {
-
-		_folderSearchFacetTermDisplayContexts =
-			folderSearchFacetTermDisplayContexts;
 	}
 
 	public void setNothingSelected(boolean nothingSelected) {
@@ -112,10 +108,9 @@ public class FolderSearchFacetDisplayContext implements Serializable {
 	}
 
 	private long _displayStyleGroupId;
+	private List<BucketDisplayContext> _folderBucketDisplayContexts;
 	private FolderFacetPortletInstanceConfiguration
 		_folderFacetPortletInstanceConfiguration;
-	private List<FolderSearchFacetTermDisplayContext>
-		_folderSearchFacetTermDisplayContexts;
 	private boolean _nothingSelected;
 	private String _paginationStartParameterName;
 	private String _parameterName;
