@@ -25,6 +25,10 @@ import java.util.List;
  */
 public class UserSearchFacetDisplayContext implements Serializable {
 
+	public List<BucketDisplayContext> getBucketDisplayContexts() {
+		return _userBucketDisplayContexts;
+	}
+
 	public long getDisplayStyleGroupId() {
 		return _displayStyleGroupId;
 	}
@@ -45,10 +49,6 @@ public class UserSearchFacetDisplayContext implements Serializable {
 		return _paramValues;
 	}
 
-	public List<UserSearchFacetTermDisplayContext> getTermDisplayContexts() {
-		return _userSearchFacetTermDisplayContexts;
-	}
-
 	public UserFacetPortletInstanceConfiguration
 		getUserFacetPortletInstanceConfiguration() {
 
@@ -61,6 +61,12 @@ public class UserSearchFacetDisplayContext implements Serializable {
 
 	public boolean isRenderNothing() {
 		return _renderNothing;
+	}
+
+	public void setBucketDisplayContexts(
+		List<BucketDisplayContext> bucketDisplayContexts) {
+
+		_userBucketDisplayContexts = bucketDisplayContexts;
 	}
 
 	public void setDisplayStyleGroupId(long displayStyleGroupId) {
@@ -93,14 +99,6 @@ public class UserSearchFacetDisplayContext implements Serializable {
 		_renderNothing = renderNothing;
 	}
 
-	public void setTermDisplayContexts(
-		List<UserSearchFacetTermDisplayContext>
-			userSearchFacetTermDisplayContexts) {
-
-		_userSearchFacetTermDisplayContexts =
-			userSearchFacetTermDisplayContexts;
-	}
-
 	public void setUserFacetPortletInstanceConfiguration(
 		UserFacetPortletInstanceConfiguration
 			userFacetPortletInstanceConfiguration) {
@@ -116,9 +114,8 @@ public class UserSearchFacetDisplayContext implements Serializable {
 	private String _paramValue;
 	private List<String> _paramValues;
 	private boolean _renderNothing;
+	private List<BucketDisplayContext> _userBucketDisplayContexts;
 	private UserFacetPortletInstanceConfiguration
 		_userFacetPortletInstanceConfiguration;
-	private List<UserSearchFacetTermDisplayContext>
-		_userSearchFacetTermDisplayContexts;
 
 }
