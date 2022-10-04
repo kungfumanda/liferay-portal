@@ -20,8 +20,8 @@ import com.liferay.portal.kernel.template.TemplateHandler;
 import com.liferay.portal.kernel.template.TemplateVariableGroup;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
+import com.liferay.portal.search.web.internal.facet.display.context.BucketDisplayContext;
 import com.liferay.portal.search.web.internal.facet.display.context.UserSearchFacetDisplayContext;
-import com.liferay.portal.search.web.internal.facet.display.context.UserSearchFacetTermDisplayContext;
 import com.liferay.portal.search.web.internal.user.facet.constants.UserFacetPortletKeys;
 import com.liferay.portlet.display.template.constants.PortletDisplayTemplateConstants;
 
@@ -48,7 +48,7 @@ public class UserFacetPortletDisplayTemplateHandler
 
 	@Override
 	public String getClassName() {
-		return UserSearchFacetTermDisplayContext.class.getName();
+		return BucketDisplayContext.class.getName();
 	}
 
 	@Override
@@ -89,8 +89,8 @@ public class UserFacetPortletDisplayTemplateHandler
 			"getUserName()");
 		templateVariableGroup.addCollectionVariable(
 			"terms", List.class, PortletDisplayTemplateConstants.ENTRIES,
-			"term", UserSearchFacetTermDisplayContext.class,
-			PortletDisplayTemplateConstants.ENTRY, "getUserName()");
+			"term", BucketDisplayContext.class,
+			PortletDisplayTemplateConstants.ENTRY, "getBucketText()");
 		templateVariableGroup.addVariable(
 			"user-facet-display-context", UserSearchFacetDisplayContext.class,
 			"userSearchFacetDisplayContext");
