@@ -23,8 +23,6 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.search.searcher.SearchRequest;
 import com.liferay.portal.search.searcher.SearchResponse;
-import com.liferay.portal.search.web.internal.category.facet.builder.AssetCategoriesFacetConfiguration;
-import com.liferay.portal.search.web.internal.category.facet.builder.AssetCategoriesFacetConfigurationImpl;
 import com.liferay.portal.search.web.internal.category.facet.constants.CategoryFacetPortletKeys;
 import com.liferay.portal.search.web.internal.facet.display.context.AssetCategoriesSearchFacetDisplayContext;
 import com.liferay.portal.search.web.internal.facet.display.context.builder.AssetCategoriesSearchFacetDisplayContextBuilder;
@@ -119,10 +117,6 @@ public class CategoryFacetPortlet extends MVCPortlet {
 				portletSharedSearchResponse.getPortletPreferences(
 					renderRequest));
 
-		AssetCategoriesFacetConfiguration assetCategoriesFacetConfiguration =
-			new AssetCategoriesFacetConfigurationImpl(
-				facet.getFacetConfiguration());
-
 		AssetCategoriesSearchFacetDisplayContextBuilder
 			assetCategoriesSearchFacetDisplayContextBuilder =
 				new AssetCategoriesSearchFacetDisplayContextBuilder(
@@ -136,9 +130,9 @@ public class CategoryFacetPortlet extends MVCPortlet {
 		assetCategoriesSearchFacetDisplayContextBuilder.setFrequenciesVisible(
 			categoryFacetPortletPreferences.isFrequenciesVisible());
 		assetCategoriesSearchFacetDisplayContextBuilder.setFrequencyThreshold(
-			assetCategoriesFacetConfiguration.getFrequencyThreshold());
+			categoryFacetPortletPreferences.getFrequencyThreshold());
 		assetCategoriesSearchFacetDisplayContextBuilder.setMaxTerms(
-			assetCategoriesFacetConfiguration.getMaxTerms());
+			categoryFacetPortletPreferences.getMaxTerms());
 		assetCategoriesSearchFacetDisplayContextBuilder.
 			setPaginationStartParameterName(
 				_getPaginationStartParameterName(portletSharedSearchResponse));
