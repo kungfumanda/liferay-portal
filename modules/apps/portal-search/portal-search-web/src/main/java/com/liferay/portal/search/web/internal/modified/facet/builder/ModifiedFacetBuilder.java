@@ -100,12 +100,6 @@ public class ModifiedFacetBuilder {
 		facetConfiguration.setStatic(false);
 		facetConfiguration.setWeight(1.0);
 
-		ModifiedFacetConfiguration modifiedFacetConfiguration =
-			new ModifiedFacetConfigurationImpl(facetConfiguration);
-
-		modifiedFacetConfiguration.setRangesJSONArray(
-			getRangesJSONArray(_calendarFactory.getCalendar()));
-
 		return facetConfiguration;
 	}
 
