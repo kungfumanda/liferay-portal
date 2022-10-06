@@ -27,8 +27,8 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 page import="com.liferay.portal.kernel.util.Constants" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %><%@
 page import="com.liferay.portal.search.asset.SearchableAssetClassNamesProvider" %><%@
-page import="com.liferay.portal.search.web.internal.facet.display.context.AssetEntriesSearchFacetDisplayContext" %><%@
 page import="com.liferay.portal.search.web.internal.facet.display.context.BucketDisplayContext" %><%@
+page import="com.liferay.portal.search.web.internal.facet.display.context.TypeSearchFacetDisplayContext" %><%@
 page import="com.liferay.portal.search.web.internal.type.facet.configuration.TypeFacetPortletInstanceConfiguration" %><%@
 page import="com.liferay.portal.search.web.internal.type.facet.portlet.TypeFacetPortletPreferences" %><%@
 page import="com.liferay.portal.search.web.internal.util.PortletPreferencesJspUtil" %>
@@ -40,9 +40,9 @@ page import="com.liferay.portal.search.web.internal.util.PortletPreferencesJspUt
 <portlet:defineObjects />
 
 <%
-AssetEntriesSearchFacetDisplayContext assetEntriesSearchFacetDisplayContext = (AssetEntriesSearchFacetDisplayContext)java.util.Objects.requireNonNull(request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT));
+TypeSearchFacetDisplayContext typeSearchFacetDisplayContext = (TypeSearchFacetDisplayContext)java.util.Objects.requireNonNull(request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT));
 
-TypeFacetPortletInstanceConfiguration typeFacetPortletInstanceConfiguration = assetEntriesSearchFacetDisplayContext.getTypeFacetPortletInstanceConfiguration();
+TypeFacetPortletInstanceConfiguration typeFacetPortletInstanceConfiguration = typeSearchFacetDisplayContext.getTypeFacetPortletInstanceConfiguration();
 
 ObjectDefinitionLocalService objectDefinitionLocalService = (ObjectDefinitionLocalService)request.getAttribute(ObjectDefinitionLocalService.class.getName());
 
@@ -73,7 +73,7 @@ TypeFacetPortletPreferences typeFacetPortletPreferences = new com.liferay.portal
 					<liferay-template:template-selector
 						className="<%= BucketDisplayContext.class.getName() %>"
 						displayStyle="<%= typeFacetPortletInstanceConfiguration.displayStyle() %>"
-						displayStyleGroupId="<%= assetEntriesSearchFacetDisplayContext.getDisplayStyleGroupId() %>"
+						displayStyleGroupId="<%= typeSearchFacetDisplayContext.getDisplayStyleGroupId() %>"
 						refreshURL="<%= configurationRenderURL %>"
 						showEmptyOption="<%= true %>"
 					/>

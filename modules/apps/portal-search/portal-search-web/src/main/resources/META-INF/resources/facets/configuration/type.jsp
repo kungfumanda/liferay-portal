@@ -1,4 +1,3 @@
-<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -17,9 +16,9 @@
 <%@ include file="/init.jsp" %>
 
 <%
-AssetEntriesSearchFacet assetEntriesSearchFacet = (AssetEntriesSearchFacet)request.getAttribute("facet_configuration.jsp-searchFacet");
+TypeSearchFacet typeSearchFacet = (TypeSearchFacet)request.getAttribute("facet_configuration.jsp-searchFacet");
 
-JSONObject dataJSONObject = assetEntriesSearchFacet.getData();
+JSONObject dataJSONObject = typeSearchFacet.getData();
 
 int frequencyThreshold = dataJSONObject.getInt("frequencyThreshold");
 
@@ -41,7 +40,7 @@ if (dataJSONObject.has("values")) {
 
 List<KeyValuePair> availableAssetTypes = new ArrayList<KeyValuePair>();
 
-for (AssetRendererFactory<?> assetRendererFactory : assetEntriesSearchFacet.getAssetRendererFactories(company.getCompanyId())) {
+for (AssetRendererFactory<?> assetRendererFactory : typeSearchFacet.getAssetRendererFactories(company.getCompanyId())) {
 	String className = assetRendererFactory.getClassName();
 
 	if (assetRendererFactory.isSearchable() && !ArrayUtil.contains(assetTypes, className)) {
@@ -50,9 +49,9 @@ for (AssetRendererFactory<?> assetRendererFactory : assetEntriesSearchFacet.getA
 }
 %>
 
-<aui:input label="frequency-threshold" name='<%= assetEntriesSearchFacet.getClassName() + "frequencyThreshold" %>' value="<%= frequencyThreshold %>" />
+<aui:input label="frequency-threshold" name='<%= typeSearchFacet.getClassName() + "frequencyThreshold" %>' value="<%= frequencyThreshold %>" />
 
-<aui:input name='<%= assetEntriesSearchFacet.getClassName() + "assetTypes" %>' type="hidden" />
+<aui:input name='<%= typeSearchFacet.getClassName() + "assetTypes" %>' type="hidden" />
 
 <liferay-ui:input-move-boxes
 	leftBoxName="currentAssetTypes"
@@ -75,7 +74,7 @@ for (AssetRendererFactory<?> assetRendererFactory : assetEntriesSearchFacet.getA
 			var data = {};
 
 			data[
-				'<%= assetEntriesSearchFacet.getClassName() + "assetTypes" %>'
+				'<%= typeSearchFacet.getClassName() + "assetTypes" %>'
 			] = Liferay.Util.getSelectedOptionValues(currentAssetTypes);
 
 			Liferay.Util.postForm(form, {data: data});

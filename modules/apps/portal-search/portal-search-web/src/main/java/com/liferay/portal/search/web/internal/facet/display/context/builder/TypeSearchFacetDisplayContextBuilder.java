@@ -31,8 +31,8 @@ import com.liferay.portal.kernel.util.SortedArrayList;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.search.web.internal.facet.display.context.AssetEntriesSearchFacetDisplayContext;
 import com.liferay.portal.search.web.internal.facet.display.context.BucketDisplayContext;
+import com.liferay.portal.search.web.internal.facet.display.context.TypeSearchFacetDisplayContext;
 import com.liferay.portal.search.web.internal.type.facet.configuration.TypeFacetPortletInstanceConfiguration;
 
 import java.io.Serializable;
@@ -50,11 +50,9 @@ import javax.portlet.RenderRequest;
 /**
  * @author Lino Alves
  */
-public class AssetEntriesSearchFacetDisplayContextBuilder
-	implements Serializable {
+public class TypeSearchFacetDisplayContextBuilder implements Serializable {
 
-	public AssetEntriesSearchFacetDisplayContextBuilder(
-			RenderRequest renderRequest)
+	public TypeSearchFacetDisplayContextBuilder(RenderRequest renderRequest)
 		throws ConfigurationException {
 
 		_themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
@@ -67,36 +65,32 @@ public class AssetEntriesSearchFacetDisplayContextBuilder
 				TypeFacetPortletInstanceConfiguration.class);
 	}
 
-	public AssetEntriesSearchFacetDisplayContext build() {
+	public TypeSearchFacetDisplayContext build() {
 		setTypeNames(getTypeNames());
 
 		List<BucketDisplayContext> bucketDisplayContexts =
 			buildBucketDisplayContexts();
 
-		AssetEntriesSearchFacetDisplayContext
-			assetEntriesSearchFacetDisplayContext =
-				new AssetEntriesSearchFacetDisplayContext();
+		TypeSearchFacetDisplayContext typeSearchFacetDisplayContext =
+			new TypeSearchFacetDisplayContext();
 
-		assetEntriesSearchFacetDisplayContext.setDisplayStyleGroupId(
+		typeSearchFacetDisplayContext.setDisplayStyleGroupId(
 			getDisplayStyleGroupId());
-		assetEntriesSearchFacetDisplayContext.setNothingSelected(
-			isNothingSelected());
-		assetEntriesSearchFacetDisplayContext.setPaginationStartParameterName(
+		typeSearchFacetDisplayContext.setNothingSelected(isNothingSelected());
+		typeSearchFacetDisplayContext.setPaginationStartParameterName(
 			_paginationStartParameterName);
-		assetEntriesSearchFacetDisplayContext.setParameterName(_parameterName);
-		assetEntriesSearchFacetDisplayContext.setParameterValue(
+		typeSearchFacetDisplayContext.setParameterName(_parameterName);
+		typeSearchFacetDisplayContext.setParameterValue(
 			getFirstParameterValue());
-		assetEntriesSearchFacetDisplayContext.setParameterValues(
-			_parameterValues);
-		assetEntriesSearchFacetDisplayContext.setRenderNothing(
+		typeSearchFacetDisplayContext.setParameterValues(_parameterValues);
+		typeSearchFacetDisplayContext.setRenderNothing(
 			ListUtil.isEmpty(bucketDisplayContexts));
-		assetEntriesSearchFacetDisplayContext.setBucketDisplayContexts(
+		typeSearchFacetDisplayContext.setBucketDisplayContexts(
 			bucketDisplayContexts);
-		assetEntriesSearchFacetDisplayContext.
-			setTypeFacetPortletInstanceConfiguration(
-				_typeFacetPortletInstanceConfiguration);
+		typeSearchFacetDisplayContext.setTypeFacetPortletInstanceConfiguration(
+			_typeFacetPortletInstanceConfiguration);
 
-		return assetEntriesSearchFacetDisplayContext;
+		return typeSearchFacetDisplayContext;
 	}
 
 	public BucketDisplayContext buildBucketDisplay(

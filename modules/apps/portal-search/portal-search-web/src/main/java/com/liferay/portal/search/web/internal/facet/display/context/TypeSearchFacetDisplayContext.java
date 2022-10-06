@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * @author Lino Alves
  */
-public class AssetEntriesSearchFacetDisplayContext implements Serializable {
+public class TypeSearchFacetDisplayContext implements Serializable {
 
 	public List<BucketDisplayContext> getBucketDisplayContexts() {
 		return _bucketDisplayContext;

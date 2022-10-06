@@ -21,7 +21,7 @@ import com.liferay.portal.kernel.portlet.DefaultConfigurationAction;
 import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.search.asset.SearchableAssetClassNamesProvider;
-import com.liferay.portal.search.web.internal.facet.display.context.builder.AssetEntriesSearchFacetDisplayContextBuilder;
+import com.liferay.portal.search.web.internal.facet.display.context.builder.TypeSearchFacetDisplayContextBuilder;
 import com.liferay.portal.search.web.internal.type.facet.constants.TypeFacetPortletKeys;
 
 import javax.portlet.PortletConfig;
@@ -65,14 +65,13 @@ public class TypeFacetConfigurationAction extends DefaultConfigurationAction {
 			(RenderRequest)httpServletRequest.getAttribute(
 				JavaConstants.JAVAX_PORTLET_REQUEST);
 
-		AssetEntriesSearchFacetDisplayContextBuilder
-			assetEntriesSearchFacetDisplayContextBuilder =
-				_createAssetEntriesSearchFacetDisplayContextBuilder(
-					renderRequest);
+		TypeSearchFacetDisplayContextBuilder
+			typeSearchFacetDisplayContextBuilder =
+				_createTypeSearchFacetDisplayContextBuilder(renderRequest);
 
 		httpServletRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT,
-			assetEntriesSearchFacetDisplayContextBuilder.build());
+			typeSearchFacetDisplayContextBuilder.build());
 
 		super.include(portletConfig, httpServletRequest, httpServletResponse);
 	}
@@ -84,13 +83,12 @@ public class TypeFacetConfigurationAction extends DefaultConfigurationAction {
 	protected SearchableAssetClassNamesProvider
 		searchableAssetClassNamesProvider;
 
-	private AssetEntriesSearchFacetDisplayContextBuilder
-		_createAssetEntriesSearchFacetDisplayContextBuilder(
+	private TypeSearchFacetDisplayContextBuilder
+		_createTypeSearchFacetDisplayContextBuilder(
 			RenderRequest renderRequest) {
 
 		try {
-			return new AssetEntriesSearchFacetDisplayContextBuilder(
-				renderRequest);
+			return new TypeSearchFacetDisplayContextBuilder(renderRequest);
 		}
 		catch (ConfigurationException configurationException) {
 			throw new RuntimeException(configurationException);
