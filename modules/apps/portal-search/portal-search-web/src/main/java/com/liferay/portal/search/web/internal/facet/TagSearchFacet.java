@@ -35,11 +35,11 @@ import org.osgi.service.component.annotations.Reference;
  * @author Eudaldo Alonso
  */
 @Component(immediate = true, service = SearchFacet.class)
-public class AssetTagsSearchFacet extends BaseJSPSearchFacet {
+public class TagSearchFacet extends BaseJSPSearchFacet {
 
 	@Override
 	public String getConfigurationJspPath() {
-		return "/facets/configuration/asset_tags.jsp";
+		return "/facets/configuration/tag.jsp";
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class AssetTagsSearchFacet extends BaseJSPSearchFacet {
 
 	@Override
 	public String getDisplayJspPath() {
-		return "/facets/view/asset_tags.jsp";
+		return "/facets/view/tag.jsp";
 	}
 
 	@Override

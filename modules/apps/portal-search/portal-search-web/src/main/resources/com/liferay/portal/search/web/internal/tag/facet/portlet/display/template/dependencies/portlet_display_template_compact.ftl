@@ -1,13 +1,13 @@
 <@liferay_ui["panel-container"]
 	extended=true
-	id="${namespace + 'facetAssetTagsPanelContainer'}"
+	id="${namespace + 'facetTagPanelContainer'}"
 	markupView="lexicon"
 	persistState=true
 >
 	<@liferay_ui.panel
 		collapsible=true
 		cssClass="search-facet"
-		id="${namespace + 'facetAssetTagsPanel'}"
+		id="${namespace + 'facetTagPanel'}"
 		markupView="lexicon"
 		persistState=true
 		title="tag"
@@ -35,7 +35,7 @@
 			</#if>
 		</ul>
 
-		<#if !assetTagsSearchFacetDisplayContext.isNothingSelected()>
+		<#if !tagSearchFacetDisplayContext.isNothingSelected()>
 			<@liferay_aui.button
 				cssClass="btn-link btn-unstyled facet-clear-btn"
 				onClick="Liferay.Search.FacetUtil.clearSelections(event);"

@@ -26,55 +26,55 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 page import="com.liferay.portal.kernel.util.HashMapBuilder" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %><%@
-page import="com.liferay.portal.search.web.internal.facet.display.context.AssetTagsSearchFacetDisplayContext" %><%@
 page import="com.liferay.portal.search.web.internal.facet.display.context.BucketDisplayContext" %><%@
+page import="com.liferay.portal.search.web.internal.facet.display.context.TagSearchFacetDisplayContext" %><%@
 page import="com.liferay.portal.search.web.internal.tag.facet.configuration.TagFacetPortletInstanceConfiguration" %>
 
 <portlet:defineObjects />
 
 <%
-AssetTagsSearchFacetDisplayContext assetTagsSearchFacetDisplayContext = (AssetTagsSearchFacetDisplayContext)java.util.Objects.requireNonNull(request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT));
+TagSearchFacetDisplayContext tagSearchFacetDisplayContext = (TagSearchFacetDisplayContext)java.util.Objects.requireNonNull(request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT));
 
-if (assetTagsSearchFacetDisplayContext.isRenderNothing()) {
+if (tagSearchFacetDisplayContext.isRenderNothing()) {
 	return;
 }
 
-TagFacetPortletInstanceConfiguration tagFacetPortletInstanceConfiguration = assetTagsSearchFacetDisplayContext.getTagFacetPortletInstanceConfiguration();
+TagFacetPortletInstanceConfiguration tagFacetPortletInstanceConfiguration = tagSearchFacetDisplayContext.getTagFacetPortletInstanceConfiguration();
 %>
 
 <c:choose>
-	<c:when test="<%= assetTagsSearchFacetDisplayContext.isRenderNothing() %>">
-		<aui:input autocomplete="off" name="<%= HtmlUtil.escapeAttribute(assetTagsSearchFacetDisplayContext.getParameterName()) %>" type="hidden" value="<%= assetTagsSearchFacetDisplayContext.getParameterValue() %>" />
+	<c:when test="<%= tagSearchFacetDisplayContext.isRenderNothing() %>">
+		<aui:input autocomplete="off" name="<%= HtmlUtil.escapeAttribute(tagSearchFacetDisplayContext.getParameterName()) %>" type="hidden" value="<%= tagSearchFacetDisplayContext.getParameterValue() %>" />
 	</c:when>
 	<c:otherwise>
 		<aui:form action="#" method="post" name="fm">
-			<aui:input autocomplete="off" name="<%= HtmlUtil.escapeAttribute(assetTagsSearchFacetDisplayContext.getParameterName()) %>" type="hidden" value="<%= assetTagsSearchFacetDisplayContext.getParameterValue() %>" />
-			<aui:input cssClass="facet-parameter-name" name="facet-parameter-name" type="hidden" value="<%= assetTagsSearchFacetDisplayContext.getParameterName() %>" />
-			<aui:input cssClass="start-parameter-name" name="start-parameter-name" type="hidden" value="<%= assetTagsSearchFacetDisplayContext.getPaginationStartParameterName() %>" />
+			<aui:input autocomplete="off" name="<%= HtmlUtil.escapeAttribute(tagSearchFacetDisplayContext.getParameterName()) %>" type="hidden" value="<%= tagSearchFacetDisplayContext.getParameterValue() %>" />
+			<aui:input cssClass="facet-parameter-name" name="facet-parameter-name" type="hidden" value="<%= tagSearchFacetDisplayContext.getParameterName() %>" />
+			<aui:input cssClass="start-parameter-name" name="start-parameter-name" type="hidden" value="<%= tagSearchFacetDisplayContext.getPaginationStartParameterName() %>" />
 
 			<liferay-ddm:template-renderer
 				className="<%= BucketDisplayContext.class.getName() %>"
 				contextObjects='<%=
 					HashMapBuilder.<String, Object>put(
-						"assetTagsSearchFacetDisplayContext", assetTagsSearchFacetDisplayContext
-					).put(
 						"namespace", liferayPortletResponse.getNamespace()
+					).put(
+						"tagSearchFacetDisplayContext", tagSearchFacetDisplayContext
 					).build()
 				%>'
 				displayStyle="<%= tagFacetPortletInstanceConfiguration.displayStyle() %>"
-				displayStyleGroupId="<%= assetTagsSearchFacetDisplayContext.getDisplayStyleGroupId() %>"
-				entries="<%= assetTagsSearchFacetDisplayContext.getBucketDisplayContexts() %>"
+				displayStyleGroupId="<%= tagSearchFacetDisplayContext.getDisplayStyleGroupId() %>"
+				entries="<%= tagSearchFacetDisplayContext.getBucketDisplayContexts() %>"
 			>
 				<liferay-ui:panel-container
 					extended="<%= true %>"
-					id='<%= liferayPortletResponse.getNamespace() + "facetAssetTagsPanelContainer" %>'
+					id='<%= liferayPortletResponse.getNamespace() + "facetTagPanelContainer" %>'
 					markupView="lexicon"
 					persistState="<%= true %>"
 				>
 					<liferay-ui:panel
 						collapsible="<%= true %>"
 						cssClass="search-facet"
-						id='<%= liferayPortletResponse.getNamespace() + "facetAssetTagsPanel" %>'
+						id='<%= liferayPortletResponse.getNamespace() + "facetTagPanel" %>'
 						markupView="lexicon"
 						persistState="<%= true %>"
 						title="tag"
@@ -85,7 +85,7 @@ TagFacetPortletInstanceConfiguration tagFacetPortletInstanceConfiguration = asse
 								<%
 								int i = 0;
 
-								for (BucketDisplayContext bucketDisplayContext : assetTagsSearchFacetDisplayContext.getBucketDisplayContexts()) {
+								for (BucketDisplayContext bucketDisplayContext : tagSearchFacetDisplayContext.getBucketDisplayContexts()) {
 									i++;
 								%>
 
@@ -123,7 +123,7 @@ TagFacetPortletInstanceConfiguration tagFacetPortletInstanceConfiguration = asse
 							</ul>
 						</aui:fieldset>
 
-						<c:if test="<%= !assetTagsSearchFacetDisplayContext.isNothingSelected() %>">
+						<c:if test="<%= !tagSearchFacetDisplayContext.isNothingSelected() %>">
 							<aui:button cssClass="btn-link btn-unstyled facet-clear-btn" onClick="Liferay.Search.FacetUtil.clearSelections(event);" value="clear" />
 						</c:if>
 					</liferay-ui:panel>

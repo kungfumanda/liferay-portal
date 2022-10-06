@@ -86,7 +86,7 @@ public class SearchResultSummaryDisplayContextBuilderTest {
 	}
 
 	@Test
-	public void testClassFieldsWithoutAssetTagsOrCategories() throws Exception {
+	public void testClassFieldsWithoutTagOrAssetCategories() throws Exception {
 		PortletURL portletURL = Mockito.mock(PortletURL.class);
 
 		Mockito.doReturn(

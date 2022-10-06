@@ -24,8 +24,8 @@ import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.search.web.internal.facet.display.context.AssetTagsSearchFacetDisplayContext;
 import com.liferay.portal.search.web.internal.facet.display.context.BucketDisplayContext;
+import com.liferay.portal.search.web.internal.facet.display.context.TagSearchFacetDisplayContext;
 import com.liferay.portal.search.web.internal.tag.facet.configuration.TagFacetPortletInstanceConfiguration;
 
 import java.util.ArrayList;
@@ -39,10 +39,9 @@ import javax.portlet.RenderRequest;
 /**
  * @author Lino Alves
  */
-public class AssetTagsSearchFacetDisplayContextBuilder {
+public class TagSearchFacetDisplayContextBuilder {
 
-	public AssetTagsSearchFacetDisplayContextBuilder(
-			RenderRequest renderRequest)
+	public TagSearchFacetDisplayContextBuilder(RenderRequest renderRequest)
 		throws ConfigurationException {
 
 		_themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
@@ -55,31 +54,28 @@ public class AssetTagsSearchFacetDisplayContextBuilder {
 				TagFacetPortletInstanceConfiguration.class);
 	}
 
-	public AssetTagsSearchFacetDisplayContext build() {
-		AssetTagsSearchFacetDisplayContext assetTagsSearchFacetDisplayContext =
-			new AssetTagsSearchFacetDisplayContext();
+	public TagSearchFacetDisplayContext build() {
+		TagSearchFacetDisplayContext tagSearchFacetDisplayContext =
+			new TagSearchFacetDisplayContext();
 
-		assetTagsSearchFacetDisplayContext.setCloudWithCount(
-			_isCloudWithCount());
-		assetTagsSearchFacetDisplayContext.setDisplayStyleGroupId(
+		tagSearchFacetDisplayContext.setCloudWithCount(_isCloudWithCount());
+		tagSearchFacetDisplayContext.setDisplayStyleGroupId(
 			getDisplayStyleGroupId());
-		assetTagsSearchFacetDisplayContext.setFacetLabel(_getFacetLabel());
-		assetTagsSearchFacetDisplayContext.setNothingSelected(
-			isNothingSelected());
-		assetTagsSearchFacetDisplayContext.setPaginationStartParameterName(
+		tagSearchFacetDisplayContext.setFacetLabel(_getFacetLabel());
+		tagSearchFacetDisplayContext.setNothingSelected(isNothingSelected());
+		tagSearchFacetDisplayContext.setPaginationStartParameterName(
 			_paginationStartParameterName);
-		assetTagsSearchFacetDisplayContext.setParameterName(_parameterName);
-		assetTagsSearchFacetDisplayContext.setParameterValue(
+		tagSearchFacetDisplayContext.setParameterName(_parameterName);
+		tagSearchFacetDisplayContext.setParameterValue(
 			getFirstParameterValue());
-		assetTagsSearchFacetDisplayContext.setParameterValues(_selectedTags);
-		assetTagsSearchFacetDisplayContext.setRenderNothing(isRenderNothing());
-		assetTagsSearchFacetDisplayContext.
-			setTagFacetPortletInstanceConfiguration(
-				_tagFacetPortletInstanceConfiguration);
-		assetTagsSearchFacetDisplayContext.setBucketDisplayContexts(
+		tagSearchFacetDisplayContext.setParameterValues(_selectedTags);
+		tagSearchFacetDisplayContext.setRenderNothing(isRenderNothing());
+		tagSearchFacetDisplayContext.setTagFacetPortletInstanceConfiguration(
+			_tagFacetPortletInstanceConfiguration);
+		tagSearchFacetDisplayContext.setBucketDisplayContexts(
 			buildBucketDisplayContexts());
 
-		return assetTagsSearchFacetDisplayContext;
+		return tagSearchFacetDisplayContext;
 	}
 
 	public long getDisplayStyleGroupId() {
