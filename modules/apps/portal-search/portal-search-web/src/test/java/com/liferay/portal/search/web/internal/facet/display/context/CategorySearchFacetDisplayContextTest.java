@@ -27,8 +27,8 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.search.web.internal.facet.display.context.builder.AssetCategoriesSearchFacetDisplayContextBuilder;
 import com.liferay.portal.search.web.internal.facet.display.context.builder.AssetCategoryPermissionChecker;
+import com.liferay.portal.search.web.internal.facet.display.context.builder.CategorySearchFacetDisplayContextBuilder;
 import com.liferay.portal.test.rule.LiferayUnitTestRule;
 
 import java.util.Collections;
@@ -50,7 +50,7 @@ import org.mockito.Mockito;
 /**
  * @author André de Oliveira
  */
-public class AssetCategoriesSearchFacetDisplayContextTest {
+public class CategorySearchFacetDisplayContextTest {
 
 	@ClassRule
 	@Rule
@@ -70,23 +70,20 @@ public class AssetCategoriesSearchFacetDisplayContextTest {
 	public void testEmptySearchResults() throws Exception {
 		String facetParam = StringPool.BLANK;
 
-		AssetCategoriesSearchFacetDisplayContext
-			assetCategoriesSearchFacetDisplayContext = createDisplayContext(
-				facetParam);
+		CategorySearchFacetDisplayContext categorySearchFacetDisplayContext =
+			createDisplayContext(facetParam);
 
 		List<BucketDisplayContext> bucketDisplayContexts =
-			assetCategoriesSearchFacetDisplayContext.getBucketDisplayContexts();
+			categorySearchFacetDisplayContext.getBucketDisplayContexts();
 
 		Assert.assertEquals(
 			bucketDisplayContexts.toString(), 0, bucketDisplayContexts.size());
 
 		Assert.assertEquals(
-			facetParam,
-			assetCategoriesSearchFacetDisplayContext.getParameterValue());
+			facetParam, categorySearchFacetDisplayContext.getParameterValue());
 		Assert.assertTrue(
-			assetCategoriesSearchFacetDisplayContext.isNothingSelected());
-		Assert.assertTrue(
-			assetCategoriesSearchFacetDisplayContext.isRenderNothing());
+			categorySearchFacetDisplayContext.isNothingSelected());
+		Assert.assertTrue(categorySearchFacetDisplayContext.isRenderNothing());
 	}
 
 	@Test
@@ -97,12 +94,11 @@ public class AssetCategoriesSearchFacetDisplayContextTest {
 
 		String facetParam = String.valueOf(assetCategoryId);
 
-		AssetCategoriesSearchFacetDisplayContext
-			assetCategoriesSearchFacetDisplayContext = createDisplayContext(
-				facetParam);
+		CategorySearchFacetDisplayContext categorySearchFacetDisplayContext =
+			createDisplayContext(facetParam);
 
 		List<BucketDisplayContext> bucketDisplayContexts =
-			assetCategoriesSearchFacetDisplayContext.getBucketDisplayContexts();
+			categorySearchFacetDisplayContext.getBucketDisplayContexts();
 
 		Assert.assertEquals(
 			bucketDisplayContexts.toString(), 1, bucketDisplayContexts.size());
@@ -121,12 +117,10 @@ public class AssetCategoriesSearchFacetDisplayContextTest {
 		Assert.assertTrue(bucketDisplayContext.isSelected());
 
 		Assert.assertEquals(
-			facetParam,
-			assetCategoriesSearchFacetDisplayContext.getParameterValue());
+			facetParam, categorySearchFacetDisplayContext.getParameterValue());
 		Assert.assertFalse(
-			assetCategoriesSearchFacetDisplayContext.isNothingSelected());
-		Assert.assertFalse(
-			assetCategoriesSearchFacetDisplayContext.isRenderNothing());
+			categorySearchFacetDisplayContext.isNothingSelected());
+		Assert.assertFalse(categorySearchFacetDisplayContext.isRenderNothing());
 	}
 
 	@Test
@@ -149,12 +143,11 @@ public class AssetCategoriesSearchFacetDisplayContextTest {
 
 		String facetParam = StringPool.BLANK;
 
-		AssetCategoriesSearchFacetDisplayContext
-			assetCategoriesSearchFacetDisplayContext = createDisplayContext(
-				facetParam);
+		CategorySearchFacetDisplayContext categorySearchFacetDisplayContext =
+			createDisplayContext(facetParam);
 
 		List<BucketDisplayContext> bucketDisplayContexts =
-			assetCategoriesSearchFacetDisplayContext.getBucketDisplayContexts();
+			categorySearchFacetDisplayContext.getBucketDisplayContexts();
 
 		Assert.assertEquals(
 			bucketDisplayContexts.toString(), 0, bucketDisplayContexts.size());
@@ -174,12 +167,11 @@ public class AssetCategoriesSearchFacetDisplayContextTest {
 
 		String facetParam = StringPool.BLANK;
 
-		AssetCategoriesSearchFacetDisplayContext
-			assetCategoriesSearchFacetDisplayContext = createDisplayContext(
-				facetParam);
+		CategorySearchFacetDisplayContext categorySearchFacetDisplayContext =
+			createDisplayContext(facetParam);
 
 		List<BucketDisplayContext> bucketDisplayContexts =
-			assetCategoriesSearchFacetDisplayContext.getBucketDisplayContexts();
+			categorySearchFacetDisplayContext.getBucketDisplayContexts();
 
 		Assert.assertEquals(
 			bucketDisplayContexts.toString(), 1, bucketDisplayContexts.size());
@@ -198,12 +190,10 @@ public class AssetCategoriesSearchFacetDisplayContextTest {
 		Assert.assertFalse(bucketDisplayContext.isSelected());
 
 		Assert.assertEquals(
-			facetParam,
-			assetCategoriesSearchFacetDisplayContext.getParameterValue());
+			facetParam, categorySearchFacetDisplayContext.getParameterValue());
 		Assert.assertTrue(
-			assetCategoriesSearchFacetDisplayContext.isNothingSelected());
-		Assert.assertFalse(
-			assetCategoriesSearchFacetDisplayContext.isRenderNothing());
+			categorySearchFacetDisplayContext.isNothingSelected());
+		Assert.assertFalse(categorySearchFacetDisplayContext.isRenderNothing());
 	}
 
 	@Test
@@ -216,12 +206,11 @@ public class AssetCategoriesSearchFacetDisplayContextTest {
 
 		setUpOneTermCollector(assetCategoryId, frequency);
 
-		AssetCategoriesSearchFacetDisplayContext
-			assetCategoriesSearchFacetDisplayContext = createDisplayContext(
-				String.valueOf(assetCategoryId));
+		CategorySearchFacetDisplayContext categorySearchFacetDisplayContext =
+			createDisplayContext(String.valueOf(assetCategoryId));
 
 		List<BucketDisplayContext> bucketDisplayContexts =
-			assetCategoriesSearchFacetDisplayContext.getBucketDisplayContexts();
+			categorySearchFacetDisplayContext.getBucketDisplayContexts();
 
 		Assert.assertEquals(
 			bucketDisplayContexts.toString(), 1, bucketDisplayContexts.size());
@@ -242,11 +231,10 @@ public class AssetCategoriesSearchFacetDisplayContextTest {
 		Assert.assertEquals(
 			assetCategoryId,
 			GetterUtil.getLong(
-				assetCategoriesSearchFacetDisplayContext.getParameterValue()));
+				categorySearchFacetDisplayContext.getParameterValue()));
 		Assert.assertFalse(
-			assetCategoriesSearchFacetDisplayContext.isNothingSelected());
-		Assert.assertFalse(
-			assetCategoriesSearchFacetDisplayContext.isRenderNothing());
+			categorySearchFacetDisplayContext.isNothingSelected());
+		Assert.assertFalse(categorySearchFacetDisplayContext.isRenderNothing());
 	}
 
 	@Test
@@ -261,23 +249,20 @@ public class AssetCategoriesSearchFacetDisplayContextTest {
 
 		String facetParam = StringPool.BLANK;
 
-		AssetCategoriesSearchFacetDisplayContext
-			assetCategoriesSearchFacetDisplayContext = createDisplayContext(
-				facetParam);
+		CategorySearchFacetDisplayContext categorySearchFacetDisplayContext =
+			createDisplayContext(facetParam);
 
 		List<BucketDisplayContext> bucketDisplayContexts =
-			assetCategoriesSearchFacetDisplayContext.getBucketDisplayContexts();
+			categorySearchFacetDisplayContext.getBucketDisplayContexts();
 
 		Assert.assertEquals(
 			bucketDisplayContexts.toString(), 0, bucketDisplayContexts.size());
 
 		Assert.assertEquals(
-			facetParam,
-			assetCategoriesSearchFacetDisplayContext.getParameterValue());
+			facetParam, categorySearchFacetDisplayContext.getParameterValue());
 		Assert.assertTrue(
-			assetCategoriesSearchFacetDisplayContext.isNothingSelected());
-		Assert.assertTrue(
-			assetCategoriesSearchFacetDisplayContext.isRenderNothing());
+			categorySearchFacetDisplayContext.isNothingSelected());
+		Assert.assertTrue(categorySearchFacetDisplayContext.isRenderNothing());
 	}
 
 	@Test
@@ -288,59 +273,52 @@ public class AssetCategoriesSearchFacetDisplayContextTest {
 
 		String facetParam = String.valueOf(assetCategoryId);
 
-		AssetCategoriesSearchFacetDisplayContext
-			assetCategoriesSearchFacetDisplayContext = createDisplayContext(
-				facetParam);
+		CategorySearchFacetDisplayContext categorySearchFacetDisplayContext =
+			createDisplayContext(facetParam);
 
 		List<BucketDisplayContext> bucketDisplayContexts =
-			assetCategoriesSearchFacetDisplayContext.getBucketDisplayContexts();
+			categorySearchFacetDisplayContext.getBucketDisplayContexts();
 
 		Assert.assertEquals(
 			bucketDisplayContexts.toString(), 0, bucketDisplayContexts.size());
 
 		Assert.assertEquals(
-			facetParam,
-			assetCategoriesSearchFacetDisplayContext.getParameterValue());
+			facetParam, categorySearchFacetDisplayContext.getParameterValue());
 		Assert.assertFalse(
-			assetCategoriesSearchFacetDisplayContext.isNothingSelected());
-		Assert.assertFalse(
-			assetCategoriesSearchFacetDisplayContext.isRenderNothing());
+			categorySearchFacetDisplayContext.isNothingSelected());
+		Assert.assertFalse(categorySearchFacetDisplayContext.isRenderNothing());
 	}
 
-	protected AssetCategoriesSearchFacetDisplayContext createDisplayContext(
+	protected CategorySearchFacetDisplayContext createDisplayContext(
 		String parameterValue) {
 
 		RenderRequest renderRequest = Mockito.mock(RenderRequest.class);
 
-		AssetCategoriesSearchFacetDisplayContextBuilder
-			assetCategoriesSearchFacetDisplayContextBuilder =
-				new AssetCategoriesSearchFacetDisplayContextBuilder(
-					renderRequest);
+		CategorySearchFacetDisplayContextBuilder
+			categorySearchFacetDisplayContextBuilder =
+				new CategorySearchFacetDisplayContextBuilder(renderRequest);
 
-		assetCategoriesSearchFacetDisplayContextBuilder.
-			setAssetCategoryLocalService(_assetCategoryLocalService);
-		assetCategoriesSearchFacetDisplayContextBuilder.
+		categorySearchFacetDisplayContextBuilder.setAssetCategoryLocalService(
+			_assetCategoryLocalService);
+		categorySearchFacetDisplayContextBuilder.
 			setAssetCategoryPermissionChecker(_assetCategoryPermissionChecker);
-		assetCategoriesSearchFacetDisplayContextBuilder.setDisplayStyle(
-			"cloud");
-		assetCategoriesSearchFacetDisplayContextBuilder.setFacet(_facet);
-		assetCategoriesSearchFacetDisplayContextBuilder.setFrequenciesVisible(
-			true);
-		assetCategoriesSearchFacetDisplayContextBuilder.setFrequencyThreshold(
-			0);
-		assetCategoriesSearchFacetDisplayContextBuilder.setMaxTerms(0);
-		assetCategoriesSearchFacetDisplayContextBuilder.setParameterName(
+		categorySearchFacetDisplayContextBuilder.setDisplayStyle("cloud");
+		categorySearchFacetDisplayContextBuilder.setFacet(_facet);
+		categorySearchFacetDisplayContextBuilder.setFrequenciesVisible(true);
+		categorySearchFacetDisplayContextBuilder.setFrequencyThreshold(0);
+		categorySearchFacetDisplayContextBuilder.setMaxTerms(0);
+		categorySearchFacetDisplayContextBuilder.setParameterName(
 			_facet.getFieldId());
-		assetCategoriesSearchFacetDisplayContextBuilder.setParameterValue(
+		categorySearchFacetDisplayContextBuilder.setParameterValue(
 			parameterValue);
-		assetCategoriesSearchFacetDisplayContextBuilder.setPortal(_getPortal());
+		categorySearchFacetDisplayContextBuilder.setPortal(_getPortal());
 
 		if (_excludedGroupId > 0) {
-			assetCategoriesSearchFacetDisplayContextBuilder.setExcludedGroupId(
+			categorySearchFacetDisplayContextBuilder.setExcludedGroupId(
 				_excludedGroupId);
 		}
 
-		return assetCategoriesSearchFacetDisplayContextBuilder.build();
+		return categorySearchFacetDisplayContextBuilder.build();
 	}
 
 	protected Group createGroup(long groupId, long stagingGroupId) {

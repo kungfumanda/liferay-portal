@@ -24,9 +24,9 @@ import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.search.searcher.SearchRequest;
 import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.web.internal.category.facet.constants.CategoryFacetPortletKeys;
-import com.liferay.portal.search.web.internal.facet.display.context.AssetCategoriesSearchFacetDisplayContext;
-import com.liferay.portal.search.web.internal.facet.display.context.builder.AssetCategoriesSearchFacetDisplayContextBuilder;
+import com.liferay.portal.search.web.internal.facet.display.context.CategorySearchFacetDisplayContext;
 import com.liferay.portal.search.web.internal.facet.display.context.builder.AssetCategoryPermissionCheckerImpl;
+import com.liferay.portal.search.web.internal.facet.display.context.builder.CategorySearchFacetDisplayContextBuilder;
 import com.liferay.portal.search.web.internal.util.SearchOptionalUtil;
 import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchRequest;
 import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchResponse;
@@ -80,15 +80,13 @@ public class CategoryFacetPortlet extends MVCPortlet {
 		PortletSharedSearchResponse portletSharedSearchResponse =
 			portletSharedSearchRequest.search(renderRequest);
 
-		AssetCategoriesSearchFacetDisplayContext
-			assetCategoriesSearchFacetDisplayContext = _buildDisplayContext(
-				portletSharedSearchResponse, renderRequest);
+		CategorySearchFacetDisplayContext categorySearchFacetDisplayContext =
+			_buildDisplayContext(portletSharedSearchResponse, renderRequest);
 
 		renderRequest.setAttribute(
-			WebKeys.PORTLET_DISPLAY_CONTEXT,
-			assetCategoriesSearchFacetDisplayContext);
+			WebKeys.PORTLET_DISPLAY_CONTEXT, categorySearchFacetDisplayContext);
 
-		if (assetCategoriesSearchFacetDisplayContext.isRenderNothing()) {
+		if (categorySearchFacetDisplayContext.isRenderNothing()) {
 			renderRequest.setAttribute(
 				WebKeys.PORTLET_CONFIGURATOR_VISIBILITY, Boolean.TRUE);
 		}
@@ -105,7 +103,7 @@ public class CategoryFacetPortlet extends MVCPortlet {
 	@Reference
 	protected PortletSharedSearchRequest portletSharedSearchRequest;
 
-	private AssetCategoriesSearchFacetDisplayContext _buildDisplayContext(
+	private CategorySearchFacetDisplayContext _buildDisplayContext(
 		PortletSharedSearchResponse portletSharedSearchResponse,
 		RenderRequest renderRequest) {
 
@@ -117,26 +115,25 @@ public class CategoryFacetPortlet extends MVCPortlet {
 				portletSharedSearchResponse.getPortletPreferences(
 					renderRequest));
 
-		AssetCategoriesSearchFacetDisplayContextBuilder
-			assetCategoriesSearchFacetDisplayContextBuilder =
-				new AssetCategoriesSearchFacetDisplayContextBuilder(
-					renderRequest);
+		CategorySearchFacetDisplayContextBuilder
+			categorySearchFacetDisplayContextBuilder =
+				new CategorySearchFacetDisplayContextBuilder(renderRequest);
 
-		assetCategoriesSearchFacetDisplayContextBuilder.
-			setAssetCategoryLocalService(assetCategoryLocalService);
-		assetCategoriesSearchFacetDisplayContextBuilder.setDisplayStyle(
+		categorySearchFacetDisplayContextBuilder.setAssetCategoryLocalService(
+			assetCategoryLocalService);
+		categorySearchFacetDisplayContextBuilder.setDisplayStyle(
 			categoryFacetPortletPreferences.getDisplayStyle());
-		assetCategoriesSearchFacetDisplayContextBuilder.setFacet(facet);
-		assetCategoriesSearchFacetDisplayContextBuilder.setFrequenciesVisible(
+		categorySearchFacetDisplayContextBuilder.setFacet(facet);
+		categorySearchFacetDisplayContextBuilder.setFrequenciesVisible(
 			categoryFacetPortletPreferences.isFrequenciesVisible());
-		assetCategoriesSearchFacetDisplayContextBuilder.setFrequencyThreshold(
+		categorySearchFacetDisplayContextBuilder.setFrequencyThreshold(
 			categoryFacetPortletPreferences.getFrequencyThreshold());
-		assetCategoriesSearchFacetDisplayContextBuilder.setMaxTerms(
+		categorySearchFacetDisplayContextBuilder.setMaxTerms(
 			categoryFacetPortletPreferences.getMaxTerms());
-		assetCategoriesSearchFacetDisplayContextBuilder.
+		categorySearchFacetDisplayContextBuilder.
 			setPaginationStartParameterName(
 				_getPaginationStartParameterName(portletSharedSearchResponse));
-		assetCategoriesSearchFacetDisplayContextBuilder.setPortal(portal);
+		categorySearchFacetDisplayContextBuilder.setPortal(portal);
 
 		ThemeDisplay themeDisplay = portletSharedSearchResponse.getThemeDisplay(
 			renderRequest);
@@ -146,13 +143,13 @@ public class CategoryFacetPortlet extends MVCPortlet {
 		Group stagingGroup = group.getStagingGroup();
 
 		if (stagingGroup != null) {
-			assetCategoriesSearchFacetDisplayContextBuilder.setExcludedGroupId(
+			categorySearchFacetDisplayContextBuilder.setExcludedGroupId(
 				stagingGroup.getGroupId());
 		}
 
-		assetCategoriesSearchFacetDisplayContextBuilder.setLocale(
+		categorySearchFacetDisplayContextBuilder.setLocale(
 			themeDisplay.getLocale());
-		assetCategoriesSearchFacetDisplayContextBuilder.
+		categorySearchFacetDisplayContextBuilder.
 			setAssetCategoryPermissionChecker(
 				new AssetCategoryPermissionCheckerImpl(
 					themeDisplay.getPermissionChecker()));
@@ -160,16 +157,15 @@ public class CategoryFacetPortlet extends MVCPortlet {
 		String parameterName =
 			categoryFacetPortletPreferences.getParameterName();
 
-		assetCategoriesSearchFacetDisplayContextBuilder.setParameterName(
+		categorySearchFacetDisplayContextBuilder.setParameterName(
 			parameterName);
 
 		SearchOptionalUtil.copy(
 			() -> portletSharedSearchResponse.getParameterValues(
 				parameterName, renderRequest),
-			assetCategoriesSearchFacetDisplayContextBuilder::
-				setParameterValues);
+			categorySearchFacetDisplayContextBuilder::setParameterValues);
 
-		return assetCategoriesSearchFacetDisplayContextBuilder.build();
+		return categorySearchFacetDisplayContextBuilder.build();
 	}
 
 	private String _getAggregationName(RenderRequest renderRequest) {
