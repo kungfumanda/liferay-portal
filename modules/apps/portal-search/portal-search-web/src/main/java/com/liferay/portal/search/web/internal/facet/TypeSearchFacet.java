@@ -53,7 +53,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Eudaldo Alonso
  */
 @Component(immediate = true, service = SearchFacet.class)
-public class AssetEntriesSearchFacet extends BaseJSPSearchFacet {
+public class TypeSearchFacet extends BaseJSPSearchFacet {
 
 	public static String[] getEntryClassNames(String configuration) {
 		if (Validator.isNull(configuration)) {
@@ -81,7 +81,7 @@ public class AssetEntriesSearchFacet extends BaseJSPSearchFacet {
 			return null;
 		}
 
-		String id = AssetEntriesSearchFacet.class.getName();
+		String id = TypeSearchFacet.class.getName();
 
 		IntStream intStream = IntStream.range(0, jsonArray.length());
 
@@ -115,7 +115,7 @@ public class AssetEntriesSearchFacet extends BaseJSPSearchFacet {
 
 	@Override
 	public String getConfigurationJspPath() {
-		return "/facets/configuration/asset_entries.jsp";
+		return "/facets/configuration/type.jsp";
 	}
 
 	@Override
@@ -151,7 +151,7 @@ public class AssetEntriesSearchFacet extends BaseJSPSearchFacet {
 
 	@Override
 	public String getDisplayJspPath() {
-		return "/facets/view/asset_entries.jsp";
+		return "/facets/view/type.jsp";
 	}
 
 	@Override
@@ -230,7 +230,7 @@ public class AssetEntriesSearchFacet extends BaseJSPSearchFacet {
 		searchableAssetClassNamesProvider;
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		AssetEntriesSearchFacet.class);
+		TypeSearchFacet.class);
 
 	@Reference(target = "(osgi.web.symbolicname=com.liferay.portal.search.web)")
 	private ServletContext _servletContext;

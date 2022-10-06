@@ -24,8 +24,8 @@ import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.search.asset.SearchableAssetClassNamesProvider;
 import com.liferay.portal.search.searcher.SearchRequest;
 import com.liferay.portal.search.searcher.SearchResponse;
-import com.liferay.portal.search.web.internal.facet.display.context.AssetEntriesSearchFacetDisplayContext;
-import com.liferay.portal.search.web.internal.facet.display.context.builder.AssetEntriesSearchFacetDisplayContextBuilder;
+import com.liferay.portal.search.web.internal.facet.display.context.TypeSearchFacetDisplayContext;
+import com.liferay.portal.search.web.internal.facet.display.context.builder.TypeSearchFacetDisplayContextBuilder;
 import com.liferay.portal.search.web.internal.type.facet.constants.TypeFacetPortletKeys;
 import com.liferay.portal.search.web.internal.util.SearchOptionalUtil;
 import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchRequest;
@@ -83,15 +83,13 @@ public class TypeFacetPortlet extends MVCPortlet {
 		PortletSharedSearchResponse portletSharedSearchResponse =
 			portletSharedSearchRequest.search(renderRequest);
 
-		AssetEntriesSearchFacetDisplayContext
-			assetEntriesSearchFacetDisplayContext = _buildDisplayContext(
-				portletSharedSearchResponse, renderRequest);
+		TypeSearchFacetDisplayContext typeSearchFacetDisplayContext =
+			_buildDisplayContext(portletSharedSearchResponse, renderRequest);
 
 		renderRequest.setAttribute(
-			WebKeys.PORTLET_DISPLAY_CONTEXT,
-			assetEntriesSearchFacetDisplayContext);
+			WebKeys.PORTLET_DISPLAY_CONTEXT, typeSearchFacetDisplayContext);
 
-		if (assetEntriesSearchFacetDisplayContext.isRenderNothing()) {
+		if (typeSearchFacetDisplayContext.isRenderNothing()) {
 			renderRequest.setAttribute(
 				WebKeys.PORTLET_CONFIGURATOR_VISIBILITY, Boolean.TRUE);
 		}
@@ -112,7 +110,7 @@ public class TypeFacetPortlet extends MVCPortlet {
 	protected SearchableAssetClassNamesProvider
 		searchableAssetClassNamesProvider;
 
-	private AssetEntriesSearchFacetDisplayContext _buildDisplayContext(
+	private TypeSearchFacetDisplayContext _buildDisplayContext(
 		PortletSharedSearchResponse portletSharedSearchResponse,
 		RenderRequest renderRequest) {
 
@@ -126,49 +124,45 @@ public class TypeFacetPortlet extends MVCPortlet {
 					renderRequest),
 				searchableAssetClassNamesProvider);
 
-		AssetEntriesSearchFacetDisplayContextBuilder
-			assetEntriesSearchFacetDisplayContextBuilder =
-				_createAssetEntriesSearchFacetDisplayContextBuilder(
-					renderRequest);
+		TypeSearchFacetDisplayContextBuilder
+			typeSearchFacetDisplayContextBuilder =
+				_createTypeSearchFacetDisplayContextBuilder(renderRequest);
 
 		ThemeDisplay themeDisplay = portletSharedSearchResponse.getThemeDisplay(
 			renderRequest);
 
-		assetEntriesSearchFacetDisplayContextBuilder.setClassNames(
+		typeSearchFacetDisplayContextBuilder.setClassNames(
 			_getAssetTypesClassNames(
 				typeFacetPortletPreferences, themeDisplay));
 
-		assetEntriesSearchFacetDisplayContextBuilder.setFacet(facet);
-		assetEntriesSearchFacetDisplayContextBuilder.setFrequencyThreshold(
+		typeSearchFacetDisplayContextBuilder.setFacet(facet);
+		typeSearchFacetDisplayContextBuilder.setFrequencyThreshold(
 			typeFacetPortletPreferences.getFrequencyThreshold());
-		assetEntriesSearchFacetDisplayContextBuilder.setFrequenciesVisible(
+		typeSearchFacetDisplayContextBuilder.setFrequenciesVisible(
 			typeFacetPortletPreferences.isFrequenciesVisible());
-		assetEntriesSearchFacetDisplayContextBuilder.setLocale(
+		typeSearchFacetDisplayContextBuilder.setLocale(
 			themeDisplay.getLocale());
-		assetEntriesSearchFacetDisplayContextBuilder.
-			setPaginationStartParameterName(
-				_getPaginationStartParameterName(portletSharedSearchResponse));
+		typeSearchFacetDisplayContextBuilder.setPaginationStartParameterName(
+			_getPaginationStartParameterName(portletSharedSearchResponse));
 
 		String parameterName = typeFacetPortletPreferences.getParameterName();
 
-		assetEntriesSearchFacetDisplayContextBuilder.setParameterName(
-			parameterName);
+		typeSearchFacetDisplayContextBuilder.setParameterName(parameterName);
 
 		SearchOptionalUtil.copy(
 			() -> _getParameterValuesOptional(
 				parameterName, portletSharedSearchResponse, renderRequest),
-			assetEntriesSearchFacetDisplayContextBuilder::setParameterValues);
+			typeSearchFacetDisplayContextBuilder::setParameterValues);
 
-		return assetEntriesSearchFacetDisplayContextBuilder.build();
+		return typeSearchFacetDisplayContextBuilder.build();
 	}
 
-	private AssetEntriesSearchFacetDisplayContextBuilder
-		_createAssetEntriesSearchFacetDisplayContextBuilder(
+	private TypeSearchFacetDisplayContextBuilder
+		_createTypeSearchFacetDisplayContextBuilder(
 			RenderRequest renderRequest) {
 
 		try {
-			return new AssetEntriesSearchFacetDisplayContextBuilder(
-				renderRequest);
+			return new TypeSearchFacetDisplayContextBuilder(renderRequest);
 		}
 		catch (ConfigurationException configurationException) {
 			throw new RuntimeException(configurationException);

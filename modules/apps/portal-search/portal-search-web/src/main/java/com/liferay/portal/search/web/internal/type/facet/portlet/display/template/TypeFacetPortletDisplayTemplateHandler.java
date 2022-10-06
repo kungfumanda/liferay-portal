@@ -20,8 +20,8 @@ import com.liferay.portal.kernel.template.TemplateHandler;
 import com.liferay.portal.kernel.template.TemplateVariableGroup;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
-import com.liferay.portal.search.web.internal.facet.display.context.AssetEntriesSearchFacetDisplayContext;
 import com.liferay.portal.search.web.internal.facet.display.context.BucketDisplayContext;
+import com.liferay.portal.search.web.internal.facet.display.context.TypeSearchFacetDisplayContext;
 import com.liferay.portal.search.web.internal.type.facet.constants.TypeFacetPortletKeys;
 import com.liferay.portlet.display.template.constants.PortletDisplayTemplateConstants;
 
@@ -92,9 +92,8 @@ public class TypeFacetPortletDisplayTemplateHandler
 			"term", BucketDisplayContext.class,
 			PortletDisplayTemplateConstants.ENTRY, "getBucketText()");
 		templateVariableGroup.addVariable(
-			"type-facet-display-context",
-			AssetEntriesSearchFacetDisplayContext.class,
-			"assetEntriesSearchFacetDisplayContext");
+			"type-facet-display-context", TypeSearchFacetDisplayContext.class,
+			"typeSearchFacetDisplayContext");
 
 		TemplateVariableGroup categoriesServicesTemplateVariableGroup =
 			new TemplateVariableGroup(

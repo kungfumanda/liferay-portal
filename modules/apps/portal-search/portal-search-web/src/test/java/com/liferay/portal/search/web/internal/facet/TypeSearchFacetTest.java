@@ -34,7 +34,7 @@ import org.mockito.Mockito;
 /**
  * @author Adam Brandizzi
  */
-public class AssetEntriesSearchFacetTest {
+public class TypeSearchFacetTest {
 
 	@ClassRule
 	@Rule
@@ -51,7 +51,7 @@ public class AssetEntriesSearchFacetTest {
 
 		_searchEngineHelper = Mockito.mock(SearchEngineHelper.class);
 
-		assetEntriesSearchFacet = new AssetEntriesSearchFacet() {
+		typeSearchFacet = new TypeSearchFacet() {
 			{
 				searchableAssetClassNamesProvider =
 					new SearchableAssetClassNamesProviderImpl() {
@@ -84,7 +84,7 @@ public class AssetEntriesSearchFacetTest {
 
 		Assert.assertArrayEquals(
 			assetEntryClassNames,
-			assetEntriesSearchFacet.getAssetTypes(RandomTestUtil.randomLong()));
+			typeSearchFacet.getAssetTypes(RandomTestUtil.randomLong()));
 	}
 
 	@Test
@@ -97,7 +97,7 @@ public class AssetEntriesSearchFacetTest {
 
 		Assert.assertArrayEquals(
 			new String[] {CLASS_NAME_2},
-			assetEntriesSearchFacet.getAssetTypes(RandomTestUtil.randomLong()));
+			typeSearchFacet.getAssetTypes(RandomTestUtil.randomLong()));
 	}
 
 	@Test
@@ -111,7 +111,7 @@ public class AssetEntriesSearchFacetTest {
 
 		Assert.assertArrayEquals(
 			assetEntryClassNames,
-			assetEntriesSearchFacet.getAssetTypes(RandomTestUtil.randomLong()));
+			typeSearchFacet.getAssetTypes(RandomTestUtil.randomLong()));
 	}
 
 	@Test
@@ -127,16 +127,16 @@ public class AssetEntriesSearchFacetTest {
 
 		Assert.assertArrayEquals(
 			new String[] {CLASS_NAME_2},
-			assetEntriesSearchFacet.getAssetTypes(RandomTestUtil.randomLong()));
+			typeSearchFacet.getAssetTypes(RandomTestUtil.randomLong()));
 	}
 
 	protected static final String CLASS_NAME_1 = "com.liferay.model.Model1";
 
 	protected static final String CLASS_NAME_2 = "com.liferay.model.Model2";
 
-	protected AssetEntriesSearchFacet assetEntriesSearchFacet;
 	protected AssetRendererFactory<?> assetRendererFactory1;
 	protected AssetRendererFactory<?> assetRendererFactory2;
+	protected TypeSearchFacet typeSearchFacet;
 
 	private void _mockAssetRendererFactoryGetClassName(
 		AssetRendererFactory<?> assetRendererFactory, String className) {
