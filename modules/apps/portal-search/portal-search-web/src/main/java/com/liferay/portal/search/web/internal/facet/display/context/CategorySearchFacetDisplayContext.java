@@ -32,9 +32,9 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author Lino Alves
  */
-public class AssetCategoriesSearchFacetDisplayContext implements Serializable {
+public class CategorySearchFacetDisplayContext implements Serializable {
 
-	public AssetCategoriesSearchFacetDisplayContext(
+	public CategorySearchFacetDisplayContext(
 			HttpServletRequest httpServletRequest)
 		throws ConfigurationException {
 

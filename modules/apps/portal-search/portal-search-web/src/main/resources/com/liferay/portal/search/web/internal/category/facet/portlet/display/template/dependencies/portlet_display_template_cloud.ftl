@@ -1,13 +1,13 @@
 <@liferay_ui["panel-container"]
 	extended=true
-	id="${namespace + 'facetAssetCategoriesPanelContainer'}"
+	id="${namespace + 'facetCategoryPanelContainer'}"
 	markupView="lexicon"
 	persistState=true
 >
 	<@liferay_ui.panel
 		collapsible=true
 		cssClass="search-facet"
-		id="${namespace + 'facetAssetCategoriesPanel'}"
+		id="${namespace + 'facetCategoryPanel'}"
 		markupView="lexicon"
 		persistState=true
 		title="category"
@@ -29,7 +29,7 @@
 			</#if>
 		</ul>
 
-		<#if !assetCategoriesSearchFacetDisplayContext.isNothingSelected()>
+		<#if !categorySearchFacetDisplayContext.isNothingSelected()>
 			<@liferay_aui.button
 				cssClass="btn-link btn-unstyled facet-clear-btn"
 				onClick="Liferay.Search.FacetUtil.clearSelections(event);"

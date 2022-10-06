@@ -28,8 +28,8 @@ import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Tuple;
-import com.liferay.portal.search.web.internal.facet.display.context.AssetCategoriesSearchFacetDisplayContext;
 import com.liferay.portal.search.web.internal.facet.display.context.BucketDisplayContext;
+import com.liferay.portal.search.web.internal.facet.display.context.CategorySearchFacetDisplayContext;
 
 import java.io.Serializable;
 
@@ -51,39 +51,35 @@ import javax.portlet.RenderRequest;
 /**
  * @author Lino Alves
  */
-public class AssetCategoriesSearchFacetDisplayContextBuilder
-	implements Serializable {
+public class CategorySearchFacetDisplayContextBuilder implements Serializable {
 
-	public AssetCategoriesSearchFacetDisplayContextBuilder(
+	public CategorySearchFacetDisplayContextBuilder(
 		RenderRequest renderRequest) {
 
 		_renderRequest = renderRequest;
 	}
 
-	public AssetCategoriesSearchFacetDisplayContext build() {
+	public CategorySearchFacetDisplayContext build() {
 		_buckets = _collectBuckets(_facet);
 
-		AssetCategoriesSearchFacetDisplayContext
-			assetCategoriesSearchFacetDisplayContext =
-				_createAssetCategoriesSearchFacetDisplayContext();
+		CategorySearchFacetDisplayContext categorySearchFacetDisplayContext =
+			_createCategorySearchFacetDisplayContext();
 
-		assetCategoriesSearchFacetDisplayContext.setCloud(_isCloud());
-		assetCategoriesSearchFacetDisplayContext.setNothingSelected(
+		categorySearchFacetDisplayContext.setCloud(_isCloud());
+		categorySearchFacetDisplayContext.setNothingSelected(
 			isNothingSelected());
-		assetCategoriesSearchFacetDisplayContext.
-			setPaginationStartParameterName(_paginationStartParameterName);
-		assetCategoriesSearchFacetDisplayContext.setParameterName(
-			_parameterName);
-		assetCategoriesSearchFacetDisplayContext.setParameterValue(
+		categorySearchFacetDisplayContext.setPaginationStartParameterName(
+			_paginationStartParameterName);
+		categorySearchFacetDisplayContext.setParameterName(_parameterName);
+		categorySearchFacetDisplayContext.setParameterValue(
 			getFirstParameterValueString());
-		assetCategoriesSearchFacetDisplayContext.setParameterValues(
+		categorySearchFacetDisplayContext.setParameterValues(
 			getParameterValueStrings());
-		assetCategoriesSearchFacetDisplayContext.setRenderNothing(
-			isRenderNothing());
+		categorySearchFacetDisplayContext.setRenderNothing(isRenderNothing());
 
-		setBucketDisplayContexts(assetCategoriesSearchFacetDisplayContext);
+		setBucketDisplayContexts(categorySearchFacetDisplayContext);
 
-		return assetCategoriesSearchFacetDisplayContext;
+		return categorySearchFacetDisplayContext;
 	}
 
 	public long getExcludedGroupId() {
@@ -248,11 +244,10 @@ public class AssetCategoriesSearchFacetDisplayContextBuilder
 	}
 
 	protected void setBucketDisplayContexts(
-		AssetCategoriesSearchFacetDisplayContext
-			assetCategoriesSearchFacetDisplayContext) {
+		CategorySearchFacetDisplayContext categorySearchFacetDisplayContext) {
 
 		if (_buckets.isEmpty()) {
-			assetCategoriesSearchFacetDisplayContext.setBucketDisplayContexts(
+			categorySearchFacetDisplayContext.setBucketDisplayContexts(
 				getEmptyBucketDisplayContexts());
 
 			return;
@@ -350,11 +345,11 @@ public class AssetCategoriesSearchFacetDisplayContextBuilder
 				vocabularyName, vocabularyTermDisplayContexts);
 		}
 
-		assetCategoriesSearchFacetDisplayContext.setBucketDisplayContexts(
+		categorySearchFacetDisplayContext.setBucketDisplayContexts(
 			bucketDisplayContexts);
-		assetCategoriesSearchFacetDisplayContext.setBucketDisplayContextsMap(
+		categorySearchFacetDisplayContext.setBucketDisplayContextsMap(
 			bucketDisplayContextMap);
-		assetCategoriesSearchFacetDisplayContext.setVocabularyNames(
+		categorySearchFacetDisplayContext.setVocabularyNames(
 			_sortVocabularyNames(vocabularyNames));
 	}
 
@@ -396,11 +391,11 @@ public class AssetCategoriesSearchFacetDisplayContextBuilder
 		return buckets;
 	}
 
-	private AssetCategoriesSearchFacetDisplayContext
-		_createAssetCategoriesSearchFacetDisplayContext() {
+	private CategorySearchFacetDisplayContext
+		_createCategorySearchFacetDisplayContext() {
 
 		try {
-			return new AssetCategoriesSearchFacetDisplayContext(
+			return new CategorySearchFacetDisplayContext(
 				_portal.getHttpServletRequest(_renderRequest));
 		}
 		catch (ConfigurationException configurationException) {

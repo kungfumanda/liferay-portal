@@ -17,8 +17,8 @@
 <%@ include file="/init.jsp" %>
 
 <%@ page import="com.liferay.asset.kernel.service.AssetCategoryLocalServiceUtil" %><%@
-page import="com.liferay.portal.search.web.internal.facet.display.context.AssetCategoriesSearchFacetDisplayContext" %><%@
 page import="com.liferay.portal.search.web.internal.facet.display.context.BucketDisplayContext" %><%@
+page import="com.liferay.portal.search.web.internal.facet.display.context.CategorySearchFacetDisplayContext" %><%@
 page import="com.liferay.portal.search.web.internal.facet.display.context.FolderSearchFacetDisplayContext" %><%@
 page import="com.liferay.portal.search.web.internal.facet.display.context.FolderSearcher" %><%@
 page import="com.liferay.portal.search.web.internal.facet.display.context.FolderTitleLookupImpl" %><%@
@@ -26,8 +26,8 @@ page import="com.liferay.portal.search.web.internal.facet.display.context.ScopeS
 page import="com.liferay.portal.search.web.internal.facet.display.context.TagSearchFacetDisplayContext" %><%@
 page import="com.liferay.portal.search.web.internal.facet.display.context.TypeSearchFacetDisplayContext" %><%@
 page import="com.liferay.portal.search.web.internal.facet.display.context.UserSearchFacetDisplayContext" %><%@
-page import="com.liferay.portal.search.web.internal.facet.display.context.builder.AssetCategoriesSearchFacetDisplayContextBuilder" %><%@
 page import="com.liferay.portal.search.web.internal.facet.display.context.builder.AssetCategoryPermissionCheckerImpl" %><%@
+page import="com.liferay.portal.search.web.internal.facet.display.context.builder.CategorySearchFacetDisplayContextBuilder" %><%@
 page import="com.liferay.portal.search.web.internal.facet.display.context.builder.FolderSearchFacetDisplayContextBuilder" %><%@
 page import="com.liferay.portal.search.web.internal.facet.display.context.builder.ScopeSearchFacetDisplayContextBuilder" %><%@
 page import="com.liferay.portal.search.web.internal.facet.display.context.builder.TagSearchFacetDisplayContextBuilder" %><%@

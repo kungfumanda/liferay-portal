@@ -33,16 +33,16 @@ page import="com.liferay.portal.kernel.util.StringUtil" %><%@
 page import="com.liferay.portal.search.web.internal.category.facet.configuration.CategoryFacetPortletInstanceConfiguration" %><%@
 page import="com.liferay.portal.search.web.internal.category.facet.portlet.CategoryFacetPortletPreferences" %><%@
 page import="com.liferay.portal.search.web.internal.category.facet.portlet.CategoryFacetPortletPreferencesImpl" %><%@
-page import="com.liferay.portal.search.web.internal.facet.display.context.AssetCategoriesSearchFacetDisplayContext" %><%@
 page import="com.liferay.portal.search.web.internal.facet.display.context.BucketDisplayContext" %><%@
+page import="com.liferay.portal.search.web.internal.facet.display.context.CategorySearchFacetDisplayContext" %><%@
 page import="com.liferay.portal.search.web.internal.util.PortletPreferencesJspUtil" %>
 
 <portlet:defineObjects />
 
 <%
-AssetCategoriesSearchFacetDisplayContext assetCategoriesSearchFacetDisplayContext = new AssetCategoriesSearchFacetDisplayContext(request);
+CategorySearchFacetDisplayContext categorySearchFacetDisplayContext = new CategorySearchFacetDisplayContext(request);
 
-CategoryFacetPortletInstanceConfiguration categoryFacetPortletInstanceConfiguration = assetCategoriesSearchFacetDisplayContext.getCategoryFacetPortletInstanceConfiguration();
+CategoryFacetPortletInstanceConfiguration categoryFacetPortletInstanceConfiguration = categorySearchFacetDisplayContext.getCategoryFacetPortletInstanceConfiguration();
 
 CategoryFacetPortletPreferences categoryFacetPortletPreferences = new CategoryFacetPortletPreferencesImpl(java.util.Optional.ofNullable(portletPreferences));
 %>
@@ -69,7 +69,7 @@ CategoryFacetPortletPreferences categoryFacetPortletPreferences = new CategoryFa
 					<liferay-template:template-selector
 						className="<%= BucketDisplayContext.class.getName() %>"
 						displayStyle="<%= categoryFacetPortletInstanceConfiguration.displayStyle() %>"
-						displayStyleGroupId="<%= assetCategoriesSearchFacetDisplayContext.getDisplayStyleGroupId() %>"
+						displayStyleGroupId="<%= categorySearchFacetDisplayContext.getDisplayStyleGroupId() %>"
 						refreshURL="<%= configurationRenderURL %>"
 						showEmptyOption="<%= true %>"
 					/>
@@ -93,7 +93,7 @@ CategoryFacetPortletPreferences categoryFacetPortletPreferences = new CategoryFa
 						module="js/components/SelectVocabularies"
 						props='<%=
 							HashMapBuilder.<String, Object>put(
-								"disabled", assetCategoriesSearchFacetDisplayContext.isLegacyFieldSelected()
+								"disabled", categorySearchFacetDisplayContext.isLegacyFieldSelected()
 							).put(
 								"initialSelectedVocabularyIds", StringUtil.merge(categoryFacetPortletPreferences.getVocabularyIds())
 							).put(
@@ -107,7 +107,7 @@ CategoryFacetPortletPreferences categoryFacetPortletPreferences = new CategoryFa
 					/>
 				</div>
 
-				<c:if test="<%= assetCategoriesSearchFacetDisplayContext.isLegacyFieldSelected() %>">
+				<c:if test="<%= categorySearchFacetDisplayContext.isLegacyFieldSelected() %>">
 					<p class="mt-3 sheet-text">
 						<liferay-ui:message key="select-vocabularies-configuration-disabled-description" />
 
