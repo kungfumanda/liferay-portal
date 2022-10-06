@@ -1,4 +1,3 @@
-<%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -23,29 +22,29 @@ if (Validator.isNull(fieldParam)) {
 	fieldParam = String.valueOf(searchScopeGroupId);
 }
 
-ScopeSearchFacetDisplayContextBuilder scopeSearchFacetDisplayContextBuilder = new ScopeSearchFacetDisplayContextBuilder(renderRequest);
+SiteSearchFacetDisplayContextBuilder siteSearchFacetDisplayContextBuilder = new SiteSearchFacetDisplayContextBuilder(renderRequest);
 
-scopeSearchFacetDisplayContextBuilder.setFacet(facet);
+siteSearchFacetDisplayContextBuilder.setFacet(facet);
 
 if (searchScopeGroupId != 0) {
-	scopeSearchFacetDisplayContextBuilder.setFilteredGroupIds(new long[] {searchScopeGroupId});
+	siteSearchFacetDisplayContextBuilder.setFilteredGroupIds(new long[] {searchScopeGroupId});
 }
 
-scopeSearchFacetDisplayContextBuilder.setFrequenciesVisible(dataJSONObject.getBoolean("showAssetCount", true));
-scopeSearchFacetDisplayContextBuilder.setFrequencyThreshold(dataJSONObject.getInt("frequencyThreshold"));
-scopeSearchFacetDisplayContextBuilder.setGroupLocalService(GroupLocalServiceUtil.getService());
-scopeSearchFacetDisplayContextBuilder.setLanguage(LanguageUtil.getLanguage());
-scopeSearchFacetDisplayContextBuilder.setLocale(locale);
-scopeSearchFacetDisplayContextBuilder.setMaxTerms(dataJSONObject.getInt("maxTerms"));
-scopeSearchFacetDisplayContextBuilder.setParameterName(facet.getFieldId());
-scopeSearchFacetDisplayContextBuilder.setParameterValue(fieldParam);
+siteSearchFacetDisplayContextBuilder.setFrequenciesVisible(dataJSONObject.getBoolean("showAssetCount", true));
+siteSearchFacetDisplayContextBuilder.setFrequencyThreshold(dataJSONObject.getInt("frequencyThreshold"));
+siteSearchFacetDisplayContextBuilder.setGroupLocalService(GroupLocalServiceUtil.getService());
+siteSearchFacetDisplayContextBuilder.setLanguage(LanguageUtil.getLanguage());
+siteSearchFacetDisplayContextBuilder.setLocale(locale);
+siteSearchFacetDisplayContextBuilder.setMaxTerms(dataJSONObject.getInt("maxTerms"));
+siteSearchFacetDisplayContextBuilder.setParameterName(facet.getFieldId());
+siteSearchFacetDisplayContextBuilder.setParameterValue(fieldParam);
 
-ScopeSearchFacetDisplayContext scopeSearchFacetDisplayContext = scopeSearchFacetDisplayContextBuilder.build();
+SiteSearchFacetDisplayContext siteSearchFacetDisplayContext = siteSearchFacetDisplayContextBuilder.build();
 %>
 
 <c:choose>
-	<c:when test="<%= scopeSearchFacetDisplayContext.isRenderNothing() %>">
-		<aui:input autocomplete="off" name="<%= HtmlUtil.escapeAttribute(scopeSearchFacetDisplayContext.getParameterName()) %>" type="hidden" value="<%= scopeSearchFacetDisplayContext.getParameterValue() %>" />
+	<c:when test="<%= siteSearchFacetDisplayContext.isRenderNothing() %>">
+		<aui:input autocomplete="off" name="<%= HtmlUtil.escapeAttribute(siteSearchFacetDisplayContext.getParameterName()) %>" type="hidden" value="<%= siteSearchFacetDisplayContext.getParameterValue() %>" />
 	</c:when>
 	<c:otherwise>
 		<div class="panel panel-secondary">
@@ -57,15 +56,15 @@ ScopeSearchFacetDisplayContext scopeSearchFacetDisplayContext = scopeSearchFacet
 
 			<div class="panel-body">
 				<div class="<%= cssClass %>" data-facetFieldName="<%= HtmlUtil.escapeAttribute(facet.getFieldId()) %>" id="<%= randomNamespace %>facet">
-					<aui:input autocomplete="off" name="<%= HtmlUtil.escapeAttribute(scopeSearchFacetDisplayContext.getParameterName()) %>" type="hidden" value="<%= scopeSearchFacetDisplayContext.getParameterValue() %>" />
+					<aui:input autocomplete="off" name="<%= HtmlUtil.escapeAttribute(siteSearchFacetDisplayContext.getParameterName()) %>" type="hidden" value="<%= siteSearchFacetDisplayContext.getParameterValue() %>" />
 
 					<ul class="list-unstyled scopes">
 						<li class="default facet-value">
-							<a class="<%= scopeSearchFacetDisplayContext.isNothingSelected() ? "facet-term-selected" : "facet-term-unselected" %>" data-value="0" href="javascript:void(0);"><liferay-ui:message key="<%= HtmlUtil.escape(facetConfiguration.getLabel()) %>" /></a>
+							<a class="<%= siteSearchFacetDisplayContext.isNothingSelected() ? "facet-term-selected" : "facet-term-unselected" %>" data-value="0" href="javascript:void(0);"><liferay-ui:message key="<%= HtmlUtil.escape(facetConfiguration.getLabel()) %>" /></a>
 						</li>
 
 						<%
-						List<BucketDisplayContext> bucketDisplayContexts = scopeSearchFacetDisplayContext.getBucketDisplayContexts();
+						List<BucketDisplayContext> bucketDisplayContexts = siteSearchFacetDisplayContext.getBucketDisplayContexts();
 
 						for (BucketDisplayContext bucketDisplayContext : bucketDisplayContexts) {
 						%>

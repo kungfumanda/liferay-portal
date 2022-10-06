@@ -24,7 +24,7 @@ taglib uri="http://liferay.com/tld/template" prefix="liferay-template" %>
 <%@ page import="com.liferay.portal.kernel.util.Constants" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %><%@
 page import="com.liferay.portal.search.web.internal.facet.display.context.BucketDisplayContext" %><%@
-page import="com.liferay.portal.search.web.internal.facet.display.context.ScopeSearchFacetDisplayContext" %><%@
+page import="com.liferay.portal.search.web.internal.facet.display.context.SiteSearchFacetDisplayContext" %><%@
 page import="com.liferay.portal.search.web.internal.site.facet.configuration.SiteFacetPortletInstanceConfiguration" %><%@
 page import="com.liferay.portal.search.web.internal.site.facet.portlet.SiteFacetPortletPreferences" %><%@
 page import="com.liferay.portal.search.web.internal.site.facet.portlet.SiteFacetPortletPreferencesImpl" %><%@
@@ -33,9 +33,9 @@ page import="com.liferay.portal.search.web.internal.util.PortletPreferencesJspUt
 <portlet:defineObjects />
 
 <%
-ScopeSearchFacetDisplayContext scopeSearchFacetDisplayContext = (ScopeSearchFacetDisplayContext)java.util.Objects.requireNonNull(request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT));
+SiteSearchFacetDisplayContext siteSearchFacetDisplayContext = (SiteSearchFacetDisplayContext)java.util.Objects.requireNonNull(request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT));
 
-SiteFacetPortletInstanceConfiguration siteFacetPortletInstanceConfiguration = scopeSearchFacetDisplayContext.getSiteFacetPortletInstanceConfiguration();
+SiteFacetPortletInstanceConfiguration siteFacetPortletInstanceConfiguration = siteSearchFacetDisplayContext.getSiteFacetPortletInstanceConfiguration();
 
 SiteFacetPortletPreferences siteFacetPortletPreferences = new SiteFacetPortletPreferencesImpl(java.util.Optional.ofNullable(portletPreferences));
 %>
@@ -62,7 +62,7 @@ SiteFacetPortletPreferences siteFacetPortletPreferences = new SiteFacetPortletPr
 					<liferay-template:template-selector
 						className="<%= BucketDisplayContext.class.getName() %>"
 						displayStyle="<%= siteFacetPortletInstanceConfiguration.displayStyle() %>"
-						displayStyleGroupId="<%= scopeSearchFacetDisplayContext.getDisplayStyleGroupId() %>"
+						displayStyleGroupId="<%= siteSearchFacetDisplayContext.getDisplayStyleGroupId() %>"
 						refreshURL="<%= configurationRenderURL %>"
 						showEmptyOption="<%= true %>"
 					/>

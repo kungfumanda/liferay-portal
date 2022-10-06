@@ -26,8 +26,8 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.search.searcher.SearchRequest;
 import com.liferay.portal.search.searcher.SearchResponse;
-import com.liferay.portal.search.web.internal.facet.display.context.ScopeSearchFacetDisplayContext;
-import com.liferay.portal.search.web.internal.facet.display.context.builder.ScopeSearchFacetDisplayContextBuilder;
+import com.liferay.portal.search.web.internal.facet.display.context.SiteSearchFacetDisplayContext;
+import com.liferay.portal.search.web.internal.facet.display.context.builder.SiteSearchFacetDisplayContextBuilder;
 import com.liferay.portal.search.web.internal.site.facet.constants.SiteFacetPortletKeys;
 import com.liferay.portal.search.web.internal.util.SearchOptionalUtil;
 import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchRequest;
@@ -90,7 +90,7 @@ public class SiteFacetPortlet extends MVCPortlet {
 		PortletSharedSearchResponse portletSharedSearchResponse =
 			portletSharedSearchRequest.search(renderRequest);
 
-		ScopeSearchFacetDisplayContext siteFacetPortletDisplayContext =
+		SiteSearchFacetDisplayContext siteFacetPortletDisplayContext =
 			_buildDisplayContext(portletSharedSearchResponse, renderRequest);
 
 		renderRequest.setAttribute(
@@ -116,7 +116,7 @@ public class SiteFacetPortlet extends MVCPortlet {
 	@Reference
 	protected PortletSharedSearchRequest portletSharedSearchRequest;
 
-	private ScopeSearchFacetDisplayContext _buildDisplayContext(
+	private SiteSearchFacetDisplayContext _buildDisplayContext(
 		PortletSharedSearchResponse portletSharedSearchResponse,
 		RenderRequest renderRequest) {
 
@@ -128,51 +128,51 @@ public class SiteFacetPortlet extends MVCPortlet {
 				portletSharedSearchResponse.getPortletPreferences(
 					renderRequest));
 
-		ScopeSearchFacetDisplayContextBuilder
-			scopeSearchFacetDisplayContextBuilder =
-				_createScopeSearchFacetDisplayContextBuilder(renderRequest);
+		SiteSearchFacetDisplayContextBuilder
+			siteSearchFacetDisplayContextBuilder =
+				_createSiteSearchFacetDisplayContextBuilder(renderRequest);
 
-		scopeSearchFacetDisplayContextBuilder.setFacet(facet);
+		siteSearchFacetDisplayContextBuilder.setFacet(facet);
 
 		SearchOptionalUtil.copy(
 			() -> _getFilteredGroupIdsOptional(portletSharedSearchResponse),
-			scopeSearchFacetDisplayContextBuilder::setFilteredGroupIds);
+			siteSearchFacetDisplayContextBuilder::setFilteredGroupIds);
 
-		scopeSearchFacetDisplayContextBuilder.setFrequencyThreshold(
+		siteSearchFacetDisplayContextBuilder.setFrequencyThreshold(
 			siteFacetPortletPreferences.getFrequencyThreshold());
-		scopeSearchFacetDisplayContextBuilder.setFrequenciesVisible(
+		siteSearchFacetDisplayContextBuilder.setFrequenciesVisible(
 			siteFacetPortletPreferences.isFrequenciesVisible());
-		scopeSearchFacetDisplayContextBuilder.setGroupLocalService(
+		siteSearchFacetDisplayContextBuilder.setGroupLocalService(
 			groupLocalService);
-		scopeSearchFacetDisplayContextBuilder.setLanguage(language);
-		scopeSearchFacetDisplayContextBuilder.setLocale(
+		siteSearchFacetDisplayContextBuilder.setLanguage(language);
+		siteSearchFacetDisplayContextBuilder.setLocale(
 			_getLocale(portletSharedSearchResponse, renderRequest));
-		scopeSearchFacetDisplayContextBuilder.setMaxTerms(
+		siteSearchFacetDisplayContextBuilder.setMaxTerms(
 			siteFacetPortletPreferences.getMaxTerms());
-		scopeSearchFacetDisplayContextBuilder.setPaginationStartParameterName(
+		siteSearchFacetDisplayContextBuilder.setPaginationStartParameterName(
 			_getPaginationStartParameterName(portletSharedSearchResponse));
 
 		String parameterName = siteFacetPortletPreferences.getParameterName();
 
-		scopeSearchFacetDisplayContextBuilder.setParameterName(parameterName);
+		siteSearchFacetDisplayContextBuilder.setParameterName(parameterName);
 
 		SearchOptionalUtil.copy(
 			() -> _getParameterValuesOptional(
 				parameterName, portletSharedSearchResponse, renderRequest),
-			scopeSearchFacetDisplayContextBuilder::setParameterValues);
+			siteSearchFacetDisplayContextBuilder::setParameterValues);
 
-		scopeSearchFacetDisplayContextBuilder.setRequest(
+		siteSearchFacetDisplayContextBuilder.setRequest(
 			_getHttpServletRequest(renderRequest));
 
-		return scopeSearchFacetDisplayContextBuilder.build();
+		return siteSearchFacetDisplayContextBuilder.build();
 	}
 
-	private ScopeSearchFacetDisplayContextBuilder
-		_createScopeSearchFacetDisplayContextBuilder(
+	private SiteSearchFacetDisplayContextBuilder
+		_createSiteSearchFacetDisplayContextBuilder(
 			RenderRequest renderRequest) {
 
 		try {
-			return new ScopeSearchFacetDisplayContextBuilder(renderRequest);
+			return new SiteSearchFacetDisplayContextBuilder(renderRequest);
 		}
 		catch (ConfigurationException configurationException) {
 			throw new RuntimeException(configurationException);
