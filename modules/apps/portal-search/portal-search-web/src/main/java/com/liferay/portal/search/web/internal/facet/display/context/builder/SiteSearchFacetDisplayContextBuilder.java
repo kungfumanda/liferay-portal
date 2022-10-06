@@ -29,7 +29,7 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.search.web.internal.facet.display.context.BucketDisplayContext;
-import com.liferay.portal.search.web.internal.facet.display.context.ScopeSearchFacetDisplayContext;
+import com.liferay.portal.search.web.internal.facet.display.context.SiteSearchFacetDisplayContext;
 import com.liferay.portal.search.web.internal.site.facet.configuration.SiteFacetPortletInstanceConfiguration;
 
 import java.util.ArrayList;
@@ -47,9 +47,9 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author André de Oliveira
  */
-public class ScopeSearchFacetDisplayContextBuilder {
+public class SiteSearchFacetDisplayContextBuilder {
 
-	public ScopeSearchFacetDisplayContextBuilder(RenderRequest renderRequest)
+	public SiteSearchFacetDisplayContextBuilder(RenderRequest renderRequest)
 		throws ConfigurationException {
 
 		_themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
@@ -62,27 +62,27 @@ public class ScopeSearchFacetDisplayContextBuilder {
 				SiteFacetPortletInstanceConfiguration.class);
 	}
 
-	public ScopeSearchFacetDisplayContext build() {
-		ScopeSearchFacetDisplayContext scopeSearchFacetDisplayContext =
-			new ScopeSearchFacetDisplayContext();
+	public SiteSearchFacetDisplayContext build() {
+		SiteSearchFacetDisplayContext siteSearchFacetDisplayContext =
+			new SiteSearchFacetDisplayContext();
 
-		scopeSearchFacetDisplayContext.setDisplayStyleGroupId(
+		siteSearchFacetDisplayContext.setDisplayStyleGroupId(
 			getDisplayStyleGroupId());
-		scopeSearchFacetDisplayContext.setNothingSelected(isNothingSelected());
-		scopeSearchFacetDisplayContext.setPaginationStartParameterName(
+		siteSearchFacetDisplayContext.setNothingSelected(isNothingSelected());
+		siteSearchFacetDisplayContext.setPaginationStartParameterName(
 			_paginationStartParameterName);
-		scopeSearchFacetDisplayContext.setParameterName(_parameterName);
-		scopeSearchFacetDisplayContext.setParameterValue(
+		siteSearchFacetDisplayContext.setParameterName(_parameterName);
+		siteSearchFacetDisplayContext.setParameterValue(
 			getFirstParameterValueString());
-		scopeSearchFacetDisplayContext.setParameterValues(
+		siteSearchFacetDisplayContext.setParameterValues(
 			getParameterValueStrings());
-		scopeSearchFacetDisplayContext.setRenderNothing(isRenderNothing());
-		scopeSearchFacetDisplayContext.setSiteFacetPortletInstanceConfiguration(
+		siteSearchFacetDisplayContext.setRenderNothing(isRenderNothing());
+		siteSearchFacetDisplayContext.setSiteFacetPortletInstanceConfiguration(
 			_siteFacetPortletInstanceConfiguration);
-		scopeSearchFacetDisplayContext.setBucketDisplayContexts(
+		siteSearchFacetDisplayContext.setBucketDisplayContexts(
 			buildBucketDisplayContexts(getTermCollectors()));
 
-		return scopeSearchFacetDisplayContext;
+		return siteSearchFacetDisplayContext;
 	}
 
 	public void setFacet(Facet facet) {

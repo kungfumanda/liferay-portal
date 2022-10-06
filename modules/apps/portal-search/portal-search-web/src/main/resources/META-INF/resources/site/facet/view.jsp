@@ -27,30 +27,30 @@ page import="com.liferay.portal.kernel.util.HashMapBuilder" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %><%@
 page import="com.liferay.portal.search.web.internal.facet.display.context.BucketDisplayContext" %><%@
-page import="com.liferay.portal.search.web.internal.facet.display.context.ScopeSearchFacetDisplayContext" %><%@
+page import="com.liferay.portal.search.web.internal.facet.display.context.SiteSearchFacetDisplayContext" %><%@
 page import="com.liferay.portal.search.web.internal.site.facet.configuration.SiteFacetPortletInstanceConfiguration" %>
 
 <portlet:defineObjects />
 
 <%
-ScopeSearchFacetDisplayContext scopeSearchFacetDisplayContext = (ScopeSearchFacetDisplayContext)java.util.Objects.requireNonNull(request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT));
+SiteSearchFacetDisplayContext siteSearchFacetDisplayContext = (SiteSearchFacetDisplayContext)java.util.Objects.requireNonNull(request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT));
 
-if (scopeSearchFacetDisplayContext.isRenderNothing()) {
+if (siteSearchFacetDisplayContext.isRenderNothing()) {
 	return;
 }
 
-SiteFacetPortletInstanceConfiguration siteFacetPortletInstanceConfiguration = scopeSearchFacetDisplayContext.getSiteFacetPortletInstanceConfiguration();
+SiteFacetPortletInstanceConfiguration siteFacetPortletInstanceConfiguration = siteSearchFacetDisplayContext.getSiteFacetPortletInstanceConfiguration();
 %>
 
 <c:choose>
-	<c:when test="<%= scopeSearchFacetDisplayContext.isRenderNothing() %>">
-		<aui:input autocomplete="off" name="<%= HtmlUtil.escapeAttribute(scopeSearchFacetDisplayContext.getParameterName()) %>" type="hidden" value="<%= scopeSearchFacetDisplayContext.getParameterValue() %>" />
+	<c:when test="<%= siteSearchFacetDisplayContext.isRenderNothing() %>">
+		<aui:input autocomplete="off" name="<%= HtmlUtil.escapeAttribute(siteSearchFacetDisplayContext.getParameterName()) %>" type="hidden" value="<%= siteSearchFacetDisplayContext.getParameterValue() %>" />
 	</c:when>
 	<c:otherwise>
 		<aui:form action="#" method="post" name="fm">
-			<aui:input autocomplete="off" name="<%= HtmlUtil.escapeAttribute(scopeSearchFacetDisplayContext.getParameterName()) %>" type="hidden" value="<%= scopeSearchFacetDisplayContext.getParameterValue() %>" />
-			<aui:input cssClass="facet-parameter-name" name="facet-parameter-name" type="hidden" value="<%= scopeSearchFacetDisplayContext.getParameterName() %>" />
-			<aui:input cssClass="start-parameter-name" name="start-parameter-name" type="hidden" value="<%= scopeSearchFacetDisplayContext.getPaginationStartParameterName() %>" />
+			<aui:input autocomplete="off" name="<%= HtmlUtil.escapeAttribute(siteSearchFacetDisplayContext.getParameterName()) %>" type="hidden" value="<%= siteSearchFacetDisplayContext.getParameterValue() %>" />
+			<aui:input cssClass="facet-parameter-name" name="facet-parameter-name" type="hidden" value="<%= siteSearchFacetDisplayContext.getParameterName() %>" />
+			<aui:input cssClass="start-parameter-name" name="start-parameter-name" type="hidden" value="<%= siteSearchFacetDisplayContext.getPaginationStartParameterName() %>" />
 
 			<liferay-ddm:template-renderer
 				className="<%= BucketDisplayContext.class.getName() %>"
@@ -58,12 +58,12 @@ SiteFacetPortletInstanceConfiguration siteFacetPortletInstanceConfiguration = sc
 					HashMapBuilder.<String, Object>put(
 						"namespace", liferayPortletResponse.getNamespace()
 					).put(
-						"scopeSearchFacetDisplayContext", scopeSearchFacetDisplayContext
+						"siteSearchFacetDisplayContext", siteSearchFacetDisplayContext
 					).build()
 				%>'
 				displayStyle="<%= siteFacetPortletInstanceConfiguration.displayStyle() %>"
-				displayStyleGroupId="<%= scopeSearchFacetDisplayContext.getDisplayStyleGroupId() %>"
-				entries="<%= scopeSearchFacetDisplayContext.getBucketDisplayContexts() %>"
+				displayStyleGroupId="<%= siteSearchFacetDisplayContext.getDisplayStyleGroupId() %>"
+				entries="<%= siteSearchFacetDisplayContext.getBucketDisplayContexts() %>"
 			>
 				<liferay-ui:panel-container
 					extended="<%= true %>"
@@ -85,7 +85,7 @@ SiteFacetPortletInstanceConfiguration siteFacetPortletInstanceConfiguration = sc
 								<%
 								int i = 0;
 
-								for (BucketDisplayContext bucketDisplayContext : scopeSearchFacetDisplayContext.getBucketDisplayContexts()) {
+								for (BucketDisplayContext bucketDisplayContext : siteSearchFacetDisplayContext.getBucketDisplayContexts()) {
 									i++;
 								%>
 
@@ -123,7 +123,7 @@ SiteFacetPortletInstanceConfiguration siteFacetPortletInstanceConfiguration = sc
 							</ul>
 						</aui:fieldset>
 
-						<c:if test="<%= !scopeSearchFacetDisplayContext.isNothingSelected() %>">
+						<c:if test="<%= !siteSearchFacetDisplayContext.isNothingSelected() %>">
 							<aui:button cssClass="btn-link btn-unstyled facet-clear-btn" onClick="Liferay.Search.FacetUtil.clearSelections(event);" value="clear" />
 						</c:if>
 					</liferay-ui:panel>

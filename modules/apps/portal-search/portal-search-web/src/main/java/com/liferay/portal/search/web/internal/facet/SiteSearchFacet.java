@@ -35,11 +35,11 @@ import org.osgi.service.component.annotations.Reference;
  * @author Eudaldo Alonso
  */
 @Component(immediate = true, service = SearchFacet.class)
-public class ScopeSearchFacet extends BaseJSPSearchFacet {
+public class SiteSearchFacet extends BaseJSPSearchFacet {
 
 	@Override
 	public String getConfigurationJspPath() {
-		return "/facets/configuration/scopes.jsp";
+		return "/facets/configuration/site.jsp";
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class ScopeSearchFacet extends BaseJSPSearchFacet {
 
 	@Override
 	public String getDisplayJspPath() {
-		return "/facets/view/scopes.jsp";
+		return "/facets/view/site.jsp";
 	}
 
 	@Override

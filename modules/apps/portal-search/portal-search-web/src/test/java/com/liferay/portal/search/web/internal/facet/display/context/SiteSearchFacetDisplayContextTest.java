@@ -24,7 +24,7 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.search.web.internal.facet.display.context.builder.ScopeSearchFacetDisplayContextBuilder;
+import com.liferay.portal.search.web.internal.facet.display.context.builder.SiteSearchFacetDisplayContextBuilder;
 import com.liferay.portal.search.web.internal.site.facet.configuration.SiteFacetPortletInstanceConfiguration;
 import com.liferay.portal.test.rule.LiferayUnitTestRule;
 
@@ -45,7 +45,7 @@ import org.mockito.Mockito;
 /**
  * @author André de Oliveira
  */
-public class ScopeSearchFacetDisplayContextTest {
+public class SiteSearchFacetDisplayContextTest {
 
 	@ClassRule
 	@Rule
@@ -65,19 +65,19 @@ public class ScopeSearchFacetDisplayContextTest {
 	public void testEmptySearchResults() throws Exception {
 		String parameterValue = "0";
 
-		ScopeSearchFacetDisplayContext scopeSearchFacetDisplayContext =
+		SiteSearchFacetDisplayContext siteSearchFacetDisplayContext =
 			createDisplayContext(parameterValue);
 
 		List<BucketDisplayContext> bucketDisplayContexts =
-			scopeSearchFacetDisplayContext.getBucketDisplayContexts();
+			siteSearchFacetDisplayContext.getBucketDisplayContexts();
 
 		Assert.assertEquals(
 			bucketDisplayContexts.toString(), 0, bucketDisplayContexts.size());
 
 		Assert.assertEquals(
-			parameterValue, scopeSearchFacetDisplayContext.getParameterValue());
-		Assert.assertTrue(scopeSearchFacetDisplayContext.isNothingSelected());
-		Assert.assertTrue(scopeSearchFacetDisplayContext.isRenderNothing());
+			parameterValue, siteSearchFacetDisplayContext.getParameterValue());
+		Assert.assertTrue(siteSearchFacetDisplayContext.isNothingSelected());
+		Assert.assertTrue(siteSearchFacetDisplayContext.isRenderNothing());
 	}
 
 	@Test
@@ -89,11 +89,11 @@ public class ScopeSearchFacetDisplayContextTest {
 
 		String parameterValue = String.valueOf(groupId);
 
-		ScopeSearchFacetDisplayContext scopeSearchFacetDisplayContext =
+		SiteSearchFacetDisplayContext siteSearchFacetDisplayContext =
 			createDisplayContext(parameterValue);
 
 		List<BucketDisplayContext> bucketDisplayContexts =
-			scopeSearchFacetDisplayContext.getBucketDisplayContexts();
+			siteSearchFacetDisplayContext.getBucketDisplayContexts();
 
 		Assert.assertEquals(
 			bucketDisplayContexts.toString(), 1, bucketDisplayContexts.size());
@@ -109,9 +109,9 @@ public class ScopeSearchFacetDisplayContextTest {
 		Assert.assertTrue(bucketDisplayContext.isFrequencyVisible());
 
 		Assert.assertEquals(
-			parameterValue, scopeSearchFacetDisplayContext.getParameterValue());
-		Assert.assertFalse(scopeSearchFacetDisplayContext.isNothingSelected());
-		Assert.assertFalse(scopeSearchFacetDisplayContext.isRenderNothing());
+			parameterValue, siteSearchFacetDisplayContext.getParameterValue());
+		Assert.assertFalse(siteSearchFacetDisplayContext.isNothingSelected());
+		Assert.assertFalse(siteSearchFacetDisplayContext.isRenderNothing());
 	}
 
 	@Test
@@ -127,11 +127,11 @@ public class ScopeSearchFacetDisplayContextTest {
 
 		String parameterValue = "0";
 
-		ScopeSearchFacetDisplayContext scopeSearchFacetDisplayContext =
+		SiteSearchFacetDisplayContext siteSearchFacetDisplayContext =
 			createDisplayContext(parameterValue);
 
 		List<BucketDisplayContext> bucketDisplayContexts =
-			scopeSearchFacetDisplayContext.getBucketDisplayContexts();
+			siteSearchFacetDisplayContext.getBucketDisplayContexts();
 
 		Assert.assertEquals(
 			bucketDisplayContexts.toString(), 1, bucketDisplayContexts.size());
@@ -147,9 +147,9 @@ public class ScopeSearchFacetDisplayContextTest {
 		Assert.assertTrue(bucketDisplayContext.isFrequencyVisible());
 
 		Assert.assertEquals(
-			parameterValue, scopeSearchFacetDisplayContext.getParameterValue());
-		Assert.assertTrue(scopeSearchFacetDisplayContext.isNothingSelected());
-		Assert.assertFalse(scopeSearchFacetDisplayContext.isRenderNothing());
+			parameterValue, siteSearchFacetDisplayContext.getParameterValue());
+		Assert.assertTrue(siteSearchFacetDisplayContext.isNothingSelected());
+		Assert.assertFalse(siteSearchFacetDisplayContext.isRenderNothing());
 	}
 
 	@Test
@@ -165,11 +165,11 @@ public class ScopeSearchFacetDisplayContextTest {
 
 		String parameterValue = String.valueOf(groupId);
 
-		ScopeSearchFacetDisplayContext scopeSearchFacetDisplayContext =
+		SiteSearchFacetDisplayContext siteSearchFacetDisplayContext =
 			createDisplayContext(parameterValue);
 
 		List<BucketDisplayContext> bucketDisplayContexts =
-			scopeSearchFacetDisplayContext.getBucketDisplayContexts();
+			siteSearchFacetDisplayContext.getBucketDisplayContexts();
 
 		Assert.assertEquals(
 			bucketDisplayContexts.toString(), 1, bucketDisplayContexts.size());
@@ -185,26 +185,26 @@ public class ScopeSearchFacetDisplayContextTest {
 		Assert.assertTrue(bucketDisplayContext.isFrequencyVisible());
 
 		Assert.assertEquals(
-			parameterValue, scopeSearchFacetDisplayContext.getParameterValue());
-		Assert.assertFalse(scopeSearchFacetDisplayContext.isNothingSelected());
-		Assert.assertFalse(scopeSearchFacetDisplayContext.isRenderNothing());
+			parameterValue, siteSearchFacetDisplayContext.getParameterValue());
+		Assert.assertFalse(siteSearchFacetDisplayContext.isNothingSelected());
+		Assert.assertFalse(siteSearchFacetDisplayContext.isRenderNothing());
 	}
 
-	protected ScopeSearchFacetDisplayContext createDisplayContext(
+	protected SiteSearchFacetDisplayContext createDisplayContext(
 			String parameterValue)
 		throws ConfigurationException {
 
-		ScopeSearchFacetDisplayContextBuilder
-			scopeSearchFacetDisplayContextBuilder =
-				new ScopeSearchFacetDisplayContextBuilder(getRenderRequest());
+		SiteSearchFacetDisplayContextBuilder
+			siteSearchFacetDisplayContextBuilder =
+				new SiteSearchFacetDisplayContextBuilder(getRenderRequest());
 
-		scopeSearchFacetDisplayContextBuilder.setFacet(_facet);
-		scopeSearchFacetDisplayContextBuilder.setFrequenciesVisible(true);
-		scopeSearchFacetDisplayContextBuilder.setGroupLocalService(
+		siteSearchFacetDisplayContextBuilder.setFacet(_facet);
+		siteSearchFacetDisplayContextBuilder.setFrequenciesVisible(true);
+		siteSearchFacetDisplayContextBuilder.setGroupLocalService(
 			_groupLocalService);
-		scopeSearchFacetDisplayContextBuilder.setParameterValue(parameterValue);
+		siteSearchFacetDisplayContextBuilder.setParameterValue(parameterValue);
 
-		return scopeSearchFacetDisplayContextBuilder.build();
+		return siteSearchFacetDisplayContextBuilder.build();
 	}
 
 	protected Group createGroup(long groupId, String name) throws Exception {

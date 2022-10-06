@@ -35,7 +35,7 @@
 			</#if>
 		</ul>
 
-		<#if !scopeSearchFacetDisplayContext.isNothingSelected()>
+		<#if !siteSearchFacetDisplayContext.isNothingSelected()>
 			<@liferay_aui.button
 				cssClass="btn-link btn-unstyled facet-clear-btn"
 				onClick="Liferay.Search.FacetUtil.clearSelections(event);"
