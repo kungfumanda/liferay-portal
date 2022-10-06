@@ -27,7 +27,7 @@
 				</button>
 			</#list>
 
-			<#if !assetCategoriesSearchFacetDisplayContext.isNothingSelected()>
+			<#if !categorySearchFacetDisplayContext.isNothingSelected()>
 				<button
 					class="btn btn-light btn-sm ml-1 facet-term term-name"
 					data-term-id="${entry.getAssetCategoryId()}"
