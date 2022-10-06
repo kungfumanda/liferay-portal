@@ -19,7 +19,7 @@ import com.liferay.portal.kernel.portlet.ConfigurationAction;
 import com.liferay.portal.kernel.portlet.DefaultConfigurationAction;
 import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.search.web.internal.facet.display.context.builder.AssetTagsSearchFacetDisplayContextBuilder;
+import com.liferay.portal.search.web.internal.facet.display.context.builder.TagSearchFacetDisplayContextBuilder;
 import com.liferay.portal.search.web.internal.tag.facet.constants.TagFacetPortletKeys;
 
 import javax.portlet.PortletConfig;
@@ -55,23 +55,23 @@ public class TagFacetConfigurationAction extends DefaultConfigurationAction {
 			(RenderRequest)httpServletRequest.getAttribute(
 				JavaConstants.JAVAX_PORTLET_REQUEST);
 
-		AssetTagsSearchFacetDisplayContextBuilder
-			assetTagsSearchFacetDisplayContextBuilder =
-				_createAssetTagsSearchFacetDisplayContextBuilder(renderRequest);
+		TagSearchFacetDisplayContextBuilder
+			tagSearchFacetDisplayContextBuilder =
+				_createTagSearchFacetDisplayContextBuilder(renderRequest);
 
 		httpServletRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT,
-			assetTagsSearchFacetDisplayContextBuilder.build());
+			tagSearchFacetDisplayContextBuilder.build());
 
 		super.include(portletConfig, httpServletRequest, httpServletResponse);
 	}
 
-	private AssetTagsSearchFacetDisplayContextBuilder
-		_createAssetTagsSearchFacetDisplayContextBuilder(
+	private TagSearchFacetDisplayContextBuilder
+		_createTagSearchFacetDisplayContextBuilder(
 			RenderRequest renderRequest) {
 
 		try {
-			return new AssetTagsSearchFacetDisplayContextBuilder(renderRequest);
+			return new TagSearchFacetDisplayContextBuilder(renderRequest);
 		}
 		catch (ConfigurationException configurationException) {
 			throw new RuntimeException(configurationException);

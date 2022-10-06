@@ -20,8 +20,8 @@ import com.liferay.portal.kernel.template.TemplateHandler;
 import com.liferay.portal.kernel.template.TemplateVariableGroup;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
-import com.liferay.portal.search.web.internal.facet.display.context.AssetTagsSearchFacetDisplayContext;
 import com.liferay.portal.search.web.internal.facet.display.context.BucketDisplayContext;
+import com.liferay.portal.search.web.internal.facet.display.context.TagSearchFacetDisplayContext;
 import com.liferay.portal.search.web.internal.tag.facet.constants.TagFacetPortletKeys;
 import com.liferay.portlet.display.template.constants.PortletDisplayTemplateConstants;
 
@@ -82,9 +82,8 @@ public class TagFacetPortletDisplayTemplateHandler
 		templateVariableGroup.empty();
 
 		templateVariableGroup.addVariable(
-			"tag-facet-display-context",
-			AssetTagsSearchFacetDisplayContext.class,
-			"assetTagsSearchFacetDisplayContext");
+			"tag-facet-display-context", TagSearchFacetDisplayContext.class,
+			"tagSearchFacetDisplayContext");
 		templateVariableGroup.addVariable(
 			"term-frequency", Integer.class,
 			PortletDisplayTemplateConstants.ENTRY, "getFrequency()");

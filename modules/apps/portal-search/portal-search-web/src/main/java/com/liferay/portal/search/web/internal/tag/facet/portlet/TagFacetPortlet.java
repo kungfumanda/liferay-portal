@@ -21,8 +21,8 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.search.searcher.SearchRequest;
 import com.liferay.portal.search.searcher.SearchResponse;
-import com.liferay.portal.search.web.internal.facet.display.context.AssetTagsSearchFacetDisplayContext;
-import com.liferay.portal.search.web.internal.facet.display.context.builder.AssetTagsSearchFacetDisplayContextBuilder;
+import com.liferay.portal.search.web.internal.facet.display.context.TagSearchFacetDisplayContext;
+import com.liferay.portal.search.web.internal.facet.display.context.builder.TagSearchFacetDisplayContextBuilder;
 import com.liferay.portal.search.web.internal.tag.facet.constants.TagFacetPortletKeys;
 import com.liferay.portal.search.web.internal.util.SearchOptionalUtil;
 import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchRequest;
@@ -77,14 +77,13 @@ public class TagFacetPortlet extends MVCPortlet {
 		PortletSharedSearchResponse portletSharedSearchResponse =
 			portletSharedSearchRequest.search(renderRequest);
 
-		AssetTagsSearchFacetDisplayContext assetTagsSearchFacetDisplayContext =
+		TagSearchFacetDisplayContext tagSearchFacetDisplayContext =
 			_buildDisplayContext(portletSharedSearchResponse, renderRequest);
 
 		renderRequest.setAttribute(
-			WebKeys.PORTLET_DISPLAY_CONTEXT,
-			assetTagsSearchFacetDisplayContext);
+			WebKeys.PORTLET_DISPLAY_CONTEXT, tagSearchFacetDisplayContext);
 
-		if (assetTagsSearchFacetDisplayContext.isRenderNothing()) {
+		if (tagSearchFacetDisplayContext.isRenderNothing()) {
 			renderRequest.setAttribute(
 				WebKeys.PORTLET_CONFIGURATOR_VISIBILITY, Boolean.TRUE);
 		}
@@ -98,7 +97,7 @@ public class TagFacetPortlet extends MVCPortlet {
 	@Reference
 	protected PortletSharedSearchRequest portletSharedSearchRequest;
 
-	private AssetTagsSearchFacetDisplayContext _buildDisplayContext(
+	private TagSearchFacetDisplayContext _buildDisplayContext(
 		PortletSharedSearchResponse portletSharedSearchResponse,
 		RenderRequest renderRequest) {
 
@@ -110,42 +109,40 @@ public class TagFacetPortlet extends MVCPortlet {
 				portletSharedSearchResponse.getPortletPreferences(
 					renderRequest));
 
-		AssetTagsSearchFacetDisplayContextBuilder
-			assetTagsSearchFacetDisplayContextBuilder =
+		TagSearchFacetDisplayContextBuilder
+			tagSearchFacetDisplayContextBuilder =
 				_createTagsSearchFacetDisplayContextBuilder(renderRequest);
 
-		assetTagsSearchFacetDisplayContextBuilder.setDisplayStyle(
+		tagSearchFacetDisplayContextBuilder.setDisplayStyle(
 			tagFacetPortletPreferences.getDisplayStyle());
-		assetTagsSearchFacetDisplayContextBuilder.setFacet(facet);
-		assetTagsSearchFacetDisplayContextBuilder.setFrequenciesVisible(
+		tagSearchFacetDisplayContextBuilder.setFacet(facet);
+		tagSearchFacetDisplayContextBuilder.setFrequenciesVisible(
 			tagFacetPortletPreferences.isFrequenciesVisible());
-		assetTagsSearchFacetDisplayContextBuilder.setFrequencyThreshold(
+		tagSearchFacetDisplayContextBuilder.setFrequencyThreshold(
 			tagFacetPortletPreferences.getFrequencyThreshold());
-		assetTagsSearchFacetDisplayContextBuilder.setMaxTerms(
+		tagSearchFacetDisplayContextBuilder.setMaxTerms(
 			tagFacetPortletPreferences.getMaxTerms());
-		assetTagsSearchFacetDisplayContextBuilder.
-			setPaginationStartParameterName(
-				_getPaginationStartParameterName(portletSharedSearchResponse));
+		tagSearchFacetDisplayContextBuilder.setPaginationStartParameterName(
+			_getPaginationStartParameterName(portletSharedSearchResponse));
 
 		String parameterName = tagFacetPortletPreferences.getParameterName();
 
-		assetTagsSearchFacetDisplayContextBuilder.setParameterName(
-			parameterName);
+		tagSearchFacetDisplayContextBuilder.setParameterName(parameterName);
 
 		SearchOptionalUtil.copy(
 			() -> portletSharedSearchResponse.getParameterValues(
 				parameterName, renderRequest),
-			assetTagsSearchFacetDisplayContextBuilder::setParameterValues);
+			tagSearchFacetDisplayContextBuilder::setParameterValues);
 
-		return assetTagsSearchFacetDisplayContextBuilder.build();
+		return tagSearchFacetDisplayContextBuilder.build();
 	}
 
-	private AssetTagsSearchFacetDisplayContextBuilder
+	private TagSearchFacetDisplayContextBuilder
 		_createTagsSearchFacetDisplayContextBuilder(
 			RenderRequest renderRequest) {
 
 		try {
-			return new AssetTagsSearchFacetDisplayContextBuilder(renderRequest);
+			return new TagSearchFacetDisplayContextBuilder(renderRequest);
 		}
 		catch (ConfigurationException configurationException) {
 			throw new RuntimeException(configurationException);
