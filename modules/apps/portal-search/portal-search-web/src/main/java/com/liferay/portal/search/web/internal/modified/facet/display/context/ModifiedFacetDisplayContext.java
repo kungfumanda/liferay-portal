@@ -14,7 +14,6 @@
 
 package com.liferay.portal.search.web.internal.modified.facet.display.context;
 
-import com.liferay.portal.search.web.internal.facet.display.context.BucketDisplayContext;
 import com.liferay.portal.search.web.internal.modified.facet.configuration.ModifiedFacetPortletInstanceConfiguration;
 
 import java.io.Serializable;
@@ -26,20 +25,20 @@ import java.util.List;
  */
 public class ModifiedFacetDisplayContext implements Serializable {
 
-	public BucketDisplayContext getCustomRangeBucketDisplayContext() {
-		return _customRangeBucketDisplayContext;
+	public ModifiedFacetTermDisplayContext
+		getCustomRangeModifiedFacetTermDisplayContext() {
+
+		return _customRangeModifiedFacetTermDisplayContext;
 	}
 
-	public BucketDisplayContext getDefaultBucketDisplayContext() {
-		return _defaultBucketDisplayContext;
+	public ModifiedFacetTermDisplayContext
+		getDefaultModifiedFacetTermDisplayContext() {
+
+		return _defaultModifiedFacetTermDisplayContext;
 	}
 
 	public long getDisplayStyleGroupId() {
 		return _displayStyleGroupId;
-	}
-
-	public List<BucketDisplayContext> getModifiedBucketDisplayContexts() {
-		return _modifiedBucketDisplayContexts;
 	}
 
 	public ModifiedFacetCalendarDisplayContext
@@ -52,6 +51,12 @@ public class ModifiedFacetDisplayContext implements Serializable {
 		getModifiedFacetPortletInstanceConfiguration() {
 
 		return _modifiedFacetPortletInstanceConfiguration;
+	}
+
+	public List<ModifiedFacetTermDisplayContext>
+		getModifiedFacetTermDisplayContexts() {
+
+		return _modifiedFacetTermDisplayContexts;
 	}
 
 	public String getPaginationStartParameterName() {
@@ -78,26 +83,21 @@ public class ModifiedFacetDisplayContext implements Serializable {
 			modifiedFacetCalendarDisplayContext;
 	}
 
-	public void setCustomRangeBucketDisplayContext(
-		BucketDisplayContext bucketDisplayContext) {
+	public void setCustomRangeModifiedFacetTermDisplayContext(
+		ModifiedFacetTermDisplayContext customRangeTermDisplayContext) {
 
-		_customRangeBucketDisplayContext = bucketDisplayContext;
+		_customRangeModifiedFacetTermDisplayContext =
+			customRangeTermDisplayContext;
 	}
 
-	public void setDefaultBucketDisplayContext(
-		BucketDisplayContext bucketDisplayContext) {
+	public void setDefaultModifiedFacetTermDisplayContext(
+		ModifiedFacetTermDisplayContext defaultTermDisplayContext) {
 
-		_defaultBucketDisplayContext = bucketDisplayContext;
+		_defaultModifiedFacetTermDisplayContext = defaultTermDisplayContext;
 	}
 
 	public void setDisplayStyleGroupId(long displayStyleGroupId) {
 		_displayStyleGroupId = displayStyleGroupId;
-	}
-
-	public void setModifiedBucketDisplayContexts(
-		List<BucketDisplayContext> modifiedBucketDisplayContexts) {
-
-		_modifiedBucketDisplayContexts = modifiedBucketDisplayContexts;
 	}
 
 	public void setModifiedFacetPortletInstanceConfiguration(
@@ -106,6 +106,13 @@ public class ModifiedFacetDisplayContext implements Serializable {
 
 		_modifiedFacetPortletInstanceConfiguration =
 			modifiedFacetPortletInstanceConfiguration;
+	}
+
+	public void setModifiedFacetTermDisplayContexts(
+		List<ModifiedFacetTermDisplayContext>
+			modifiedFacetTermDisplayContexts) {
+
+		_modifiedFacetTermDisplayContexts = modifiedFacetTermDisplayContexts;
 	}
 
 	public void setNothingSelected(boolean nothingSelected) {
@@ -126,14 +133,17 @@ public class ModifiedFacetDisplayContext implements Serializable {
 		_renderNothing = renderNothing;
 	}
 
-	private BucketDisplayContext _customRangeBucketDisplayContext;
-	private BucketDisplayContext _defaultBucketDisplayContext;
+	private ModifiedFacetTermDisplayContext
+		_customRangeModifiedFacetTermDisplayContext;
+	private ModifiedFacetTermDisplayContext
+		_defaultModifiedFacetTermDisplayContext;
 	private long _displayStyleGroupId;
-	private List<BucketDisplayContext> _modifiedBucketDisplayContexts;
 	private ModifiedFacetCalendarDisplayContext
 		_modifiedFacetCalendarDisplayContext;
 	private ModifiedFacetPortletInstanceConfiguration
 		_modifiedFacetPortletInstanceConfiguration;
+	private List<ModifiedFacetTermDisplayContext>
+		_modifiedFacetTermDisplayContexts;
 	private boolean _nothingSelected;
 	private String _paginationStartParameterName;
 	private String _parameterName;

@@ -17,21 +17,21 @@
 				<#list entries as entry>
 					<li class="facet-value">
 						<div class="custom-control custom-radio">
-							<label class="facet-checkbox-label" for="${entry.getBucketText()}">
+							<label class="facet-checkbox-label" for="${entry.getLabel()}">
 								<input
 									${(entry.isSelected())?then("checked", "")}
 									class="custom-control-input facet-term"
 									disabled
-									id="${entry.getBucketText()}"
-									name="${entry.getBucketText()}"
-									onChange='${"window.location.href = \"${entry.getFilterValue()}\";"}'
+									id="${entry.getLabel()}"
+									name="${entry.getLabel()}"
+									onChange='${"window.location.href = \"${entry.getRangeURL()}\";"}'
 									role="radio"
 									type="radio"
 								/>
 
 								<span class="custom-control-label term-name ${(entry.isSelected())?then('facet-term-selected', 'facet-term-unselected')}">
 									<span class="custom-control-label-text">
-										<@liferay_ui["message"] key="${htmlUtil.escape(entry.getBucketText())}" />
+										<@liferay_ui["message"] key="${htmlUtil.escape(entry.getLabel())}" />
 									</span>
 								</span>
 
@@ -46,27 +46,27 @@
 
 			<li class="facet-value">
 				<div class="custom-control custom-radio">
-					<label class="facet-checkbox-label" for="${customRangeBucketDisplayContext.getBucketText()}">
+					<label class="facet-checkbox-label" for="${customRangeModifiedFacetTermDisplayContext.getLabel()}">
 						<input
-							${(customRangeBucketDisplayContext.isSelected())?then("checked", "")}
+							${(customRangeModifiedFacetTermDisplayContext.isSelected())?then("checked", "")}
 							class="custom-control-input facet-term"
 							disabled
-							id="${customRangeBucketDisplayContext.getBucketText()}"
-							name="${customRangeBucketDisplayContext.getBucketText()}"
-							onChange='${"window.location.href = \"${customRangeBucketDisplayContext.getFilterValue()}\";"}'
+							id="${customRangeModifiedFacetTermDisplayContext.getLabel()}"
+							name="${customRangeModifiedFacetTermDisplayContext.getLabel()}"
+							onChange='${"window.location.href = \"${customRangeModifiedFacetTermDisplayContext.getRangeURL()}\";"}'
 							role="radio"
 							type="radio"
 						/>
 
-						<span class="custom-control-label term-name ${(customRangeBucketDisplayContext.isSelected())?then('facet-term-selected', 'facet-term-unselected')}">
+						<span class="custom-control-label term-name ${(customRangeModifiedFacetTermDisplayContext.isSelected())?then('facet-term-selected', 'facet-term-unselected')}">
 							<span class="custom-control-label-text">
-								<@liferay_ui["message"] key="${htmlUtil.escape(customRangeBucketDisplayContext.getBucketText())}" />
+								<@liferay_ui["message"] key="${htmlUtil.escape(customRangeModifiedFacetTermDisplayContext.getLabel())}" />
 							</span>
 						</span>
 
-						<#if customRangeBucketDisplayContext.isSelected()>
+						<#if customRangeModifiedFacetTermDisplayContext.isSelected()>
 							<small class="term-count">
-								(${customRangeBucketDisplayContext.getFrequency()})
+								(${customRangeModifiedFacetTermDisplayContext.getFrequency()})
 							</small>
 						</#if>
 					</label>

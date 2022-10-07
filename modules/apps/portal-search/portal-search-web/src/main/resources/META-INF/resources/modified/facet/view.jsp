@@ -27,10 +27,10 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 page import="com.liferay.portal.kernel.util.HashMapBuilder" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %><%@
-page import="com.liferay.portal.search.web.internal.facet.display.context.BucketDisplayContext" %><%@
 page import="com.liferay.portal.search.web.internal.modified.facet.configuration.ModifiedFacetPortletInstanceConfiguration" %><%@
 page import="com.liferay.portal.search.web.internal.modified.facet.display.context.ModifiedFacetCalendarDisplayContext" %><%@
-page import="com.liferay.portal.search.web.internal.modified.facet.display.context.ModifiedFacetDisplayContext" %>
+page import="com.liferay.portal.search.web.internal.modified.facet.display.context.ModifiedFacetDisplayContext" %><%@
+page import="com.liferay.portal.search.web.internal.modified.facet.display.context.ModifiedFacetTermDisplayContext" %>
 
 <portlet:defineObjects />
 
@@ -41,7 +41,7 @@ if (modifiedFacetDisplayContext.isRenderNothing()) {
 	return;
 }
 
-BucketDisplayContext customRangeBucketDisplayContext = modifiedFacetDisplayContext.getCustomRangeBucketDisplayContext();
+ModifiedFacetTermDisplayContext customRangeModifiedFacetTermDisplayContext = modifiedFacetDisplayContext.getCustomRangeModifiedFacetTermDisplayContext();
 ModifiedFacetCalendarDisplayContext modifiedFacetCalendarDisplayContext = modifiedFacetDisplayContext.getModifiedFacetCalendarDisplayContext();
 ModifiedFacetPortletInstanceConfiguration modifiedFacetPortletInstanceConfiguration = modifiedFacetDisplayContext.getModifiedFacetPortletInstanceConfiguration();
 %>
@@ -53,10 +53,10 @@ ModifiedFacetPortletInstanceConfiguration modifiedFacetPortletInstanceConfigurat
 		<aui:input name="start-parameter-name" type="hidden" value="<%= modifiedFacetDisplayContext.getPaginationStartParameterName() %>" />
 
 		<liferay-ddm:template-renderer
-			className="<%= BucketDisplayContext.class.getName() %>"
+			className="<%= ModifiedFacetTermDisplayContext.class.getName() %>"
 			contextObjects='<%=
-				HashMapBuilder.<String, Object>put( // TODO: Verify if that will break anything
-					"customRangeBucketDisplayContext", customRangeBucketDisplayContext
+				HashMapBuilder.<String, Object>put(
+					"customRangeModifiedFacetTermDisplayContext", customRangeModifiedFacetTermDisplayContext
 				).put(
 					"modifiedFacetCalendarDisplayContext", modifiedFacetCalendarDisplayContext
 				).put(
@@ -67,7 +67,7 @@ ModifiedFacetPortletInstanceConfiguration modifiedFacetPortletInstanceConfigurat
 			%>'
 			displayStyle="<%= modifiedFacetPortletInstanceConfiguration.displayStyle() %>"
 			displayStyleGroupId="<%= modifiedFacetDisplayContext.getDisplayStyleGroupId() %>"
-			entries="<%= modifiedFacetDisplayContext.getModifiedBucketDisplayContexts() %>"
+			entries="<%= modifiedFacetDisplayContext.getModifiedFacetTermDisplayContexts() %>"
 		>
 			<liferay-ui:panel-container
 				extended="<%= true %>"
@@ -86,17 +86,17 @@ ModifiedFacetPortletInstanceConfiguration modifiedFacetPortletInstanceConfigurat
 					<ul class="list-unstyled modified">
 
 						<%
-						for (BucketDisplayContext bucketDisplayContext : modifiedFacetDisplayContext.getModifiedBucketDisplayContexts()) {
+						for (ModifiedFacetTermDisplayContext modifiedFacetTermDisplayContext : modifiedFacetDisplayContext.getModifiedFacetTermDisplayContexts()) {
 						%>
 
 							<li class="facet-value">
-								<a href="<%= HtmlUtil.escapeHREF(bucketDisplayContext.getFilterValue()) %>">
-									<span class="term-name <%= bucketDisplayContext.isSelected() ? "facet-term-selected" : "facet-term-unselected" %>">
-										<liferay-ui:message key="<%= HtmlUtil.escape(bucketDisplayContext.getBucketText()) %>" />
+								<a href="<%= HtmlUtil.escapeHREF(modifiedFacetTermDisplayContext.getRangeURL()) %>">
+									<span class="term-name <%= modifiedFacetTermDisplayContext.isSelected() ? "facet-term-selected" : "facet-term-unselected" %>">
+										<liferay-ui:message key="<%= HtmlUtil.escape(modifiedFacetTermDisplayContext.getLabel()) %>" />
 									</span>
 
 									<small class="term-count">
-										(<%= bucketDisplayContext.getFrequency() %>)
+										(<%= modifiedFacetTermDisplayContext.getFrequency() %>)
 									</small>
 								</a>
 							</li>
@@ -106,12 +106,12 @@ ModifiedFacetPortletInstanceConfiguration modifiedFacetPortletInstanceConfigurat
 						%>
 
 						<li class="facet-value">
-							<a href="<%= HtmlUtil.escapeHREF(customRangeBucketDisplayContext.getBucketText()) %>" id="<portlet:namespace /><%= customRangeBucketDisplayContext.getBucketText() + "-toggleLink" %>">
-								<span class="term-name <%= customRangeBucketDisplayContext.isSelected() ? "facet-term-selected" : "facet-term-unselected" %>"><liferay-ui:message key="<%= HtmlUtil.escape(customRangeBucketDisplayContext.getBucketText()) %>" />&hellip;</span>
+							<a href="<%= HtmlUtil.escapeHREF(customRangeModifiedFacetTermDisplayContext.getRangeURL()) %>" id="<portlet:namespace /><%= customRangeModifiedFacetTermDisplayContext.getLabel() + "-toggleLink" %>">
+								<span class="term-name <%= customRangeModifiedFacetTermDisplayContext.isSelected() ? "facet-term-selected" : "facet-term-unselected" %>"><liferay-ui:message key="<%= HtmlUtil.escape(customRangeModifiedFacetTermDisplayContext.getLabel()) %>" />&hellip;</span>
 
-								<c:if test="<%= customRangeBucketDisplayContext.isSelected() %>">
+								<c:if test="<%= customRangeModifiedFacetTermDisplayContext.isSelected() %>">
 									<small class="term-count">
-										(<%= customRangeBucketDisplayContext.getFrequency() %>)
+										(<%= customRangeModifiedFacetTermDisplayContext.getFrequency() %>)
 									</small>
 								</c:if>
 							</a>
