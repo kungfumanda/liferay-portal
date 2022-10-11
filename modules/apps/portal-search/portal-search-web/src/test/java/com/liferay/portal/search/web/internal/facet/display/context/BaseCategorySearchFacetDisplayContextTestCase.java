@@ -54,7 +54,7 @@ import org.mockito.Mockito;
 /**
  * @author André de Oliveira
  */
-public abstract class BaseCategoriesSearchFacetDisplayContextTestCase {
+public abstract class BaseCategorySearchFacetDisplayContextTestCase {
 
 	@Before
 	public void setUp() throws Exception {

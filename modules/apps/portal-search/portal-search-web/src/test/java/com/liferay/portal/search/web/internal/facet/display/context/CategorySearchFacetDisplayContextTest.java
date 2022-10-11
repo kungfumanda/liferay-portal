@@ -23,7 +23,7 @@ import org.junit.Rule;
  * @author Bryan Engler
  */
 public class CategorySearchFacetDisplayContextTest
-	extends BaseCategoriesSearchFacetDisplayContextTestCase {
+	extends BaseCategorySearchFacetDisplayContextTestCase {
 
 	@ClassRule
 	@Rule

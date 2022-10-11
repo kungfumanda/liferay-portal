@@ -22,8 +22,8 @@ import org.junit.Rule;
 /**
  * @author Bryan Engler
  */
-public class AssetVocabularyCategoriesSearchFacetDisplayContextTest
-	extends BaseCategoriesSearchFacetDisplayContextTestCase {
+public class AssetVocabularyCategorySearchFacetDisplayContextTest
+	extends BaseCategorySearchFacetDisplayContextTestCase {
 
 	@ClassRule
 	@Rule
