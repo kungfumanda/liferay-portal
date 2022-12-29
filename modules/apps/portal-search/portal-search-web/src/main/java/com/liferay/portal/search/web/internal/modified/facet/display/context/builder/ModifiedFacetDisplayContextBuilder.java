@@ -34,6 +34,7 @@ import com.liferay.portal.search.web.internal.modified.facet.builder.DateRangeFa
 import com.liferay.portal.search.web.internal.modified.facet.configuration.ModifiedFacetPortletInstanceConfiguration;
 import com.liferay.portal.search.web.internal.modified.facet.display.context.ModifiedFacetCalendarDisplayContext;
 import com.liferay.portal.search.web.internal.modified.facet.display.context.ModifiedFacetDisplayContext;
+import com.liferay.portal.search.web.internal.util.comparator.BucketDisplayContextComparatorFactoryUtil;
 
 import java.io.Serializable;
 
@@ -119,6 +120,10 @@ public class ModifiedFacetDisplayContextBuilder implements Serializable {
 
 	public void setLocale(Locale locale) {
 		_locale = locale;
+	}
+
+	public void setOrder(String order) {
+		_order = order;
 	}
 
 	public void setPaginationStartParameterName(
@@ -284,6 +289,12 @@ public class ModifiedFacetDisplayContextBuilder implements Serializable {
 					jsonObject.getString("range")));
 		}
 
+		if (!_order.equals("OrderHitsDesc")) {
+			bucketDisplayContexts.sort(
+				BucketDisplayContextComparatorFactoryUtil.
+					getBucketDisplayContextComparator(_order));
+		}
+
 		return bucketDisplayContexts;
 	}
 
@@ -362,6 +373,7 @@ public class ModifiedFacetDisplayContextBuilder implements Serializable {
 	private Locale _locale;
 	private final ModifiedFacetPortletInstanceConfiguration
 		_modifiedFacetPortletInstanceConfiguration;
+	private String _order;
 	private String _paginationStartParameterName;
 	private String _parameterName;
 	private List<String> _selectedRanges = Collections.emptyList();
