@@ -71,6 +71,26 @@ public class TestUtil {
 		return termCollector;
 	}
 
+	public static TermCollector createTermCollector(
+		long id, int frequency) {
+
+		TermCollector termCollector = Mockito.mock(TermCollector.class);
+
+		Mockito.doReturn(
+			frequency
+		).when(
+			termCollector
+		).getFrequency();
+
+		Mockito.doReturn(
+			String.valueOf(id)
+		).when(
+			termCollector
+		).getTerm();
+
+		return termCollector;
+	}
+
 	public static List<TermCollector> getTermCollectors(String... terms) {
 		int[] frequencies = new int[terms.length];
 
@@ -109,6 +129,13 @@ public class TestUtil {
 
 		Mockito.doReturn(
 			Collections.singletonList(createTermCollector(term, frequency))
+		).when(
+			facetCollector
+		).getTermCollectors();
+	}
+	public static void setUpOneTermCollector(FacetCollector facetCollector, long id, int count) {
+		Mockito.doReturn(
+			Collections.singletonList(TestUtil.createTermCollector(id, count))
 		).when(
 			facetCollector
 		).getTermCollectors();
