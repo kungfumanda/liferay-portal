@@ -28,6 +28,7 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.search.web.internal.facet.display.context.builder.AssetEntriesSearchFacetDisplayContextBuilder;
 import com.liferay.portal.search.web.internal.type.facet.configuration.TypeFacetPortletInstanceConfiguration;
+import com.liferay.portal.search.web.internal.util.TestUtil;
 import com.liferay.portal.test.rule.LiferayUnitTestRule;
 
 import java.util.List;
@@ -81,7 +82,7 @@ public class AssetEntriesSearchFacetDisplayContextTest {
 		List<BucketDisplayContext> bucketDisplayContexts =
 			assetEntriesSearchFacetDisplayContext.getBucketDisplayContexts();
 
-		String nameFrequencyString = _buildNameFrequencyString(
+		String nameFrequencyString = TestUtil.buildNameFrequencyString(
 			bucketDisplayContexts);
 
 		Assert.assertEquals(
@@ -109,7 +110,7 @@ public class AssetEntriesSearchFacetDisplayContextTest {
 		List<BucketDisplayContext> bucketDisplayContexts =
 			assetEntriesSearchFacetDisplayContext.getBucketDisplayContexts();
 
-		String nameFrequencyString = _buildNameFrequencyString(
+		String nameFrequencyString = TestUtil.buildNameFrequencyString(
 			bucketDisplayContexts);
 
 		Assert.assertEquals(
@@ -133,7 +134,7 @@ public class AssetEntriesSearchFacetDisplayContextTest {
 		List<BucketDisplayContext> bucketDisplayContexts =
 			assetEntriesSearchFacetDisplayContext.getBucketDisplayContexts();
 
-		String nameFrequencyString = _buildNameFrequencyString(
+		String nameFrequencyString = TestUtil.buildNameFrequencyString(
 			bucketDisplayContexts);
 
 		Assert.assertEquals(
@@ -156,31 +157,12 @@ public class AssetEntriesSearchFacetDisplayContextTest {
 		List<BucketDisplayContext> bucketDisplayContexts =
 			assetEntriesSearchFacetDisplayContext1.getBucketDisplayContexts();
 
-		String nameFrequencyString = _buildNameFrequencyString(
+		String nameFrequencyString = TestUtil.buildNameFrequencyString(
 			bucketDisplayContexts);
 
 		Assert.assertEquals(
 			bucketDisplayContexts.toString(),
 			"delta:2|charlie:4|bravo:1|alpha:3", nameFrequencyString);
-	}
-
-	private String _buildNameFrequencyString(
-		List<BucketDisplayContext> bucketDisplayContexts) {
-
-		StringBundler sb = new StringBundler(bucketDisplayContexts.size() * 4);
-
-		for (BucketDisplayContext bucketDisplayContext :
-				bucketDisplayContexts) {
-
-			sb.append(bucketDisplayContext.getBucketText());
-			sb.append(StringPool.COLON);
-			sb.append(bucketDisplayContext.getFrequency());
-			sb.append(StringPool.PIPE);
-		}
-
-		sb.setIndex(sb.index() - 1);
-
-		return sb.toString();
 	}
 
 	private AssetEntriesSearchFacetDisplayContext _createDisplayContext(
