@@ -18,7 +18,6 @@ import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.search.facet.Facet;
 import com.liferay.portal.kernel.search.facet.collector.FacetCollector;
-import com.liferay.portal.kernel.search.facet.collector.TermCollector;
 import com.liferay.portal.kernel.security.permission.ResourceActions;
 import com.liferay.portal.kernel.security.permission.ResourceActionsUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
@@ -189,24 +188,6 @@ public class AssetEntriesSearchFacetDisplayContextTest {
 		return assetEntriesSearchFacetDisplayContextBuilder.build();
 	}
 
-	private TermCollector _createTermCollector(String term, int frequency) {
-		TermCollector termCollector = Mockito.mock(TermCollector.class);
-
-		Mockito.doReturn(
-			frequency
-		).when(
-			termCollector
-		).getFrequency();
-
-		Mockito.doReturn(
-			term
-		).when(
-			termCollector
-		).getTerm();
-
-		return termCollector;
-	}
-
 	private PortletDisplay _getPortletDisplay() throws Exception {
 		PortletDisplay portletDisplay = Mockito.mock(PortletDisplay.class);
 
@@ -270,7 +251,7 @@ public class AssetEntriesSearchFacetDisplayContextTest {
 
 		for (String term : terms) {
 			Mockito.doReturn(
-				_createTermCollector(term, frequency)
+				TestUtil.createTermCollector(term, frequency)
 			).when(
 				_facetCollector
 			).getTermCollector(
