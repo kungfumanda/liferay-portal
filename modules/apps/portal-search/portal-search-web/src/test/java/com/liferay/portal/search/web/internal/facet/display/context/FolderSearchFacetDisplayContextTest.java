@@ -14,7 +14,6 @@
 
 package com.liferay.portal.search.web.internal.facet.display.context;
 
-import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.search.facet.Facet;
@@ -27,6 +26,7 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.search.web.internal.facet.display.context.builder.FolderSearchFacetDisplayContextBuilder;
 import com.liferay.portal.search.web.internal.folder.facet.configuration.FolderFacetPortletInstanceConfiguration;
+import com.liferay.portal.search.web.internal.util.TestUtil;
 import com.liferay.portal.test.rule.LiferayUnitTestRule;
 
 import java.util.ArrayList;
@@ -239,7 +239,7 @@ public class FolderSearchFacetDisplayContextTest {
 		List<BucketDisplayContext> bucketDisplayContexts =
 			folderSearchFacetDisplayContext.getBucketDisplayContexts();
 
-		String nameFrequencyString = _buildNameFrequencyString(
+		String nameFrequencyString = TestUtil.buildNameFrequencyString(
 			bucketDisplayContexts);
 
 		Assert.assertEquals(
@@ -261,7 +261,7 @@ public class FolderSearchFacetDisplayContextTest {
 		List<BucketDisplayContext> bucketDisplayContexts =
 			folderSearchFacetDisplayContext.getBucketDisplayContexts();
 
-		String nameFrequencyString = _buildNameFrequencyString(
+		String nameFrequencyString = TestUtil.buildNameFrequencyString(
 			bucketDisplayContexts);
 
 		Assert.assertEquals(
@@ -282,7 +282,7 @@ public class FolderSearchFacetDisplayContextTest {
 		List<BucketDisplayContext> bucketDisplayContexts =
 			folderSearchFacetDisplayContext.getBucketDisplayContexts();
 
-		String nameFrequencyString = _buildNameFrequencyString(
+		String nameFrequencyString = TestUtil.buildNameFrequencyString(
 			bucketDisplayContexts);
 
 		Assert.assertEquals(
@@ -303,7 +303,7 @@ public class FolderSearchFacetDisplayContextTest {
 		List<BucketDisplayContext> bucketDisplayContexts =
 			folderSearchFacetDisplayContext.getBucketDisplayContexts();
 
-		String nameFrequencyString = _buildNameFrequencyString(
+		String nameFrequencyString = TestUtil.buildNameFrequencyString(
 			bucketDisplayContexts);
 
 		Assert.assertEquals(
@@ -327,7 +327,7 @@ public class FolderSearchFacetDisplayContextTest {
 		List<BucketDisplayContext> bucketDisplayContexts =
 			folderSearchFacetDisplayContext.getBucketDisplayContexts();
 
-		String nameFrequencyString = _buildNameFrequencyString(
+		String nameFrequencyString = TestUtil.buildNameFrequencyString(
 			bucketDisplayContexts);
 
 		Assert.assertEquals(
@@ -481,26 +481,6 @@ public class FolderSearchFacetDisplayContextTest {
 		}
 
 		return termCollectors;
-	}
-
-	private String _buildNameFrequencyString(
-			List<BucketDisplayContext> bucketDisplayContexts)
-		throws Exception {
-
-		StringBundler sb = new StringBundler(bucketDisplayContexts.size() * 4);
-
-		for (BucketDisplayContext bucketDisplayContext :
-				bucketDisplayContexts) {
-
-			sb.append(bucketDisplayContext.getBucketText());
-			sb.append(StringPool.COLON);
-			sb.append(bucketDisplayContext.getFrequency());
-			sb.append(StringPool.PIPE);
-		}
-
-		sb.setIndex(sb.index() - 1);
-
-		return sb.toString();
 	}
 
 	private int _getTotalBucketDisplayContextFrequencyCount(
