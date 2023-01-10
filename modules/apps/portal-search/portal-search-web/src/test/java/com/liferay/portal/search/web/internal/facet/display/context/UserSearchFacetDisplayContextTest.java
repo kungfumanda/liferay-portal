@@ -265,24 +265,6 @@ public class UserSearchFacetDisplayContextTest {
 		return userSearchFacetDisplayContextBuilder.build();
 	}
 
-	private TermCollector _createTermCollector(String userName, int count) {
-		TermCollector termCollector = Mockito.mock(TermCollector.class);
-
-		Mockito.doReturn(
-			count
-		).when(
-			termCollector
-		).getFrequency();
-
-		Mockito.doReturn(
-			userName
-		).when(
-			termCollector
-		).getTerm();
-
-		return termCollector;
-	}
-
 	private PortletDisplay _getPortletDisplay() throws Exception {
 		PortletDisplay portletDisplay = Mockito.mock(PortletDisplay.class);
 
@@ -328,7 +310,7 @@ public class UserSearchFacetDisplayContextTest {
 
 		for (int i = 0; i < userNames.length; i++) {
 			termCollectors.add(
-				_createTermCollector(userNames[i], frequencies[i]));
+				TestUtil.createTermCollector(userNames[i], frequencies[i]));
 		}
 
 		return termCollectors;
@@ -358,7 +340,8 @@ public class UserSearchFacetDisplayContextTest {
 
 	private void _setUpOneTermCollector(String userName, int count) {
 		Mockito.doReturn(
-			Collections.singletonList(_createTermCollector(userName, count))
+			Collections.singletonList(
+				TestUtil.createTermCollector(userName, count))
 		).when(
 			_facetCollector
 		).getTermCollectors();
