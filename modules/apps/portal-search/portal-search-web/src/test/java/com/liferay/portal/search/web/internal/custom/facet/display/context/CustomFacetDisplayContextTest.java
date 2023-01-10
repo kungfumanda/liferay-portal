@@ -288,24 +288,6 @@ public class CustomFacetDisplayContextTest {
 		return customFacetDisplayContextBuilder.build();
 	}
 
-	private TermCollector _createTermCollector(String fieldName, int count) {
-		TermCollector termCollector = Mockito.mock(TermCollector.class);
-
-		Mockito.doReturn(
-			count
-		).when(
-			termCollector
-		).getFrequency();
-
-		Mockito.doReturn(
-			fieldName
-		).when(
-			termCollector
-		).getTerm();
-
-		return termCollector;
-	}
-
 	private HttpServletRequest _getHttpServletRequest() {
 		HttpServletRequest httpServletRequest = Mockito.mock(
 			HttpServletRequest.class);
@@ -338,7 +320,7 @@ public class CustomFacetDisplayContextTest {
 
 		for (int i = 0; i < fieldNames.length; i++) {
 			termCollectors.add(
-				_createTermCollector(fieldNames[i], frequencies[i]));
+				TestUtil.createTermCollector(fieldNames[i], frequencies[i]));
 		}
 
 		return termCollectors;
@@ -368,7 +350,8 @@ public class CustomFacetDisplayContextTest {
 
 	private void _setUpOneTermCollector(String fieldName, int count) {
 		Mockito.doReturn(
-			Collections.singletonList(_createTermCollector(fieldName, count))
+			Collections.singletonList(
+				TestUtil.createTermCollector(fieldName, count))
 		).when(
 			_facetCollector
 		).getTermCollectors();

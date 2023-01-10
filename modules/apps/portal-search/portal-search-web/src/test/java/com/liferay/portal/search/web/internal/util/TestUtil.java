@@ -16,9 +16,12 @@ package com.liferay.portal.search.web.internal.util;
 
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.search.facet.collector.TermCollector;
 import com.liferay.portal.search.web.internal.facet.display.context.BucketDisplayContext;
 
 import java.util.List;
+
+import org.mockito.Mockito;
 
 /**
  * @author Amanda Costa
@@ -42,6 +45,44 @@ public class TestUtil {
 		sb.setIndex(sb.index() - 1);
 
 		return sb.toString();
+	}
+
+	public static TermCollector createTermCollector(long id, int frequency) {
+		TermCollector termCollector = Mockito.mock(TermCollector.class);
+
+		Mockito.doReturn(
+			frequency
+		).when(
+			termCollector
+		).getFrequency();
+
+		Mockito.doReturn(
+			String.valueOf(id)
+		).when(
+			termCollector
+		).getTerm();
+
+		return termCollector;
+	}
+
+	public static TermCollector createTermCollector(
+		String term, int frequency) {
+
+		TermCollector termCollector = Mockito.mock(TermCollector.class);
+
+		Mockito.doReturn(
+			frequency
+		).when(
+			termCollector
+		).getFrequency();
+
+		Mockito.doReturn(
+			term
+		).when(
+			termCollector
+		).getTerm();
+
+		return termCollector;
 	}
 
 }

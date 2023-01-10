@@ -372,24 +372,6 @@ public class AssetTagsSearchFacetDisplayContextTest {
 		return assetTagsSearchFacetDisplayContextBuilder.build();
 	}
 
-	protected TermCollector createTermCollector(String term, int frequency) {
-		TermCollector termCollector = Mockito.mock(TermCollector.class);
-
-		Mockito.doReturn(
-			frequency
-		).when(
-			termCollector
-		).getFrequency();
-
-		Mockito.doReturn(
-			term
-		).when(
-			termCollector
-		).getTerm();
-
-		return termCollector;
-	}
-
 	protected PortletDisplay getPortletDisplay() throws ConfigurationException {
 		PortletDisplay portletDisplay = Mockito.mock(PortletDisplay.class);
 
@@ -433,7 +415,7 @@ public class AssetTagsSearchFacetDisplayContextTest {
 	protected void setUpOneTermCollector(String facetParam, int frequency) {
 		Mockito.doReturn(
 			Collections.singletonList(
-				createTermCollector(facetParam, frequency))
+				TestUtil.createTermCollector(facetParam, frequency))
 		).when(
 			_facetCollector
 		).getTermCollectors();
@@ -456,7 +438,7 @@ public class AssetTagsSearchFacetDisplayContextTest {
 
 		for (int i = 1; i <= terms.length; i++) {
 			termCollectors.add(
-				createTermCollector(terms[i - 1], frequencies[i - 1]));
+				TestUtil.createTermCollector(terms[i - 1], frequencies[i - 1]));
 		}
 
 		return termCollectors;

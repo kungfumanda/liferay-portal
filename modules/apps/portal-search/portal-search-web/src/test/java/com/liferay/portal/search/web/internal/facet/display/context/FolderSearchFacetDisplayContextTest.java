@@ -371,24 +371,6 @@ public class FolderSearchFacetDisplayContextTest {
 		return folderSearchFacetDisplayContextBuilder.build();
 	}
 
-	protected TermCollector createTermCollector(long folderId, int count) {
-		TermCollector termCollector = Mockito.mock(TermCollector.class);
-
-		Mockito.doReturn(
-			count
-		).when(
-			termCollector
-		).getFrequency();
-
-		Mockito.doReturn(
-			String.valueOf(folderId)
-		).when(
-			termCollector
-		).getTerm();
-
-		return termCollector;
-	}
-
 	protected PortletDisplay getPortletDisplay() throws ConfigurationException {
 		PortletDisplay portletDisplay = Mockito.mock(PortletDisplay.class);
 
@@ -431,7 +413,8 @@ public class FolderSearchFacetDisplayContextTest {
 
 	protected void setUpOneTermCollector(long folderId, int count) {
 		Mockito.doReturn(
-			Collections.singletonList(createTermCollector(folderId, count))
+			Collections.singletonList(
+				TestUtil.createTermCollector(folderId, count))
 		).when(
 			_facetCollector
 		).getTermCollectors();
@@ -460,7 +443,8 @@ public class FolderSearchFacetDisplayContextTest {
 
 			int frequency = folderId + 1;
 
-			termCollectors.add(createTermCollector(folderId, frequency));
+			termCollectors.add(
+				TestUtil.createTermCollector(folderId, frequency));
 
 			folderId++;
 		}
@@ -477,7 +461,8 @@ public class FolderSearchFacetDisplayContextTest {
 		for (int i = 1; i <= folderNames.length; i++) {
 			_addFolder(i, folderNames[i - 1]);
 
-			termCollectors.add(createTermCollector(i, frequencies[i - 1]));
+			termCollectors.add(
+				TestUtil.createTermCollector(i, frequencies[i - 1]));
 		}
 
 		return termCollectors;

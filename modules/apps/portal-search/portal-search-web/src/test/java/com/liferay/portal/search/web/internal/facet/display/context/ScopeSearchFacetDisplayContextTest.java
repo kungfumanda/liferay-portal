@@ -398,24 +398,6 @@ public class ScopeSearchFacetDisplayContextTest {
 		return group;
 	}
 
-	protected TermCollector createTermCollector(long groupId, int count) {
-		TermCollector termCollector = Mockito.mock(TermCollector.class);
-
-		Mockito.doReturn(
-			count
-		).when(
-			termCollector
-		).getFrequency();
-
-		Mockito.doReturn(
-			String.valueOf(groupId)
-		).when(
-			termCollector
-		).getTerm();
-
-		return termCollector;
-	}
-
 	protected PortletDisplay getPortletDisplay() throws ConfigurationException {
 		PortletDisplay portletDisplay = Mockito.mock(PortletDisplay.class);
 
@@ -458,7 +440,8 @@ public class ScopeSearchFacetDisplayContextTest {
 
 	protected void setUpOneTermCollector(long groupId, int count) {
 		Mockito.doReturn(
-			Collections.singletonList(createTermCollector(groupId, count))
+			Collections.singletonList(
+				TestUtil.createTermCollector(groupId, count))
 		).when(
 			_facetCollector
 		).getTermCollectors();
@@ -495,7 +478,8 @@ public class ScopeSearchFacetDisplayContextTest {
 		for (int i = 1; i <= groupNames.length; i++) {
 			_addGroup(i, groupNames[i - 1]);
 
-			termCollectors.add(createTermCollector(i, frequencies[i - 1]));
+			termCollectors.add(
+				TestUtil.createTermCollector(i, frequencies[i - 1]));
 		}
 
 		return termCollectors;
