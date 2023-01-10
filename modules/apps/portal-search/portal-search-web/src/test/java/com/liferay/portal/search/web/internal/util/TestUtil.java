@@ -14,8 +14,34 @@
 
 package com.liferay.portal.search.web.internal.util;
 
+import com.liferay.petra.string.StringBundler;
+import com.liferay.petra.string.StringPool;
+import com.liferay.portal.search.web.internal.facet.display.context.BucketDisplayContext;
+
+import java.util.List;
+
 /**
  * @author Amanda Costa
  */
 public class TestUtil {
+
+	public static String buildNameFrequencyString(
+		List<BucketDisplayContext> bucketDisplayContexts) {
+
+		StringBundler sb = new StringBundler(bucketDisplayContexts.size() * 4);
+
+		for (BucketDisplayContext bucketDisplayContext :
+				bucketDisplayContexts) {
+
+			sb.append(bucketDisplayContext.getBucketText());
+			sb.append(StringPool.COLON);
+			sb.append(bucketDisplayContext.getFrequency());
+			sb.append(StringPool.PIPE);
+		}
+
+		sb.setIndex(sb.index() - 1);
+
+		return sb.toString();
+	}
+
 }

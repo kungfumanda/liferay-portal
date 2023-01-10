@@ -14,7 +14,6 @@
 
 package com.liferay.portal.search.web.internal.facet.display.context;
 
-import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
@@ -28,6 +27,7 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.search.web.internal.facet.display.context.builder.ScopeSearchFacetDisplayContextBuilder;
 import com.liferay.portal.search.web.internal.site.facet.configuration.SiteFacetPortletInstanceConfiguration;
+import com.liferay.portal.search.web.internal.util.TestUtil;
 import com.liferay.portal.test.rule.LiferayUnitTestRule;
 
 import java.util.ArrayList;
@@ -207,7 +207,7 @@ public class ScopeSearchFacetDisplayContextTest {
 		List<BucketDisplayContext> bucketDisplayContexts =
 			scopeSearchFacetDisplayContext.getBucketDisplayContexts();
 
-		String nameFrequencyString = _buildNameFrequencyString(
+		String nameFrequencyString = TestUtil.buildNameFrequencyString(
 			bucketDisplayContexts);
 
 		Assert.assertEquals(
@@ -226,7 +226,8 @@ public class ScopeSearchFacetDisplayContextTest {
 		bucketDisplayContexts =
 			scopeSearchFacetDisplayContext.getBucketDisplayContexts();
 
-		nameFrequencyString = _buildNameFrequencyString(bucketDisplayContexts);
+		nameFrequencyString = TestUtil.buildNameFrequencyString(
+			bucketDisplayContexts);
 
 		Assert.assertEquals(
 			bucketDisplayContexts.toString(), "able:4|baker:5|dog:5|charlie:6",
@@ -247,7 +248,7 @@ public class ScopeSearchFacetDisplayContextTest {
 		List<BucketDisplayContext> bucketDisplayContexts =
 			scopeSearchFacetDisplayContext.getBucketDisplayContexts();
 
-		String nameFrequencyString = _buildNameFrequencyString(
+		String nameFrequencyString = TestUtil.buildNameFrequencyString(
 			bucketDisplayContexts);
 
 		Assert.assertEquals(
@@ -266,7 +267,8 @@ public class ScopeSearchFacetDisplayContextTest {
 		bucketDisplayContexts =
 			scopeSearchFacetDisplayContext.getBucketDisplayContexts();
 
-		nameFrequencyString = _buildNameFrequencyString(bucketDisplayContexts);
+		nameFrequencyString = TestUtil.buildNameFrequencyString(
+			bucketDisplayContexts);
 
 		Assert.assertEquals(
 			bucketDisplayContexts.toString(), "charlie:6|baker:5|dog:5|able:4",
@@ -286,7 +288,7 @@ public class ScopeSearchFacetDisplayContextTest {
 		List<BucketDisplayContext> bucketDisplayContexts =
 			scopeSearchFacetDisplayContext.getBucketDisplayContexts();
 
-		String nameFrequencyString = _buildNameFrequencyString(
+		String nameFrequencyString = TestUtil.buildNameFrequencyString(
 			bucketDisplayContexts);
 
 		Assert.assertEquals(
@@ -304,7 +306,8 @@ public class ScopeSearchFacetDisplayContextTest {
 		bucketDisplayContexts =
 			scopeSearchFacetDisplayContext.getBucketDisplayContexts();
 
-		nameFrequencyString = _buildNameFrequencyString(bucketDisplayContexts);
+		nameFrequencyString = TestUtil.buildNameFrequencyString(
+			bucketDisplayContexts);
 
 		Assert.assertEquals(
 			bucketDisplayContexts.toString(),
@@ -324,7 +327,7 @@ public class ScopeSearchFacetDisplayContextTest {
 		List<BucketDisplayContext> bucketDisplayContexts =
 			scopeSearchFacetDisplayContext.getBucketDisplayContexts();
 
-		String nameFrequencyString = _buildNameFrequencyString(
+		String nameFrequencyString = TestUtil.buildNameFrequencyString(
 			bucketDisplayContexts);
 
 		Assert.assertEquals(
@@ -342,7 +345,8 @@ public class ScopeSearchFacetDisplayContextTest {
 		bucketDisplayContexts =
 			scopeSearchFacetDisplayContext.getBucketDisplayContexts();
 
-		nameFrequencyString = _buildNameFrequencyString(bucketDisplayContexts);
+		nameFrequencyString = TestUtil.buildNameFrequencyString(
+			bucketDisplayContexts);
 
 		Assert.assertEquals(
 			bucketDisplayContexts.toString(),
@@ -468,26 +472,6 @@ public class ScopeSearchFacetDisplayContextTest {
 		).fetchGroup(
 			groupId
 		);
-	}
-
-	private String _buildNameFrequencyString(
-			List<BucketDisplayContext> bucketDisplayContexts)
-		throws Exception {
-
-		StringBundler sb = new StringBundler(bucketDisplayContexts.size() * 4);
-
-		for (BucketDisplayContext bucketDisplayContext :
-				bucketDisplayContexts) {
-
-			sb.append(bucketDisplayContext.getBucketText());
-			sb.append(StringPool.COLON);
-			sb.append(bucketDisplayContext.getFrequency());
-			sb.append(StringPool.PIPE);
-		}
-
-		sb.setIndex(sb.index() - 1);
-
-		return sb.toString();
 	}
 
 	private List<TermCollector> _getTermCollectors(String... groupNames)
