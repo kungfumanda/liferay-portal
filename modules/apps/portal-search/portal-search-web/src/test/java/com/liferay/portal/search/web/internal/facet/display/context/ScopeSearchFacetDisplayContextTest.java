@@ -78,6 +78,11 @@ public class ScopeSearchFacetDisplayContextTest
 		return scopeSearchFacetDisplayContextBuilder.build();
 	}
 
+	@Override
+	public String getParameterValue() {
+		return "0";
+	}
+
 	@Before
 	public void setUp() {
 		Mockito.doReturn(
