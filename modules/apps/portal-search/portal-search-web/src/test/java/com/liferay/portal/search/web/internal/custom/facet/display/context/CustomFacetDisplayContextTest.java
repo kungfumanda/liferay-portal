@@ -208,11 +208,9 @@ public class CustomFacetDisplayContextTest
 				"customDisplayCaption", "fieldToAggregate", StringPool.BLANK,
 				"count:desc");
 
-		String nameFrequencyString = buildNameFrequencyString(
-			customFacetDisplayContext.getBucketDisplayContexts());
-
-		Assert.assertEquals(
-			"charlie:6|bravo:5|delta:5|alpha:4", nameFrequencyString);
+		orderTestAssert(
+			customFacetDisplayContext.getBucketDisplayContexts(),
+			expectedResultsFrequencyDesc);
 	}
 
 	@Test

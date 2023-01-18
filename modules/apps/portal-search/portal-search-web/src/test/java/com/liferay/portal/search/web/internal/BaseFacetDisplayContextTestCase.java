@@ -44,6 +44,16 @@ import org.mockito.Mockito;
  */
 public abstract class BaseFacetDisplayContextTestCase {
 
+	public static void orderTestAssert(
+		List<BucketDisplayContext> bucketDisplayContexts,
+		String expectedResult) {
+
+		String nameFrequencyString = buildNameFrequencyString(
+			bucketDisplayContexts);
+
+		Assert.assertEquals(expectedResult, nameFrequencyString);
+	}
+
 	public FacetDisplayContext createFacetDisplayContext(String parameterValue)
 		throws Exception {
 
@@ -56,9 +66,6 @@ public abstract class BaseFacetDisplayContextTestCase {
 
 		return null;
 	}
-
-	// IF the interface for FacetDisplayContext is okay, then we should pull up
-	// a bunch of tests like this one from the lower levels.
 
 	public String getFacetDisplayContextParameterValue() {
 		return null;
@@ -223,5 +230,8 @@ public abstract class BaseFacetDisplayContextTestCase {
 			facetCollector
 		).getTermCollectors();
 	}
+
+	protected String expectedResultsFrequencyDesc =
+		"charlie:6|bravo:5|delta:5|alpha:4";
 
 }

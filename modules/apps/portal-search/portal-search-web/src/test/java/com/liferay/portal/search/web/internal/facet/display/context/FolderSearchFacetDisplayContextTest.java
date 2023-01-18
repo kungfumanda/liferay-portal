@@ -257,7 +257,7 @@ public class FolderSearchFacetDisplayContextTest
 	@Test
 	public void testOrderByTermFrequencyDescending() throws Exception {
 		List<TermCollector> termCollectors = _addFoldersAndCreateTermCollectors(
-			new String[] {"alpha", "charlie", "bravo", "delta"},
+			new String[] {"alpha", "delta", "bravo", "charlie"},
 			new int[] {4, 5, 5, 6});
 
 		setUpTermCollectors(_facetCollector, termCollectors);
@@ -265,15 +265,9 @@ public class FolderSearchFacetDisplayContextTest
 		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
 			null, "count:desc");
 
-		List<BucketDisplayContext> bucketDisplayContexts =
-			facetDisplayContext.getBucketDisplayContexts();
-
-		String nameFrequencyString = buildNameFrequencyString(
-			bucketDisplayContexts);
-
-		Assert.assertEquals(
-			bucketDisplayContexts.toString(),
-			"delta:6|bravo:5|charlie:5|alpha:4", nameFrequencyString);
+		orderTestAssert(
+			facetDisplayContext.getBucketDisplayContexts(),
+			expectedResultsFrequencyDesc);
 	}
 
 	@Test
