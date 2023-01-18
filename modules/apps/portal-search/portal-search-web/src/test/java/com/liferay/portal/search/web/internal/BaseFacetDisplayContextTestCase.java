@@ -44,16 +44,6 @@ import org.mockito.Mockito;
  */
 public abstract class BaseFacetDisplayContextTestCase {
 
-	public static void orderTestAssert(
-		List<BucketDisplayContext> bucketDisplayContexts,
-		String expectedResult) {
-
-		String nameFrequencyString = buildNameFrequencyString(
-			bucketDisplayContexts);
-
-		Assert.assertEquals(expectedResult, nameFrequencyString);
-	}
-
 	public FacetDisplayContext createFacetDisplayContext(String parameterValue)
 		throws Exception {
 
@@ -211,6 +201,16 @@ public abstract class BaseFacetDisplayContextTestCase {
 		return themeDisplay;
 	}
 
+	protected static void orderTestAssert(
+		List<BucketDisplayContext> bucketDisplayContexts,
+		String expectedResult) {
+
+		String nameFrequencyString = buildNameFrequencyString(
+			bucketDisplayContexts);
+
+		Assert.assertEquals(expectedResult, nameFrequencyString);
+	}
+
 	protected static void setUpTermCollector(
 		FacetCollector facetCollector, String term, int frequency) {
 
@@ -231,7 +231,13 @@ public abstract class BaseFacetDisplayContextTestCase {
 		).getTermCollectors();
 	}
 
+	protected String expectedResultsFrequencyAsc =
+		"alpha:4|bravo:5|delta:5|charlie:6";
 	protected String expectedResultsFrequencyDesc =
 		"charlie:6|bravo:5|delta:5|alpha:4";
+	protected String expectedResultsValueAsc =
+		"alpha:3|bravo:4|bravo:2|charlie:5";
+	protected String expectedResultsValueDesc =
+		"charlie:5|bravo:4|bravo:2|alpha:3";
 
 }

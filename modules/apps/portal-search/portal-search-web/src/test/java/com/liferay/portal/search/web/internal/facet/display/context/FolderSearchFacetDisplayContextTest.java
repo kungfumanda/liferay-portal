@@ -235,23 +235,17 @@ public class FolderSearchFacetDisplayContextTest
 	@Test
 	public void testOrderByTermFrequencyAscending() throws Exception {
 		List<TermCollector> termCollectors = _addFoldersAndCreateTermCollectors(
-			new String[] {"alpha", "charlie", "bravo", "delta"},
-			new int[] {4, 5, 5, 6});
+			new String[] {"charlie", "delta", "bravo", "alpha"},
+			new int[] {6, 5, 5, 4});
 
 		setUpTermCollectors(_facetCollector, termCollectors);
 
 		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
 			null, "count:asc");
 
-		List<BucketDisplayContext> bucketDisplayContexts =
-			facetDisplayContext.getBucketDisplayContexts();
-
-		String nameFrequencyString = buildNameFrequencyString(
-			bucketDisplayContexts);
-
-		Assert.assertEquals(
-			bucketDisplayContexts.toString(),
-			"alpha:4|bravo:5|charlie:5|delta:6", nameFrequencyString);
+		orderTestAssert(
+			facetDisplayContext.getBucketDisplayContexts(),
+			expectedResultsFrequencyAsc);
 	}
 
 	@Test
@@ -273,43 +267,31 @@ public class FolderSearchFacetDisplayContextTest
 	@Test
 	public void testOrderByTermValueAscending() throws Exception {
 		List<TermCollector> termCollectors = _addFoldersAndCreateTermCollectors(
-			"zeroFolderId", "alpha", "bravo", "charlie", "bravo");
+			"zeroFolderId", "bravo", "alpha", "bravo", "charlie");
 
 		setUpTermCollectors(_facetCollector, termCollectors);
 
 		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
 			null, "key:asc");
 
-		List<BucketDisplayContext> bucketDisplayContexts =
-			facetDisplayContext.getBucketDisplayContexts();
-
-		String nameFrequencyString = buildNameFrequencyString(
-			bucketDisplayContexts);
-
-		Assert.assertEquals(
-			bucketDisplayContexts.toString(),
-			"alpha:2|bravo:5|bravo:3|charlie:4", nameFrequencyString);
+		orderTestAssert(
+			facetDisplayContext.getBucketDisplayContexts(),
+			expectedResultsValueAsc);
 	}
 
 	@Test
 	public void testOrderByTermValueDescending() throws Exception {
 		List<TermCollector> termCollectors = _addFoldersAndCreateTermCollectors(
-			"zeroFolderId", "alpha", "bravo", "charlie", "bravo");
+			"zeroFolderId", "bravo", "alpha", "bravo", "charlie");
 
 		setUpTermCollectors(_facetCollector, termCollectors);
 
 		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
 			null, "key:desc");
 
-		List<BucketDisplayContext> bucketDisplayContexts =
-			facetDisplayContext.getBucketDisplayContexts();
-
-		String nameFrequencyString = buildNameFrequencyString(
-			bucketDisplayContexts);
-
-		Assert.assertEquals(
-			bucketDisplayContexts.toString(),
-			"charlie:4|bravo:5|bravo:3|alpha:2", nameFrequencyString);
+		orderTestAssert(
+			facetDisplayContext.getBucketDisplayContexts(),
+			expectedResultsValueDesc);
 	}
 
 	@Test

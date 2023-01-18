@@ -192,11 +192,9 @@ public class UserSearchFacetDisplayContextTest
 		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
 			StringPool.BLANK, "count:asc");
 
-		String nameFrequencyString = buildNameFrequencyString(
-			facetDisplayContext.getBucketDisplayContexts());
-
-		Assert.assertEquals(
-			"alpha:4|bravo:5|delta:5|charlie:6", nameFrequencyString);
+		orderTestAssert(
+			facetDisplayContext.getBucketDisplayContexts(),
+			expectedResultsFrequencyAsc);
 	}
 
 	@Test
@@ -221,16 +219,14 @@ public class UserSearchFacetDisplayContextTest
 			_facetCollector,
 			getTermCollectors(
 				new String[] {"bravo", "alpha", "bravo", "charlie"},
-				new int[] {3, 4, 5, 6}));
+				new int[] {2, 3, 4, 5}));
 
 		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
 			StringPool.BLANK, "key:asc");
 
-		String nameFrequencyString = buildNameFrequencyString(
-			facetDisplayContext.getBucketDisplayContexts());
-
-		Assert.assertEquals(
-			"alpha:4|bravo:5|bravo:3|charlie:6", nameFrequencyString);
+		orderTestAssert(
+			facetDisplayContext.getBucketDisplayContexts(),
+			expectedResultsValueAsc);
 	}
 
 	@Test
@@ -239,16 +235,14 @@ public class UserSearchFacetDisplayContextTest
 			_facetCollector,
 			getTermCollectors(
 				new String[] {"bravo", "alpha", "bravo", "charlie"},
-				new int[] {3, 4, 5, 6}));
+				new int[] {2, 3, 4, 5}));
 
 		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
 			StringPool.BLANK, "key:desc");
 
-		String nameFrequencyString = buildNameFrequencyString(
-			facetDisplayContext.getBucketDisplayContexts());
-
-		Assert.assertEquals(
-			"charlie:6|bravo:5|bravo:3|alpha:4", nameFrequencyString);
+		orderTestAssert(
+			facetDisplayContext.getBucketDisplayContexts(),
+			expectedResultsValueDesc);
 	}
 
 	private final Facet _facet = Mockito.mock(Facet.class);
