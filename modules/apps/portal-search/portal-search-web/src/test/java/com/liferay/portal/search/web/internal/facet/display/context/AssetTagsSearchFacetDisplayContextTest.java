@@ -187,6 +187,9 @@ public class AssetTagsSearchFacetDisplayContextTest
 		Assert.assertFalse(facetDisplayContext.isRenderNothing());
 	}
 
+	// If we refactor all ordering tests like this, it`s possible to use them in
+	// Base class as well
+
 	@Test
 	public void testOrderByTermFrequencyAscending() throws Exception {
 		_testOrderBy(

@@ -65,6 +65,9 @@ public abstract class BaseCategoriesSearchFacetDisplayContextTestCase {
 		setUpFacet();
 	}
 
+	// It`s probably possible to use BaseCategories here too (at least for this
+	// first test and the ordering ones
+
 	@Test
 	public void testEmptySearchResults() throws Exception {
 		String facetParam = StringPool.BLANK;

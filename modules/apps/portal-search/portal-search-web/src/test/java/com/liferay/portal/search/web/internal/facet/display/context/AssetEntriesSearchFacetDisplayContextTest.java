@@ -58,6 +58,8 @@ public class AssetEntriesSearchFacetDisplayContextTest
 		).getFacetCollector();
 	}
 
+	// How to use orderTestAssert here (considering the need of concat)
+
 	@Test
 	public void testOrderByTermFrequencyAscending() throws Exception {
 		String type1 = RandomTestUtil.randomString();
