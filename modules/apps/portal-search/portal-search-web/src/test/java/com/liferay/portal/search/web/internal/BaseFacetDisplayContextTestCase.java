@@ -57,9 +57,6 @@ public abstract class BaseFacetDisplayContextTestCase {
 		return null;
 	}
 
-	// IF the interface for FacetDisplayContext is okay, then we should pull up
-	// a bunch of tests like this one from the lower levels.
-
 	public String getFacetDisplayContextParameterValue() {
 		return null;
 	}
@@ -85,6 +82,36 @@ public abstract class BaseFacetDisplayContextTestCase {
 			parameterValue, facetDisplayContext.getParameterValue());
 		Assert.assertTrue(facetDisplayContext.isNothingSelected());
 		Assert.assertTrue(facetDisplayContext.isRenderNothing());
+	}
+
+	protected static void assertFacetOrder(
+		List<BucketDisplayContext> bucketDisplayContexts,
+		String[] expectedDisplayText, int[] expectedFrequencies) {
+
+		String expectedResult = buildExpectedNameFrequencyString(
+			expectedDisplayText, expectedFrequencies);
+
+		String actualNameFrequencyString = buildNameFrequencyString(
+			bucketDisplayContexts);
+
+		Assert.assertEquals(expectedResult, actualNameFrequencyString);
+	}
+
+	protected static String buildExpectedNameFrequencyString(
+		String[] expectedDisplayText, int[] expectedFrequencies) {
+
+		StringBundler sb = new StringBundler(expectedDisplayText.length * 4);
+
+		for (int i = 0; i < expectedDisplayText.length; i++) {
+			sb.append(expectedDisplayText[i]);
+			sb.append(StringPool.COLON);
+			sb.append(expectedFrequencies[i]);
+			sb.append(StringPool.PIPE);
+		}
+
+		sb.setIndex(sb.index() - 1);
+
+		return sb.toString();
 	}
 
 	protected static String buildNameFrequencyString(
@@ -223,5 +250,22 @@ public abstract class BaseFacetDisplayContextTestCase {
 			facetCollector
 		).getTermCollectors();
 	}
+
+	protected int[] expectedFrequenciesFrequencyAscending = {4, 5, 5, 6};
+	protected int[] expectedFrequenciesFrequencyDescending = {6, 5, 5, 4};
+	protected int[] expectedFrequenciesValueAscending = {3, 4, 2, 5};
+	protected int[] expectedFrequenciesValueDescending = {5, 4, 2, 3};
+	protected String[] expectedTermsFrequencyAscending = {
+		"alpha", "bravo", "delta", "charlie"
+	};
+	protected String[] expectedTermsFrequencyDescending = {
+		"charlie", "bravo", "delta", "alpha"
+	};
+	protected String[] expectedTermsValueAscending = {
+		"alpha", "bravo", "bravo", "charlie"
+	};
+	protected String[] expectedTermsValueDescending = {
+		"charlie", "bravo", "bravo", "alpha"
+	};
 
 }

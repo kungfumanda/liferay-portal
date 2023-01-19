@@ -180,19 +180,18 @@ public class CustomFacetDisplayContextTest
 		setUpTermCollectors(
 			_facetCollector,
 			getTermCollectors(
-				new String[] {"alpha", "delta", "bravo", "charlie"},
-				new int[] {4, 5, 5, 6}));
+				new String[] {"charlie", "delta", "bravo", "alpha"},
+				new int[] {6, 5, 5, 4}));
 
 		CustomFacetDisplayContext customFacetDisplayContext =
 			_createDisplayContext(
 				"customDisplayCaption", "fieldToAggregate", StringPool.BLANK,
 				"count:asc");
 
-		String nameFrequencyString = buildNameFrequencyString(
-			customFacetDisplayContext.getBucketDisplayContexts());
-
-		Assert.assertEquals(
-			"alpha:4|bravo:5|delta:5|charlie:6", nameFrequencyString);
+		assertFacetOrder(
+			customFacetDisplayContext.getBucketDisplayContexts(),
+			expectedTermsFrequencyAscending,
+			expectedFrequenciesFrequencyAscending);
 	}
 
 	@Test
@@ -208,11 +207,10 @@ public class CustomFacetDisplayContextTest
 				"customDisplayCaption", "fieldToAggregate", StringPool.BLANK,
 				"count:desc");
 
-		String nameFrequencyString = buildNameFrequencyString(
-			customFacetDisplayContext.getBucketDisplayContexts());
-
-		Assert.assertEquals(
-			"charlie:6|bravo:5|delta:5|alpha:4", nameFrequencyString);
+		assertFacetOrder(
+			customFacetDisplayContext.getBucketDisplayContexts(),
+			expectedTermsFrequencyDescending,
+			expectedFrequenciesFrequencyDescending);
 	}
 
 	@Test
@@ -221,18 +219,16 @@ public class CustomFacetDisplayContextTest
 			_facetCollector,
 			getTermCollectors(
 				new String[] {"bravo", "alpha", "bravo", "charlie"},
-				new int[] {4, 5, 5, 6}));
+				new int[] {2, 3, 4, 5}));
 
 		CustomFacetDisplayContext customFacetDisplayContext =
 			_createDisplayContext(
 				"customDisplayCaption", "fieldToAggregate", StringPool.BLANK,
 				"key:asc");
 
-		String nameFrequencyString = buildNameFrequencyString(
-			customFacetDisplayContext.getBucketDisplayContexts());
-
-		Assert.assertEquals(
-			"alpha:5|bravo:5|bravo:4|charlie:6", nameFrequencyString);
+		assertFacetOrder(
+			customFacetDisplayContext.getBucketDisplayContexts(),
+			expectedTermsValueAscending, expectedFrequenciesValueAscending);
 	}
 
 	@Test
@@ -241,18 +237,16 @@ public class CustomFacetDisplayContextTest
 			_facetCollector,
 			getTermCollectors(
 				new String[] {"bravo", "alpha", "bravo", "charlie"},
-				new int[] {3, 4, 5, 6}));
+				new int[] {2, 3, 4, 5}));
 
 		CustomFacetDisplayContext customFacetDisplayContext =
 			_createDisplayContext(
 				"customDisplayCaption", "fieldToAggregate", StringPool.BLANK,
 				"key:desc");
 
-		String nameFrequencyString = buildNameFrequencyString(
-			customFacetDisplayContext.getBucketDisplayContexts());
-
-		Assert.assertEquals(
-			"charlie:6|bravo:5|bravo:3|alpha:4", nameFrequencyString);
+		assertFacetOrder(
+			customFacetDisplayContext.getBucketDisplayContexts(),
+			expectedTermsValueDescending, expectedFrequenciesValueDescending);
 	}
 
 	private CustomFacetDisplayContext _createDisplayContext(
