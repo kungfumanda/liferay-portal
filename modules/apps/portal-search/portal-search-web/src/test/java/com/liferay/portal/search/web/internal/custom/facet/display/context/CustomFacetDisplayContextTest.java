@@ -177,76 +177,36 @@ public class CustomFacetDisplayContextTest
 
 	@Test
 	public void testOrderByTermFrequencyAscending() throws Exception {
-		setUpTermCollectors(
-			_facetCollector,
-			getTermCollectors(
-				new String[] {"charlie", "delta", "bravo", "alpha"},
-				new int[] {6, 5, 5, 4}));
-
-		CustomFacetDisplayContext customFacetDisplayContext =
-			_createDisplayContext(
-				"customDisplayCaption", "fieldToAggregate", StringPool.BLANK,
-				"count:asc");
-
-		assertFacetOrder(
-			customFacetDisplayContext.getBucketDisplayContexts(),
+		_testOrderBy(
+			new String[] {"charlie", "delta", "bravo", "alpha"},
+			new int[] {6, 5, 5, 4}, "count:asc",
 			expectedTermsFrequencyAscending,
 			expectedFrequenciesFrequencyAscending);
 	}
 
 	@Test
 	public void testOrderByTermFrequencyDescending() throws Exception {
-		setUpTermCollectors(
-			_facetCollector,
-			getTermCollectors(
-				new String[] {"alpha", "delta", "bravo", "charlie"},
-				new int[] {4, 5, 5, 6}));
-
-		CustomFacetDisplayContext customFacetDisplayContext =
-			_createDisplayContext(
-				"customDisplayCaption", "fieldToAggregate", StringPool.BLANK,
-				"count:desc");
-
-		assertFacetOrder(
-			customFacetDisplayContext.getBucketDisplayContexts(),
+		_testOrderBy(
+			new String[] {"alpha", "delta", "bravo", "charlie"},
+			new int[] {4, 5, 5, 6}, "count:desc",
 			expectedTermsFrequencyDescending,
 			expectedFrequenciesFrequencyDescending);
 	}
 
 	@Test
 	public void testOrderByTermValueAscending() throws Exception {
-		setUpTermCollectors(
-			_facetCollector,
-			getTermCollectors(
-				new String[] {"bravo", "alpha", "bravo", "charlie"},
-				new int[] {2, 3, 4, 5}));
-
-		CustomFacetDisplayContext customFacetDisplayContext =
-			_createDisplayContext(
-				"customDisplayCaption", "fieldToAggregate", StringPool.BLANK,
-				"key:asc");
-
-		assertFacetOrder(
-			customFacetDisplayContext.getBucketDisplayContexts(),
-			expectedTermsValueAscending, expectedFrequenciesValueAscending);
+		_testOrderBy(
+			new String[] {"bravo", "alpha", "bravo", "charlie"},
+			new int[] {2, 3, 4, 5}, "key:asc", expectedTermsValueAscending,
+			expectedFrequenciesValueAscending);
 	}
 
 	@Test
 	public void testOrderByTermValueDescending() throws Exception {
-		setUpTermCollectors(
-			_facetCollector,
-			getTermCollectors(
-				new String[] {"bravo", "alpha", "bravo", "charlie"},
-				new int[] {2, 3, 4, 5}));
-
-		CustomFacetDisplayContext customFacetDisplayContext =
-			_createDisplayContext(
-				"customDisplayCaption", "fieldToAggregate", StringPool.BLANK,
-				"key:desc");
-
-		assertFacetOrder(
-			customFacetDisplayContext.getBucketDisplayContexts(),
-			expectedTermsValueDescending, expectedFrequenciesValueDescending);
+		_testOrderBy(
+			new String[] {"bravo", "alpha", "bravo", "charlie"},
+			new int[] {2, 3, 4, 5}, "key:desc", expectedTermsValueDescending,
+			expectedFrequenciesValueDescending);
 	}
 
 	private CustomFacetDisplayContext _createDisplayContext(
@@ -281,6 +241,24 @@ public class CustomFacetDisplayContextTest
 		customFacetDisplayContextBuilder.setFieldToAggregate(fieldToAggregate);
 
 		return customFacetDisplayContextBuilder.build();
+	}
+
+	private void _testOrderBy(
+			String[] terms, int[] frequencies, String order,
+			String[] expectedTerms, int[] expectedFrequencies)
+		throws Exception {
+
+		setUpTermCollectors(
+			_facetCollector, getTermCollectors(terms, frequencies));
+
+		CustomFacetDisplayContext customFacetDisplayContext =
+			_createDisplayContext(
+				"customDisplayCaption", "fieldToAggregate", StringPool.BLANK,
+				order);
+
+		assertFacetOrder(
+			customFacetDisplayContext.getBucketDisplayContexts(), expectedTerms,
+			expectedFrequencies);
 	}
 
 	private final Facet _facet = Mockito.mock(Facet.class);

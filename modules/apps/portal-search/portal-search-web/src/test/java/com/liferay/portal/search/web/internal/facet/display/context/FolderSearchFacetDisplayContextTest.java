@@ -238,14 +238,8 @@ public class FolderSearchFacetDisplayContextTest
 			new String[] {"charlie", "delta", "bravo", "alpha"},
 			new int[] {6, 5, 5, 4});
 
-		setUpTermCollectors(_facetCollector, termCollectors);
-
-		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
-			null, "count:asc");
-
-		assertFacetOrder(
-			facetDisplayContext.getBucketDisplayContexts(),
-			expectedTermsFrequencyAscending,
+		_testOrderBy(
+			termCollectors, "count:asc", expectedTermsFrequencyAscending,
 			expectedFrequenciesFrequencyAscending);
 	}
 
@@ -255,14 +249,8 @@ public class FolderSearchFacetDisplayContextTest
 			new String[] {"alpha", "delta", "bravo", "charlie"},
 			new int[] {4, 5, 5, 6});
 
-		setUpTermCollectors(_facetCollector, termCollectors);
-
-		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
-			null, "count:desc");
-
-		assertFacetOrder(
-			facetDisplayContext.getBucketDisplayContexts(),
-			expectedTermsFrequencyDescending,
+		_testOrderBy(
+			termCollectors, "count:desc", expectedTermsFrequencyDescending,
 			expectedFrequenciesFrequencyDescending);
 	}
 
@@ -271,14 +259,9 @@ public class FolderSearchFacetDisplayContextTest
 		List<TermCollector> termCollectors = _addFoldersAndCreateTermCollectors(
 			"zeroFolderId", "bravo", "alpha", "bravo", "charlie");
 
-		setUpTermCollectors(_facetCollector, termCollectors);
-
-		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
-			null, "key:asc");
-
-		assertFacetOrder(
-			facetDisplayContext.getBucketDisplayContexts(),
-			expectedTermsValueAscending, expectedFrequenciesValueAscending);
+		_testOrderBy(
+			termCollectors, "key:asc", expectedTermsValueAscending,
+			expectedFrequenciesValueAscending);
 	}
 
 	@Test
@@ -286,14 +269,9 @@ public class FolderSearchFacetDisplayContextTest
 		List<TermCollector> termCollectors = _addFoldersAndCreateTermCollectors(
 			"zeroFolderId", "bravo", "alpha", "bravo", "charlie");
 
-		setUpTermCollectors(_facetCollector, termCollectors);
-
-		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
-			null, "key:desc");
-
-		assertFacetOrder(
-			facetDisplayContext.getBucketDisplayContexts(),
-			expectedTermsValueDescending, expectedFrequenciesValueDescending);
+		_testOrderBy(
+			termCollectors, "key:desc", expectedTermsValueDescending,
+			expectedFrequenciesValueDescending);
 	}
 
 	@Test
@@ -399,6 +377,21 @@ public class FolderSearchFacetDisplayContextTest
 		}
 
 		return total;
+	}
+
+	private void _testOrderBy(
+			List<TermCollector> termCollectors, String order,
+			String[] expectedTerms, int[] expectedFrequencies)
+		throws Exception {
+
+		setUpTermCollectors(_facetCollector, termCollectors);
+
+		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
+			null, order);
+
+		assertFacetOrder(
+			facetDisplayContext.getBucketDisplayContexts(), expectedTerms,
+			expectedFrequencies);
 	}
 
 	private final Facet _facet = Mockito.mock(Facet.class);

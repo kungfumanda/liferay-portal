@@ -183,68 +183,52 @@ public class UserSearchFacetDisplayContextTest
 
 	@Test
 	public void testOrderByTermFrequencyAscending() throws Exception {
-		String[] userNames = {"charlie", "delta", "bravo", "alpha"};
-
-		setUpTermCollectors(
-			_facetCollector,
-			getTermCollectors(userNames, new int[] {6, 5, 5, 4}));
-
-		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
-			StringPool.BLANK, "count:asc");
-
-		assertFacetOrder(
-			facetDisplayContext.getBucketDisplayContexts(),
+		_testOrderBy(
+			new String[] {"charlie", "delta", "bravo", "alpha"},
+			new int[] {6, 5, 5, 4}, "count:asc",
 			expectedTermsFrequencyAscending,
 			expectedFrequenciesFrequencyAscending);
 	}
 
 	@Test
 	public void testOrderByTermFrequencyDescending() throws Exception {
-		String[] userNames = {"alpha", "delta", "bravo", "charlie"};
-
-		setUpTermCollectors(
-			_facetCollector,
-			getTermCollectors(userNames, new int[] {4, 5, 5, 6}));
-
-		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
-			StringPool.BLANK, "count:desc");
-
-		assertFacetOrder(
-			facetDisplayContext.getBucketDisplayContexts(),
+		_testOrderBy(
+			new String[] {"alpha", "delta", "bravo", "charlie"},
+			new int[] {4, 5, 5, 6}, "count:desc",
 			expectedTermsFrequencyDescending,
 			expectedFrequenciesFrequencyDescending);
 	}
 
 	@Test
 	public void testOrderByTermValueAscending() throws Exception {
-		setUpTermCollectors(
-			_facetCollector,
-			getTermCollectors(
-				new String[] {"bravo", "alpha", "bravo", "charlie"},
-				new int[] {2, 3, 4, 5}));
-
-		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
-			StringPool.BLANK, "key:asc");
-
-		assertFacetOrder(
-			facetDisplayContext.getBucketDisplayContexts(),
-			expectedTermsValueAscending, expectedFrequenciesValueAscending);
+		_testOrderBy(
+			new String[] {"bravo", "alpha", "bravo", "charlie"},
+			new int[] {2, 3, 4, 5}, "key:asc", expectedTermsValueAscending,
+			expectedFrequenciesValueAscending);
 	}
 
 	@Test
 	public void testOrderByTermValueDescending() throws Exception {
+		_testOrderBy(
+			new String[] {"bravo", "alpha", "bravo", "charlie"},
+			new int[] {2, 3, 4, 5}, "key:desc", expectedTermsValueDescending,
+			expectedFrequenciesValueDescending);
+	}
+
+	private void _testOrderBy(
+			String[] userNames, int[] frequencies, String order,
+			String[] expectedUserNames, int[] expectedFrequencies)
+		throws Exception {
+
 		setUpTermCollectors(
-			_facetCollector,
-			getTermCollectors(
-				new String[] {"bravo", "alpha", "bravo", "charlie"},
-				new int[] {2, 3, 4, 5}));
+			_facetCollector, getTermCollectors(userNames, frequencies));
 
 		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
-			StringPool.BLANK, "key:desc");
+			StringPool.BLANK, order);
 
 		assertFacetOrder(
-			facetDisplayContext.getBucketDisplayContexts(),
-			expectedTermsValueDescending, expectedFrequenciesValueDescending);
+			facetDisplayContext.getBucketDisplayContexts(), expectedUserNames,
+			expectedFrequencies);
 	}
 
 	private final Facet _facet = Mockito.mock(Facet.class);
