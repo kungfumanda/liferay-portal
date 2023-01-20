@@ -232,6 +232,7 @@ public class FolderSearchFacetDisplayContextTest
 		Assert.assertFalse(facetDisplayContext.isRenderNothing());
 	}
 
+	@Override
 	@Test
 	public void testOrderByTermFrequencyAscending() throws Exception {
 		List<TermCollector> termCollectors = _addFoldersAndCreateTermCollectors(
@@ -243,6 +244,7 @@ public class FolderSearchFacetDisplayContextTest
 			expectedFrequenciesFrequencyAscending);
 	}
 
+	@Override
 	@Test
 	public void testOrderByTermFrequencyDescending() throws Exception {
 		List<TermCollector> termCollectors = _addFoldersAndCreateTermCollectors(
@@ -254,6 +256,7 @@ public class FolderSearchFacetDisplayContextTest
 			expectedFrequenciesFrequencyDescending);
 	}
 
+	@Override
 	@Test
 	public void testOrderByTermValueAscending() throws Exception {
 		List<TermCollector> termCollectors = _addFoldersAndCreateTermCollectors(
@@ -264,6 +267,7 @@ public class FolderSearchFacetDisplayContextTest
 			expectedFrequenciesValueAscending);
 	}
 
+	@Override
 	@Test
 	public void testOrderByTermValueDescending() throws Exception {
 		List<TermCollector> termCollectors = _addFoldersAndCreateTermCollectors(

@@ -55,6 +55,7 @@ public class AssetEntriesSearchFacetDisplayContextTest
 		).getFacetCollector();
 	}
 
+	@Override
 	@Test
 	public void testOrderByTermFrequencyAscending() throws Exception {
 		String type1 = RandomTestUtil.randomString();
@@ -68,6 +69,7 @@ public class AssetEntriesSearchFacetDisplayContextTest
 		_testOrderBy(classNames, "count:asc", classNames, expectedFrequencies);
 	}
 
+	@Override
 	@Test
 	public void testOrderByTermFrequencyDescending() throws Exception {
 		String type1 = RandomTestUtil.randomString();
@@ -83,6 +85,7 @@ public class AssetEntriesSearchFacetDisplayContextTest
 			classNames, "count:desc", expectedClassNames, expectedFrequencies);
 	}
 
+	@Override
 	@Test
 	public void testOrderByTermValueAscending() throws Exception {
 		String[] classNames = {"bravo", "delta", "alpha", "charlie"};
@@ -94,6 +97,7 @@ public class AssetEntriesSearchFacetDisplayContextTest
 			classNames, "key:asc", expectedClassNames, expectedFrequencies);
 	}
 
+	@Override
 	@Test
 	public void testOrderByTermValueDescending() throws Exception {
 		String[] classNames = {"bravo", "delta", "alpha", "charlie"};
