@@ -57,6 +57,11 @@ public class AssetEntriesSearchFacetDisplayContextTest
 
 	@Override
 	@Test
+	public void testEmptySearchResults() throws Exception {
+	}
+
+	@Override
+	@Test
 	public void testOrderByTermFrequencyAscending() throws Exception {
 		String type1 = RandomTestUtil.randomString();
 		String type2 = RandomTestUtil.randomString();
