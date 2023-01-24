@@ -69,35 +69,6 @@ public class UserSearchFacetDisplayContextTest
 	}
 
 	@Test
-	public void testEmptySearchResultsWithPreviousSelection() throws Exception {
-		String userName = RandomTestUtil.randomString();
-
-		String paramValue = userName;
-
-		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
-			paramValue);
-
-		List<BucketDisplayContext> bucketDisplayContexts =
-			facetDisplayContext.getBucketDisplayContexts();
-
-		Assert.assertEquals(
-			bucketDisplayContexts.toString(), 1, bucketDisplayContexts.size());
-
-		BucketDisplayContext bucketDisplayContext = bucketDisplayContexts.get(
-			0);
-
-		Assert.assertEquals(userName, bucketDisplayContext.getBucketText());
-		Assert.assertEquals(0, bucketDisplayContext.getFrequency());
-		Assert.assertTrue(bucketDisplayContext.isFrequencyVisible());
-		Assert.assertTrue(bucketDisplayContext.isSelected());
-
-		Assert.assertEquals(
-			paramValue, facetDisplayContext.getParameterValue());
-		Assert.assertFalse(facetDisplayContext.isNothingSelected());
-		Assert.assertFalse(facetDisplayContext.isRenderNothing());
-	}
-
-	@Test
 	public void testOneTerm() throws Exception {
 		String userName = RandomTestUtil.randomString();
 

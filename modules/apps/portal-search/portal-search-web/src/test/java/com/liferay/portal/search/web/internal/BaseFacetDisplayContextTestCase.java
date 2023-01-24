@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.search.facet.Facet;
 import com.liferay.portal.kernel.search.facet.collector.FacetCollector;
 import com.liferay.portal.kernel.search.facet.collector.TermCollector;
+import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -91,6 +92,38 @@ public abstract class BaseFacetDisplayContextTestCase {
 			parameterValue, facetDisplayContext.getParameterValue());
 		Assert.assertTrue(facetDisplayContext.isNothingSelected());
 		Assert.assertTrue(facetDisplayContext.isRenderNothing());
+	}
+
+	@Test
+	public void testEmptySearchResultsWithPreviousSelection() throws Exception {
+		String term = createTerm();
+
+		setUpAsset(term);
+
+		String filterValue = getFilterValue(term);
+
+		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
+			filterValue);
+
+		List<BucketDisplayContext> bucketDisplayContexts =
+			facetDisplayContext.getBucketDisplayContexts();
+
+		Assert.assertEquals(
+			bucketDisplayContexts.toString(), 1, bucketDisplayContexts.size());
+
+		BucketDisplayContext bucketDisplayContext = bucketDisplayContexts.get(
+			0);
+
+		Assert.assertEquals(term, bucketDisplayContext.getBucketText());
+		Assert.assertEquals(filterValue, bucketDisplayContext.getFilterValue());
+		Assert.assertEquals(0, bucketDisplayContext.getFrequency());
+		Assert.assertTrue(bucketDisplayContext.isSelected());
+		Assert.assertTrue(bucketDisplayContext.isFrequencyVisible());
+
+		Assert.assertEquals(
+			filterValue, facetDisplayContext.getParameterValue());
+		Assert.assertFalse(facetDisplayContext.isNothingSelected());
+		Assert.assertFalse(facetDisplayContext.isRenderNothing());
 	}
 
 	@Test
@@ -291,6 +324,17 @@ public abstract class BaseFacetDisplayContextTestCase {
 		sb.setIndex(sb.index() - 1);
 
 		return sb.toString();
+	}
+
+	protected String createTerm() {
+		return RandomTestUtil.randomString();
+	}
+
+	protected String getFilterValue(String term) {
+		return term;
+	}
+
+	protected void setUpAsset(String term) throws Exception {
 	}
 
 	protected void testOrderBy(

@@ -20,6 +20,7 @@ import com.liferay.portal.search.web.internal.BaseFacetDisplayContextTestCase;
 import com.liferay.portal.search.web.internal.custom.facet.configuration.CustomFacetPortletInstanceConfiguration;
 import com.liferay.portal.search.web.internal.custom.facet.display.context.builder.CustomFacetDisplayContextBuilder;
 import com.liferay.portal.search.web.internal.facet.display.context.BucketDisplayContext;
+import com.liferay.portal.search.web.internal.facet.display.context.FacetDisplayContext;
 import com.liferay.portal.test.rule.LiferayUnitTestRule;
 
 import java.util.Collections;
@@ -41,6 +42,15 @@ public class CustomFacetDisplayContextTest
 	@Rule
 	public static final LiferayUnitTestRule liferayUnitTestRule =
 		LiferayUnitTestRule.INSTANCE;
+
+	@Override
+	public FacetDisplayContext createFacetDisplayContext(String parameterValue)
+		throws Exception {
+
+		return _createDisplayContext(
+			"customDisplayCaption", "fieldToAggregate", parameterValue,
+			"count:desc");
+	}
 
 	@Test
 	public void testEmptyCustomDisplayCaption() throws Exception {
@@ -67,37 +77,6 @@ public class CustomFacetDisplayContextTest
 	@Override
 	@Test
 	public void testEmptySearchResults() throws Exception {
-	}
-
-	@Test
-	public void testEmptySearchResultsWithPreviousSelection() throws Exception {
-		String fieldName = RandomTestUtil.randomString();
-
-		String parameterValue = fieldName;
-
-		CustomFacetDisplayContext customFacetDisplayContext =
-			_createDisplayContext(
-				"customDisplayCaption", "fieldToAggregate", parameterValue);
-
-		List<BucketDisplayContext> bucketDisplayContexts =
-			customFacetDisplayContext.getBucketDisplayContexts();
-
-		Assert.assertEquals(
-			bucketDisplayContexts.toString(), 1, bucketDisplayContexts.size());
-
-		BucketDisplayContext bucketDisplayContext = bucketDisplayContexts.get(
-			0);
-
-		Assert.assertEquals(fieldName, bucketDisplayContext.getBucketText());
-		Assert.assertEquals(fieldName, bucketDisplayContext.getFilterValue());
-		Assert.assertEquals(0, bucketDisplayContext.getFrequency());
-		Assert.assertTrue(bucketDisplayContext.isFrequencyVisible());
-		Assert.assertTrue(bucketDisplayContext.isSelected());
-
-		Assert.assertEquals(
-			parameterValue, customFacetDisplayContext.getParameterValue());
-		Assert.assertFalse(customFacetDisplayContext.isNothingSelected());
-		Assert.assertFalse(customFacetDisplayContext.isRenderNothing());
 	}
 
 	@Test

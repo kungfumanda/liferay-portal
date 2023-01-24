@@ -95,40 +95,6 @@ public class FolderSearchFacetDisplayContextTest
 	}
 
 	@Test
-	public void testEmptySearchResultsWithPreviousSelection() throws Exception {
-		long folderId = RandomTestUtil.randomLong();
-		String title = RandomTestUtil.randomString();
-
-		_addFolder(folderId, title);
-
-		String facetParam = String.valueOf(folderId);
-
-		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
-			facetParam);
-
-		List<BucketDisplayContext> bucketDisplayContexts =
-			facetDisplayContext.getBucketDisplayContexts();
-
-		Assert.assertEquals(
-			bucketDisplayContexts.toString(), 1, bucketDisplayContexts.size());
-
-		BucketDisplayContext bucketDisplayContext = bucketDisplayContexts.get(
-			0);
-
-		Assert.assertEquals(title, bucketDisplayContext.getBucketText());
-		Assert.assertEquals(
-			String.valueOf(folderId), bucketDisplayContext.getFilterValue());
-		Assert.assertEquals(0, bucketDisplayContext.getFrequency());
-		Assert.assertTrue(bucketDisplayContext.isSelected());
-		Assert.assertTrue(bucketDisplayContext.isFrequencyVisible());
-
-		Assert.assertEquals(
-			facetParam, facetDisplayContext.getParameterValue());
-		Assert.assertFalse(facetDisplayContext.isNothingSelected());
-		Assert.assertFalse(facetDisplayContext.isRenderNothing());
-	}
-
-	@Test
 	public void testEmptySearchResultsWithUnmatchedTermCollector()
 		throws Exception {
 
@@ -303,6 +269,18 @@ public class FolderSearchFacetDisplayContextTest
 			_getTotalBucketDisplayContextFrequencyCount(bucketDisplayContexts));
 	}
 
+	@Override
+	protected String getFilterValue(String term) {
+		return String.valueOf(_folderId);
+	}
+
+	@Override
+	protected void setUpAsset(String term) throws Exception {
+		_folderId = RandomTestUtil.randomLong();
+
+		_addFolder(_folderId, term);
+	}
+
 	private void _addFolder(long folderId, String title) throws Exception {
 		Mockito.doReturn(
 			title
@@ -392,6 +370,7 @@ public class FolderSearchFacetDisplayContextTest
 			expectedFrequencies);
 	}
 
+	private long _folderId;
 	private final FolderTitleLookup _folderTitleLookup = Mockito.mock(
 		FolderTitleLookup.class);
 

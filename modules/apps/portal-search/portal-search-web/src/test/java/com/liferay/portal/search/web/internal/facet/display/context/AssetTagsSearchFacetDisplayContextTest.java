@@ -74,36 +74,6 @@ public class AssetTagsSearchFacetDisplayContextTest
 	}
 
 	@Test
-	public void testEmptySearchResultsWithPreviousSelection() throws Exception {
-		String term = RandomTestUtil.randomString();
-
-		String facetParam = term;
-
-		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
-			facetParam);
-
-		List<BucketDisplayContext> bucketDisplayContexts =
-			facetDisplayContext.getBucketDisplayContexts();
-
-		Assert.assertEquals(
-			bucketDisplayContexts.toString(), 1, bucketDisplayContexts.size());
-
-		BucketDisplayContext bucketDisplayContext = bucketDisplayContexts.get(
-			0);
-
-		Assert.assertEquals(term, bucketDisplayContext.getBucketText());
-		Assert.assertEquals(term, bucketDisplayContext.getFilterValue());
-		Assert.assertEquals(0, bucketDisplayContext.getFrequency());
-		Assert.assertTrue(bucketDisplayContext.isSelected());
-		Assert.assertTrue(bucketDisplayContext.isFrequencyVisible());
-
-		Assert.assertEquals(
-			facetParam, facetDisplayContext.getParameterValue());
-		Assert.assertFalse(facetDisplayContext.isNothingSelected());
-		Assert.assertFalse(facetDisplayContext.isRenderNothing());
-	}
-
-	@Test
 	public void testOneTerm() throws Exception {
 		String term = RandomTestUtil.randomString();
 		int frequency = RandomTestUtil.randomInt();

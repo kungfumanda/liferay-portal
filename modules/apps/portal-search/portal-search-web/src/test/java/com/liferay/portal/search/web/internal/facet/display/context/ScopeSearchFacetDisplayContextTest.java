@@ -82,40 +82,6 @@ public class ScopeSearchFacetDisplayContextTest
 	}
 
 	@Test
-	public void testEmptySearchResultsWithPreviousSelection() throws Exception {
-		long groupId = RandomTestUtil.randomLong();
-		String name = RandomTestUtil.randomString();
-
-		_addGroup(groupId, name);
-
-		String parameterValue = String.valueOf(groupId);
-
-		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
-			parameterValue);
-
-		List<BucketDisplayContext> bucketDisplayContexts =
-			facetDisplayContext.getBucketDisplayContexts();
-
-		Assert.assertEquals(
-			bucketDisplayContexts.toString(), 1, bucketDisplayContexts.size());
-
-		BucketDisplayContext bucketDisplayContext = bucketDisplayContexts.get(
-			0);
-
-		Assert.assertEquals(name, bucketDisplayContext.getBucketText());
-		Assert.assertEquals(
-			String.valueOf(groupId), bucketDisplayContext.getFilterValue());
-		Assert.assertEquals(0, bucketDisplayContext.getFrequency());
-		Assert.assertTrue(bucketDisplayContext.isFrequencyVisible());
-		Assert.assertTrue(bucketDisplayContext.isSelected());
-
-		Assert.assertEquals(
-			parameterValue, facetDisplayContext.getParameterValue());
-		Assert.assertFalse(facetDisplayContext.isNothingSelected());
-		Assert.assertFalse(facetDisplayContext.isRenderNothing());
-	}
-
-	@Test
 	public void testOneTerm() throws Exception {
 		long groupId = RandomTestUtil.randomLong();
 		String name = RandomTestUtil.randomString();
@@ -217,6 +183,17 @@ public class ScopeSearchFacetDisplayContextTest
 		return group;
 	}
 
+	protected String getFilterValue(String term) {
+		return String.valueOf(_groupId);
+	}
+
+	@Override
+	protected void setUpAsset(String term) throws Exception {
+		_groupId = RandomTestUtil.randomLong();
+
+		_addGroup(_groupId, term);
+	}
+
 	@Override
 	protected void testOrderBy(
 			String[] groupNames, int[] frequencies, String order,
@@ -260,6 +237,7 @@ public class ScopeSearchFacetDisplayContextTest
 		return termCollectors;
 	}
 
+	private long _groupId;
 	private final GroupLocalService _groupLocalService = Mockito.mock(
 		GroupLocalService.class);
 
