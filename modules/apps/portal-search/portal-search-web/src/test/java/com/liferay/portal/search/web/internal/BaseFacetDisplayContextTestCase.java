@@ -169,6 +169,45 @@ public abstract class BaseFacetDisplayContextTestCase {
 	}
 
 	@Test
+	public void testOneTermWithPreviousSelection() throws Exception {
+		String term = RandomTestUtil.randomString();
+
+		setUpAsset(term);
+
+		int frequency = RandomTestUtil.randomInt();
+
+		String filterValue = getFilterValue(term);
+
+		setUpTermCollectors(
+			facetCollector,
+			Collections.singletonList(
+				createTermCollector(filterValue, frequency)));
+
+		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
+			filterValue);
+
+		List<BucketDisplayContext> bucketDisplayContexts =
+			facetDisplayContext.getBucketDisplayContexts();
+
+		Assert.assertEquals(
+			bucketDisplayContexts.toString(), 1, bucketDisplayContexts.size());
+
+		BucketDisplayContext bucketDisplayContext = bucketDisplayContexts.get(
+			0);
+
+		Assert.assertEquals(term, bucketDisplayContext.getBucketText());
+		Assert.assertEquals(filterValue, bucketDisplayContext.getFilterValue());
+		Assert.assertEquals(frequency, bucketDisplayContext.getFrequency());
+		Assert.assertTrue(bucketDisplayContext.isSelected());
+		Assert.assertTrue(bucketDisplayContext.isFrequencyVisible());
+
+		Assert.assertEquals(
+			filterValue, facetDisplayContext.getParameterValue());
+		Assert.assertFalse(facetDisplayContext.isNothingSelected());
+		Assert.assertFalse(facetDisplayContext.isRenderNothing());
+	}
+
+	@Test
 	public void testOrderByTermFrequencyAscending() throws Exception {
 		testOrderBy(
 			new String[] {"charlie", "delta", "bravo", "alpha"},

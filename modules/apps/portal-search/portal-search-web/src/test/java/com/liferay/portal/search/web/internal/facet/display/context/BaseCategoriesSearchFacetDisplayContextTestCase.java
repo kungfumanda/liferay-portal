@@ -187,6 +187,7 @@ public abstract class BaseCategoriesSearchFacetDisplayContextTestCase
 		Assert.assertFalse(facetDisplayContext.isRenderNothing());
 	}
 
+	@Override
 	@Test
 	public void testOneTermWithPreviousSelection() throws Exception {
 		long assetCategoryId = RandomTestUtil.randomLong();
