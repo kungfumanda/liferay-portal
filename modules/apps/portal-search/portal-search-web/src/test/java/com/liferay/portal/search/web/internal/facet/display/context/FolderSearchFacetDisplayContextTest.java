@@ -110,17 +110,17 @@ public class FolderSearchFacetDisplayContextTest
 		Assert.assertTrue(facetDisplayContext.isRenderNothing());
 	}
 
-	@Override
-	@Test
-	public void testOrderByTermFrequencyAscending() throws Exception {
-		List<TermCollector> termCollectors = _addFoldersAndCreateTermCollectors(
-			new String[] {"charlie", "delta", "bravo", "alpha"},
-			new int[] {6, 5, 5, 4});
-
-		_testOrderBy(
-			termCollectors, "count:asc", expectedTermsFrequencyAscending,
-			expectedFrequenciesFrequencyAscending);
-	}
+//	@Override
+//	@Test
+//	public void testOrderByTermFrequencyAscending() throws Exception {
+//		List<TermCollector> termCollectors = _addFoldersAndCreateTermCollectors(
+//			new String[] {"charlie", "delta", "bravo", "alpha"},
+//			new int[] {6, 5, 5, 4});
+//
+//		_testOrderBy(
+//			termCollectors, "count:asc", expectedTermsFrequencyAscending,
+//			expectedFrequenciesFrequencyAscending);
+//	}
 
 	@Override
 	@Test
@@ -247,6 +247,12 @@ public class FolderSearchFacetDisplayContextTest
 		return termCollectors;
 	}
 
+	@Override
+	protected void setUpOrderBy(String[] facetDisplayNames, int[] frequencies)
+	throws Exception{
+		_addFoldersAndCreateTermCollectors(facetDisplayNames, frequencies);
+	}
+
 	private int _getTotalBucketDisplayContextFrequencyCount(
 		List<BucketDisplayContext> bucketDisplayContexts) {
 
@@ -279,6 +285,23 @@ public class FolderSearchFacetDisplayContextTest
 		throws Exception {
 
 		setUpTermCollectors(facetCollector, termCollectors);
+
+		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
+			null, order);
+
+		assertFacetOrder(
+			facetDisplayContext.getBucketDisplayContexts(), expectedTerms,
+			expectedFrequencies);
+	}
+
+	@Override
+	protected void testOrderBy(
+		String[] folderIds, int[] frequencies, String order,
+		String[] expectedTerms, int[] expectedFrequencies)
+		throws Exception {
+
+		setUpTermCollectors(facetCollector, getTermCollectors(
+			folderIds, frequencies));
 
 		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
 			null, order);

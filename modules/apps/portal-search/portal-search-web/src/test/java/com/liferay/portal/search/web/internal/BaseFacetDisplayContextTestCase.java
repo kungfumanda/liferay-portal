@@ -209,18 +209,32 @@ public abstract class BaseFacetDisplayContextTestCase {
 
 	@Test
 	public void testOrderByTermFrequencyAscending() throws Exception {
+		String[] facetDisplayNames = new String[] {
+			"charlie", "delta", "bravo", "alpha"};
+		int[] frequencies = new int[] {6, 5, 5, 4};
+
+		setUpOrderBy(facetDisplayNames, frequencies);
+
 		testOrderBy(
-			new String[] {"charlie", "delta", "bravo", "alpha"},
-			new int[] {6, 5, 5, 4}, "count:asc",
+			facetDisplayNames,frequencies, "count:asc",
 			expectedTermsFrequencyAscending,
 			expectedFrequenciesFrequencyAscending);
 	}
 
+	protected void setUpOrderBy(String[] facetDisplayNames, int[] frequencies)
+		throws Exception {
+	}
+
 	@Test
 	public void testOrderByTermFrequencyDescending() throws Exception {
+		String[] facetDisplayNames = new String[] {
+			"alpha", "delta", "bravo", "charlie"};
+		int[] frequencies = new int[] {4, 5, 5, 6};
+
+		setUpOrderBy(facetDisplayNames, frequencies);
+
 		testOrderBy(
-			new String[] {"alpha", "delta", "bravo", "charlie"},
-			new int[] {4, 5, 5, 6}, "count:desc",
+			facetDisplayNames,frequencies, "count:desc",
 			expectedTermsFrequencyDescending,
 			expectedFrequenciesFrequencyDescending);
 	}
