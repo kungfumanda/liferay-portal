@@ -80,43 +80,6 @@ public class CustomFacetDisplayContextTest
 	}
 
 	@Test
-	public void testOneTerm() throws Exception {
-		String fieldName = RandomTestUtil.randomString();
-		int frequency = RandomTestUtil.randomInt();
-
-		setUpTermCollectors(
-			facetCollector,
-			Collections.singletonList(
-				createTermCollector(fieldName, frequency)));
-
-		CustomFacetDisplayContext customFacetDisplayContext =
-			_createDisplayContext(
-				"customDisplayCaption", "fieldToAggregate",
-				getFacetDisplayContextParameterValue());
-
-		List<BucketDisplayContext> bucketDisplayContexts =
-			customFacetDisplayContext.getBucketDisplayContexts();
-
-		Assert.assertEquals(
-			bucketDisplayContexts.toString(), 1, bucketDisplayContexts.size());
-
-		BucketDisplayContext bucketDisplayContext = bucketDisplayContexts.get(
-			0);
-
-		Assert.assertEquals(fieldName, bucketDisplayContext.getBucketText());
-		Assert.assertEquals(fieldName, bucketDisplayContext.getFilterValue());
-		Assert.assertEquals(frequency, bucketDisplayContext.getFrequency());
-		Assert.assertTrue(bucketDisplayContext.isFrequencyVisible());
-		Assert.assertFalse(bucketDisplayContext.isSelected());
-
-		Assert.assertEquals(
-			getFacetDisplayContextParameterValue(),
-			customFacetDisplayContext.getParameterValue());
-		Assert.assertTrue(customFacetDisplayContext.isNothingSelected());
-		Assert.assertFalse(customFacetDisplayContext.isRenderNothing());
-	}
-
-	@Test
 	public void testOneTermWithPreviousSelection() throws Exception {
 		String fieldName = RandomTestUtil.randomString();
 		int frequency = RandomTestUtil.randomInt();

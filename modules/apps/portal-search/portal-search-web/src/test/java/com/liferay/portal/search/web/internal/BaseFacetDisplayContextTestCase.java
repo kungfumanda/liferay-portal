@@ -28,6 +28,7 @@ import com.liferay.portal.search.web.internal.facet.display.context.BucketDispla
 import com.liferay.portal.search.web.internal.facet.display.context.FacetDisplayContext;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.portlet.RenderRequest;
@@ -123,6 +124,47 @@ public abstract class BaseFacetDisplayContextTestCase {
 		Assert.assertEquals(
 			filterValue, facetDisplayContext.getParameterValue());
 		Assert.assertFalse(facetDisplayContext.isNothingSelected());
+		Assert.assertFalse(facetDisplayContext.isRenderNothing());
+	}
+
+	@Test
+	public void testOneTerm() throws Exception {
+		String term = createTerm();
+
+		setUpAsset(term);
+
+		String filterValue = getFilterValue(term);
+
+		int frequency = RandomTestUtil.randomInt();
+
+		setUpTermCollectors(
+			facetCollector,
+			Collections.singletonList(
+				createTermCollector(filterValue, frequency)));
+
+		String parameterValue = getFacetDisplayContextParameterValue();
+
+		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
+			parameterValue);
+
+		List<BucketDisplayContext> bucketDisplayContexts =
+			facetDisplayContext.getBucketDisplayContexts();
+
+		Assert.assertEquals(
+			bucketDisplayContexts.toString(), 1, bucketDisplayContexts.size());
+
+		BucketDisplayContext bucketDisplayContext = bucketDisplayContexts.get(
+			0);
+
+		Assert.assertEquals(term, bucketDisplayContext.getBucketText());
+		Assert.assertEquals(filterValue, bucketDisplayContext.getFilterValue());
+		Assert.assertEquals(frequency, bucketDisplayContext.getFrequency());
+		Assert.assertTrue(bucketDisplayContext.isFrequencyVisible());
+		Assert.assertFalse(bucketDisplayContext.isSelected());
+
+		Assert.assertEquals(
+			parameterValue, facetDisplayContext.getParameterValue());
+		Assert.assertTrue(facetDisplayContext.isNothingSelected());
 		Assert.assertFalse(facetDisplayContext.isRenderNothing());
 	}
 

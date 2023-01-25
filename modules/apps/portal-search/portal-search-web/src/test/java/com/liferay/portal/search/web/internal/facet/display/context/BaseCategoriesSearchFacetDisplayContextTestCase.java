@@ -146,6 +146,7 @@ public abstract class BaseCategoriesSearchFacetDisplayContextTestCase
 		_excludedGroupId = 0;
 	}
 
+	@Override
 	@Test
 	public void testOneTerm() throws Exception {
 		long assetCategoryId = RandomTestUtil.randomLong();

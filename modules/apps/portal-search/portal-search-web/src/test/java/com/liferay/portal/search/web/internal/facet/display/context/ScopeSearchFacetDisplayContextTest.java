@@ -82,47 +82,6 @@ public class ScopeSearchFacetDisplayContextTest
 	}
 
 	@Test
-	public void testOneTerm() throws Exception {
-		long groupId = RandomTestUtil.randomLong();
-		String name = RandomTestUtil.randomString();
-
-		_addGroup(groupId, name);
-
-		int frequency = RandomTestUtil.randomInt();
-
-		setUpTermCollectors(
-			facetCollector,
-			Collections.singletonList(
-				createTermCollector(String.valueOf(groupId), frequency)));
-
-		String parameterValue = "0";
-
-		FacetDisplayContext facetDisplayContext = createFacetDisplayContext(
-			parameterValue);
-
-		List<BucketDisplayContext> bucketDisplayContexts =
-			facetDisplayContext.getBucketDisplayContexts();
-
-		Assert.assertEquals(
-			bucketDisplayContexts.toString(), 1, bucketDisplayContexts.size());
-
-		BucketDisplayContext bucketDisplayContext = bucketDisplayContexts.get(
-			0);
-
-		Assert.assertEquals(name, bucketDisplayContext.getBucketText());
-		Assert.assertEquals(
-			String.valueOf(groupId), bucketDisplayContext.getFilterValue());
-		Assert.assertEquals(frequency, bucketDisplayContext.getFrequency());
-		Assert.assertTrue(bucketDisplayContext.isFrequencyVisible());
-		Assert.assertFalse(bucketDisplayContext.isSelected());
-
-		Assert.assertEquals(
-			parameterValue, facetDisplayContext.getParameterValue());
-		Assert.assertTrue(facetDisplayContext.isNothingSelected());
-		Assert.assertFalse(facetDisplayContext.isRenderNothing());
-	}
-
-	@Test
 	public void testOneTermWithPreviousSelection() throws Exception {
 		long groupId = RandomTestUtil.randomLong();
 		String name = RandomTestUtil.randomString();
